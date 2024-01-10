@@ -1,0 +1,38 @@
+# ignore all dot files
+.*
+# but never ignore these
+!.gitignore
+!.gitattributes
+!.gitmodules
+!.latexmkrc
+
+!.dir-locals.el
+!.editorconfig
+
+# ignore backup files
+*~
+*.bak
+
+# ignore latex output products
+*.aux
+*.fls
+*.glo
+*.hd
+*.idx
+*.ilg
+*.ins
+*.log
+*.out
+*.pdf
+*.run.xml
+*.sty
+*.fdb_latexmk
+*.synctex.gz
+*.synctex
+
+# exclude generated bib file
+*.bib
+*.bbx
+
+# ignore potential build directory
+/build/
