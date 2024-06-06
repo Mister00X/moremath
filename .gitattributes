@@ -14,6 +14,8 @@
 .gitmodules export-ignore
 .latexmkrc export-ignore diff=perl
 latexmkrc export-ignore diff=perl
+test.tex export-ignore
+.dir-locals.el export-ignore
 
 .dir-locals.el export-ignore
 .editorconfig export-ignore
