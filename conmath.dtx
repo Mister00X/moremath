@@ -1,0 +1,94 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2024 Marcel Ilg
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%
+%      https://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status ‘maintained’.
+%
+% The Current Maintainer of this work is Marcel Ilg.
+%
+% This work consists of the files conmath.dtx and conmath.ins
+% and the derived file conmath.sty.
+% \fi
+%
+% \iffalse
+%
+%<*driver>
+\documentclass[full]{l3doc}
+
+\usepackage[american]{babel}
+
+\usepackage[bm]{conmath}
+\conmathsetup{arrownabla}
+\begin{document}
+  \DocInput{conmath.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% ^^X Get the package version name etc.
+% \GetFileInfo{conmath.sty}
+%
+% \changes{v0.0.1}{2024-01-09}{Initial version}
+%
+% \title{The \textsf{conmath} package\thanks{This document coresponds to
+%   \textsf{conmath}~\fileversion, dated \filedate.}}
+% \author{Marcel Ilg\thanks{\texttt{mister01x (at) web (dot) de}}}
+%
+% \maketitle
+% \begin{abstract}
+% \end{abstract}
+% \tableofcontents
+% \begin{documentation}
+% \section{Introduction}
+% \label{sec:intro}
+%
+% \end{documentation}
+% \begin{implementation}
+% \section{Implementation}
+% Start the \pkg{DocStrip} guards.
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+% Set the internal prefix for this package so that \pkg{DocStrip} knows what to
+% do.
+%    \begin{macrocode}
+%<@@=conmath>
+%    \end{macrocode}
+%
+% \subsection{Initial Setup}
+%
+% First set the required version of \LaTeX{},
+% we need at least
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+%    \end{macrocode}
+% for key-value option handling, \pkg{xparse}-like document commands
+% and hooks.
+%
+% Then identify this package as \pkg{conmath}.
+%    \begin{macrocode}
+\ProvidesExplPackage{conmath}
+  {2024-01-09}{0.1.0}{Convenience Math Macros}
+%    \end{macrocode}
+%
+% ^^X Debugging switch
+% \iffalse
+% \debug_on:n {}
+% \fi
+%
+%
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+% \end{implementation}
