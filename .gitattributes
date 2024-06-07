@@ -9,6 +9,8 @@
 *.md diff=markdown eol=lf
 
 # files to ignore on export
+# all dot files
+.* export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
 .gitmodules export-ignore
