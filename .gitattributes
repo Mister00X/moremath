@@ -22,3 +22,6 @@ latexmkrc export-ignore diff=perl
 .editorconfig export-ignore
 # test files
 test.tex export-ignore
+
+# do not export lppl.txt as its already part of texlive/ctan
+lppl.txt export-ignore
