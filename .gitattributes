@@ -14,10 +14,11 @@
 .gitignore export-ignore
 .gitattributes export-ignore
 .gitmodules export-ignore
+# latexmk-rc files
 .latexmkrc export-ignore diff=perl
 latexmkrc export-ignore diff=perl
-test.tex export-ignore
-.dir-locals.el export-ignore
-
+# editor configuration files
 .dir-locals.el export-ignore
 .editorconfig export-ignore
+# test files
+test.tex export-ignore
