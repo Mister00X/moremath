@@ -1,12 +1,12 @@
 # auto text identification
 * text=auto
 
-# tex hunk headers
-*.dtx diff=tex
-*.tex diff=tex
+# tex hunk headers and eol conversion
+*.dtx diff=tex eol=lf
+*.tex diff=tex eol=lf
 
-# markdown hunk headers
-*.md diff=markdown
+# markdown hunk headers and eol conversion
+*.md diff=markdown eol=lf
 
 # files to ignore on export
 .gitignore export-ignore
