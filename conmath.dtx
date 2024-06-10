@@ -326,6 +326,41 @@
 % commands, which are used for non-diagonal matrix entries.
 % \end{variable}
 %
+% \subsubsection{Functions for Setting Options}
+% \label{sec:option-setters}
+%
+%
+% Now we define a function for setting the options within the document
+% \begin{macro}{\conmath_setup:n}
+%    \begin{macrocode}
+\cs_new:Nn \conmath_setup:n
+{
+  \keys_set:nn {conmath} {#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% Additionally we provide the user with a version of this command.
+% \begin{macro}{\conmathsetup}
+%    \begin{macrocode}
+\DeclareDocumentCommand \conmathsetup {m}
+{
+  \conmath_setup:n {#1}
+}
+%    \end{macrocode}
+% \end{macro}
+% We also need a function for setting the package load time options.
+% This function should set all given values for all key families
+% and pass unknown options to mathtools.
+% \begin{macro}{\@@_load_time_setup:}
+%    \begin{macrocode}
+\cs_new:Nn \@@_load_time_setup:
+{
+  \ProcessKeyOptions[ conmath / load ]
+}
+%    \end{macrocode}
+% \end{macro}
+%
 %
 %
 %    \begin{macrocode}
