@@ -8,6 +8,12 @@ column, and row vectors.
 It depends on [mathtools](https://ctan.org/pkg/mathtools)
 and optionally on [bm](https://ctan.org/pkg/bm).
 
+_____
+**Note: This package is still in its initial development phase.**
+
+Its interface may be subject to change until version 1.0.0 has been reached.
+
+_____
 
 ## Unpacking the Source Code
 
