@@ -32,8 +32,10 @@
 *.toc
 
 # exclude generated bib file
+*.bbl
+*.bcf
 *.bib
-*.bbx
+*.blg
 
 # ignore potential build directory
 /build/
