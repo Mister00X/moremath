@@ -127,6 +127,205 @@
 % \iffalse
 % \debug_on:n {}
 % \fi
+% \subsection{Key-value interfaces}
+% \label{sec:key-val}
+% To make use of key-value interfaces we need to define a few keys.
+%
+% \subsubsection{Package load time options}
+% \label{sec:load-time-options}
+%
+% To allow for the conditional definition of macros at load time
+% we define a few keys.
+%
+% But before doing so we define a few messages to write the package options to
+% the log file.
+% One message to issue if the \texttt{bm} option has been given:
+%    \begin{macrocode}
+\msg_new:nnn { conmath } {load / bm}
+{
+  Option~'bm'~given.\\
+  Loading~the~bm~package~\msg_line_context:.
+}
+%    \end{macrocode}
+% And a more generic message to issue for the other options,
+% which all disable certain parts of the library.
+%    \begin{macrocode}
+\msg_new:nnn {conmath} { load / disabling }
+{
+  Option~'#1'~given.\\
+  Disabling~#2~\msg_line_context:.
+}
+%    \end{macrocode}
+%    \begin{macrocode}
+\keys_define:nn { conmath / load }
+{
+%    \end{macrocode}
+% We provide an option to conditionally load the \pkg{bm}-package~\autocite{bm}
+% to provide better looking bold symbols.
+%    \begin{macrocode}
+  bm .code:n = {
+    \msg_info:nn {conmath} {load / bm}
+    \RequirePackage{bm}
+  },
+  bm .value_forbidden:n = true,
+%    \end{macrocode}
+% \begin{variable}{
+%   \l_@@_predef_vector_op_bool,
+%   \l_@@_predef_operators_bool,
+%   \l_@@_predef_abs_bool,
+% }
+% Then we define options for en-/disabling predefined macros of this package
+% to avoid name clashes.
+%    \begin{macrocode}
+  no-vector .bool_set_inverse:N = \l_@@_predef_vector_op_bool,
+  no-vector .default:n = true,
+  no-vector .initial:n = false,
+  no-vector .usage:n = load,
+  no-operators .bool_set_inverse:N = \l_@@_predef_operators_bool,
+  no-operators .default:n = true,
+  no-operators .initial:n = false,
+  no-operators .usage:n = load,
+  no-abs-shorthands .bool_set_inverse:N = \l_@@_predef_abs_bool,
+  no-abs-shorthands .default:n = true,
+  no-abs-shorthands .initial:n = false,
+  no-abs-shorthands .usage:n = load,
+%    \end{macrocode}
+% The variables \cs{l_@@_predef_vector_op_bool}, \cs{l_@@_predef_operators_bool}
+% and \cs{l_@@_predef_abs_bool} control if the predefined macros
+% for vector calculus, delimited operators, and the shorthands for absolute value
+% and norm shall be defined.
+% \end{variable}
+%    \begin{macrocode}
+  nopredef .multichoice:,
+  nopredef / operators .meta:nn = { conmath / load }
+  {
+    no-operators = true
+  },
+  nopredef / vector .meta:nn = { conmath / load }
+  {
+    no-vector = true
+  },
+  nopredef / abs .meta:nn = { conmath / load }
+  {
+    no-abs-shorthands = true,
+  },
+  nopredef / all .meta:nn = { conmath / load }
+  {
+    no-operators = true,
+    no-vector = true,
+    no-abs-shorthands = true
+  },
+  nopredef .usage:n = load,
+%    \end{macrocode}
+% Unknown package options get passed to \pkg{mathtools}.
+%    \begin{macrocode}
+  unknown .code:n = {\PassOptionsToPackage{\CurrentOption}{mathtools}},
+  unknown .usage:n = load,
+}
+%    \end{macrocode}
+%
+%
+% \subsubsection{Keys controlling appearance}
+% \label{sec:keys-appearance}
+%
+% First define keys for the vector calculus macros.
+%    \begin{macrocode}
+\keys_define:nn { conmath }
+{
+%    \end{macrocode}
+% First we define keys for use with the gradient and gradient based operators.
+% \begin{variable}{
+%   \l_@@_nabla_tl,
+%   \l_@@_nabla_arrow_bool,
+%   \l_@@_nabla_arrow_bold_bool,
+%   \l_@@_grad_op_tl,
+% }
+%    \begin{macrocode}
+  % Symbol to use for the nabla
+   nabla .tl_set:N = \l_@@_nabla_tl,
+   nabla .initial:n = {\nabla},
+   nabla .value_required:n = true,
+   % shall the nabla have an arrow over it
+   arrownabla .bool_set:N = \l_@@_nabla_arrow_bool,
+   arrownabla .default:n = {true},
+   arrownabla .initial:n = {false},
+   % shall the nabla be bold
+   boldnabla .bool_set:N = \l_@@_nabla_bold_bool,
+   boldnabla .default:n = {true},
+   boldnabla .initial:n = {false},
+%    \end{macrocode}
+% The symbol to use as \enquote{nabla} is stored in \cs{l_@@_nabla_tl}.
+% The variables \cs{l_@@_nabla_arrow_bool} and \cs{l_@@_nabla_bold_bool}
+% determine if the nabla-symbol shall have an arrow over itself and/or be bold
+% respectively.
+%
+% We also provide an override for the gradient operator
+%    \begin{macrocode}
+   % Symbol to use for the gradient operator
+   grad-op .tl_set:N = \l_@@_grad_op_tl,
+   grad-op .value_required:n = true,
+%    \end{macrocode}
+% The variable \cs{l_@@_grad_op_tl} contains a user provided token list to
+% overwrite the built-in gradient operator of the package.
+% \end{variable}
+%
+% \begin{variable}{
+%   \l_@@_laplacian_symb_tl,
+%   \l_@@_laplacian_delta_bool,
+%   \l_@@_laplacian_arrow_bool,
+%   \l_@@_laplacian_tl,
+% }
+% Then we define keys for the laplacian.
+%    \begin{macrocode}
+   % Symbol to use for the laplacian
+   laplacian-symb .tl_set:N = \l_@@_laplacian_symb_tl,
+   laplacian-symb .initial:n = {\l_@@_nabla_tl},
+   % shall the Laplace operator be a delta
+   delta-laplace .bool_set:N = \l_@@_laplacian_delta_bool,
+   delta-laplace .initial:n = {false},
+   % shall the laplace operator have an arrow over itself
+   arrowlaplace .bool_set:N = \l_@@_laplacian_arrow_bool,
+   arrowlaplace .default:n = {true},
+   arrowlaplace .initial:n = {false},
+   % overwrite the laplace operator
+   laplacian .tl_set:N = \l_@@_laplacian_tl,
+   laplacian .value_required:n = true,
+}
+%    \end{macrocode}
+% The token list variable \cs{l_@@_laplacian_symb_tl} stores the tokens to be
+% used for the Laplace operator.
+% The boolean variable \cs{l_@@_laplacian_delta_bool}
+% determines if a delta should be used instead
+% of \(\laplacian\) for the laplacian symbol.
+% If the boolean variable \cs{l_@@_laplacian_arrow_bool} a small arrow will be
+% placed over the Laplace operator symbol.
+% If the user wants to overwrite the symbol used for the Laplacian,
+% the user provided list of tokens is stored in the variable
+% \cs{l_@@_laplacian_tl}.
+% \end{variable}
+%
+% \begin{variable}{
+% \l_@@_matrix_delim_tl,
+% \l_@@_matrix_fill_tl,
+% }
+% Then we define some keys for the matrix based environments:
+%    \begin{macrocode}
+\keys_define:nn { conmath / matrix }
+{
+  delimiter .tl_set:N = \l_@@_matrix_delim_tl,
+  delimiter .initial:n = {},
+  fill .tl_set:N = \l_@@_matrix_fill_tl,
+  fill .initial:n = {},
+}
+%    \end{macrocode}
+% The keys \verb|delimiter| and \verb|fill| set the variables
+% \cs{l_@@_matrix_delim_tl} and \cs{l_@@_matrix_fill_tl} respectively.
+% \cs{l_@@_matrix_delim_tl} determines the delimiter in use to surround
+% matrices and \cs{l_@@_matrix_fill_tl} determines the fill values of the
+% \cs{diag}, \cs{smalldiag}, \cs[no-index]{Xdiag} and \cs[no-index]{Xsmalldiag}
+% commands, which are used for non-diagonal matrix entries.
+% \end{variable}
+%
 %
 %
 %    \begin{macrocode}
