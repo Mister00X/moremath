@@ -173,6 +173,7 @@
 %   \l_@@_predef_vector_op_bool,
 %   \l_@@_predef_operators_bool,
 %   \l_@@_predef_crvector_bool,
+%   \l_@@_predef_matrix_bool,
 %   \l_@@_predef_abs_bool,
 % }
 % Then we define options for en-/disabling predefined macros of this package
@@ -190,12 +191,20 @@
   no-abs-shorthands .default:n = true,
   no-abs-shorthands .initial:n = false,
   no-abs-shorthands .usage:n = load,
+  no-matrix .bool_set_inverse:N = \l_@@_predef_matrix_bool,
+  no-matrix .initial:n = false,
+  no-matrix .default:n = true,
+  no-matrix .usage:n =load,
+  no-crvector .bool_set_inverse:N = \l_@@_predef_crvector_bool,
+  no-crvector .default:n = true,
+  no-crvector .initial:n = false,
+  no-crvector .usage:n = load,
 %    \end{macrocode}
 % The variables \cs{l_@@_predef_vector_op_bool}, \cs{l_@@_predef_operators_bool}
-% \cs{l_@@_predef_abs_bool},
+% \cs{l_@@_predef_abs_bool}, \cs{l_@@_predef_matrix_bool}
 % and \cs{l_@@_predef_crvector_bool}
 % control if the predefined macros
-% for vector calculus, delimited operators,
+% for vector calculus, delimited operators, the matrix shorthands,
 % the row and column vectors,
 % and the shorthands for absolute value
 % and norm shall be defined.
@@ -213,6 +222,14 @@
   nopredef / abs .meta:nn = { conmath / load }
   {
     no-abs-shorthands = true,
+  },
+  noperdef / matrix .meta:nn = { conmath / load }
+  {
+    no-matrix = true,
+  },
+  nopredef / crvector .meta:nn = {conmath / load}
+  {
+    no-crvector = true,
   },
   nopredef / all .meta:nn = { conmath / load }
   {
@@ -312,6 +329,7 @@
 % \begin{variable}{
 % \l_@@_matrix_delim_tl,
 % \l_@@_matrix_fill_tl,
+% \l_@@_matrix_align_tl,
 % }
 % Then we define some keys for the matrix based environments:
 %    \begin{macrocode}
@@ -321,6 +339,9 @@
   delimiter .initial:n = {},
   fill .tl_set:N = \l_@@_matrix_fill_tl,
   fill .initial:n = {},
+  align .tl_set:N = \l_@@_matrix_align_tl,
+  align .initial:n = {c},
+  align .value_required:n = true,
 }
 %    \end{macrocode}
 % The keys \verb|delimiter| and \verb|fill| set the variables
@@ -329,6 +350,8 @@
 % matrices and \cs{l_@@_matrix_fill_tl} determines the fill values of the
 % \cs{diag}, \cs{smalldiag}, \cs[no-index]{Xdiag} and \cs[no-index]{Xsmalldiag}
 % commands, which are used for non-diagonal matrix entries.
+% The variable \cs{l_@@_matrix_align_tl} contains the alignment specifier
+% for use with the \env{matrix*} environment.
 % \end{variable}
 %
 % \subsubsection{Functions for Setting Options}
@@ -493,10 +516,161 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% ^^X SUBSUBSECTION: Shorthands for simple matrices
+% \subsubsection{Shorthands for Simple Matrices}
+% \label{sec:impl-matr-shorth}
+%
+% The construction of several simple matrices like diagonal matrices,
+% can be simplified as there is no need to use the \env{matrix} environment.
+%
+% \begin{variable}{
+%   \l_@@_mat_diag_entries_seq,
+%   \l_@@_mat_row_entries_seq,
+% }
+% We construct the matrices row by row, therefore we need to store the
+% currently constructed row inside a variable.
+% The same is true for the diagonal entries which also need to be stored
+% somewhere.
+% We therefore declare two sequence variables \cs{l_@@_mat_diag_entries_seq}
+% and \cs{l_@@_mat_row_seq} for this purpose
+%    \begin{macrocode}
+\seq_clear_new:N \l_@@_mat_diag_entries_seq
+\seq_clear_new:N \l_@@_mat_row_entries_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% We split the construction of the matrix into multiple parts,
+% utilizing internal helper functions.
+% \begin{macro}{
+%   \@@_constr_diagmat_row:n,
+%   \@@_constr_antidiagmat_row:n
+% }
+%   \cs{@@_constr_diagmat_row:n} and \cs{@@_constr_antidiagmat_row:n}
+%   take one integer argument:
+%   \begin{arguments}
+%     \item The number of the current row.
+%   \end{arguments}
+%   They both construct a matrix row and place it inside the input stream.
+%   They take the content of the (anti-)diagonal from the variable
+%   \cs{l_@@_mat_diag_entries_seq}
+%   and use the variable \cs{l_@@_mat_row_entries_seq}
+%   to store the current row.
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_constr_diagmat_row:n
+{
+  \seq_clear:N \l_@@_mat_row_entries_seq
+%    \end{macrocode}
+%   As all diagonal matrices \(M \in A^{m \times n}\), where \(A\) is a field,
+%   are quadratic i.e.\ \(A^{m \times n} \equiv A^{n \times n}\) the length of the
+%   diagonal sequence equals the number of rows and columns of the matrix.
+%   We exploit this fact here.
+%    \begin{macrocode}
+  \int_step_inline:nn {\seq_count:N \l_@@_mat_diag_entries_seq}
+  {
+    \int_compare:nTF { #1 == ##1 }
+    {
+      \seq_put_right:Nx \l_@@_mat_row_entries_seq
+      {
+        \seq_item:Nn \l_@@_mat_diag_entries_seq { #1 }
+      }
+    }{ % false branch
+      \seq_put_right:NV \l_@@_mat_row_entries_seq \l_@@_matrix_fill_tl
+    } % \int_compare:nTF { #1 == ##1 }
+  }
+  \seq_use:Nn \l_@@_mat_row_entries_seq { & } \\
+}
+
+% Anti-diagonal version
+\cs_new_protected:Nn \@@_constr_antidiagmat_row:n
+{
+  \seq_clear:N \l_@@_mat_row_entries_seq
+  \int_step_inline:nn {\seq_count:N \l_@@_mat_diag_entries_seq}
+  {
+    \int_compare:nTF { #1 == ##1 }
+    {
+      % as this is a anti diagonal matrix we put in the elements from the
+      % left so that the first entry is the right most entry
+      \seq_put_left:Nx \l_@@_mat_row_entries_seq
+      {
+        \seq_item:Nn  \l_@@_mat_diag_entries_seq { #1 }
+      }
+    }{ % false branch
+      \seq_put_left:NV \l_@@_mat_row_entries_seq \l_@@_matrix_fill_tl
+    } % \int_compare:nTF { #1 == ##1 }
+  }
+  \seq_use:Nn \l_@@_mat_row_entries_seq { & } \\
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \conmath_diagonal_matrix:nn,
+%   \conmath_diagonal_matrix:Vn,
+%   \conmath_antidiagonal_matrix:nn,
+%   \conmath_antidiagonal_matrix:Vn,
+%   \conmath_diagonal_smallmatrix:nn,
+%   \conmath_diagonal_smallmatrix:Vn,
+%   \conmath_antidiagonal_smallmatrix:nn,
+%   \conmath_antidiagonal_smallmatrix:Vn,
+% }
+%   The \cs[no-index]{conmath_\meta{a or d}_matrix:nn} and
+%   \cs[no-index]{conmath_\meta{a or d}_smallmatrix:nn} family of functions
+%   produce a matrix based on \pkg{mathtools}~\autocite{mathtools}
+%   \env{matrix*} environment.
+%   The functions take two arguments.
+%   \begin{arguments}
+%     \item The delimiter specifier.
+%
+%     This should be one of the prefixes of the \env{\meta{prefix}matrix*}
+%     environments.
+%
+%     \item The comma separated contents of the (anti-)diagonal.
+%   \end{arguments}
+%   These functions also use the values of the variables
+%   \cs{l_@@_matrix_fill_tl} and \cs{l_@@_matrix_align_tl}.
+%   And modifies the variable \cs{l_@@_mat_diag_entries_seq}.
+%    \begin{macrocode}
+\cs_new_protected:Nn \conmath_diagonal_matrix:nn
+{
+  \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
+  \begin{#1 matrix*} [ \l_@@_matrix_align_tl ]
+    \int_step_function:nN { \seq_count:N \l_@@_mat_diag_entries_seq }
+      \@@_constr_diagmat_row:n
+  \end{#1 matrix*}
+}
+
+% Anti-diagonal matrix
+\cs_new_protected:Nn \conmath_antidiagonal_matrix:nn
+{
+  \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
+  \begin{ #1 matrix* } [ \l_@@_matrix_align_tl ]
+    \int_step_function:nN { \seq_count:N \l_@@_mat_diag_entries_seq }
+      \@@_constr_antidiagmat_row:n
+  \end{ #1 matrix* }
+}
+
+% Small versions
+\cs_new_protected:Nn \conmath_diagonal_smallmatrix:nn
+{
+  \conmath_diagonal_matrix:nn {#1 small} {#2}
+}
+
+\cs_new_protected:Nn \conmath_antidiagonal_smallmatrix:nn
+{
+  \conmath_antidiagonal_matrix:nn {#1 small} {#2}
+}
+%    \end{macrocode}
+% For convenience we also define some variants of the above functions.
+%    \begin{macrocode}
+\cs_generate_variant:Nn \conmath_diagonal_matrix:nn { V n }
+\cs_generate_variant:Nn \conmath_antidiagonal_matrix:nn { V n }
+\cs_generate_variant:Nn \conmath_diagonal_smallmatrix:nn { V n }
+\cs_generate_variant:Nn \conmath_antidiagonal_smalmatrix:nn { V n }
+%    \end{macrocode}
+% \end{macro}
+%
 % \subsubsection{Document Level Commands}
 % \label{sec:mat-doc-lvl-cmds}
-%
-% \NB{MI}{Guard these macros also behind a key-value option}
 %
 % Now we define document level commands for the previously defined
 % functions.
@@ -760,6 +934,233 @@
 } % \bool_if:nTF \l_@@_predef_crvector_bool
 %    \end{macrocode}
 % \end{macro}
+%
+% Now to the (anti-)diagonal matrix shorthands,
+% these are also guarded by a key value option.
+%    \begin{macrocode}
+\bool_if:nTF \l_@@_predef_matrix_bool
+{
+%    \end{macrocode}
+% \begin{macro}{
+%   \diagmat,
+%   \antidiagmat,
+%   \smalldiagmat,
+%   \smallantidiagmat,
+% }
+%    \begin{macrocode}
+\cs_if_free:NTF \diagmat
+{
+  \NewDocumentCommand \diagmat { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_diagonal_matrix:Vn \l_@@_matrix_delim_tl {#2}
+    \group_end:
+  }
+}{
+  \msg_warning:nnn {conmath} {matrix / already-defined-doc-cmd-skip}
+  {
+    \diagmat
+  }
+} % \cs_if_free:nTF \diagmat
+
+\cs_if_free:NTF \antidiagmat
+{
+  \NewDocumentCommand \antidiagmat { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_antidiagonal_matrix:Vn \l_@@_matrix_delim_tl {#2}
+    \group_end:
+  }
+}{
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  {
+    \antidiagmat
+  }
+} % \cs_if_free:nTF \antidiagmat
+
+\cs_if_free:NTF \smalldiagmat
+{
+  \NewDocumentCommand \smalldiagmat { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_diagonal_smallmatrix:Vn \l_@@_matrix_delim_tl {#2}
+    \group_end:
+  }
+}{
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  {
+    \smalldiagmat
+  }
+}
+
+\cs_if_free:NTF \smallantidiagmat
+{
+  \NewDocumentCommand \smallantidiagmat { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_antidiagonal_smallmatrix:Vn \l_@@_matrix_delim_tl {#2}
+    \group_end:
+  }
+}{
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  {
+    \smallantidiagmat
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \@@_new_matrix_shorth_doc_cmd:NNn
+% }
+%   To provide several shorthands for delimited matrices,
+%   we use a helper function to avoid code duplication.
+%   \cs{@@_new_matrix_shorth_doc_cmd:Nn} takes two arguments:
+%   \begin{arguments}
+%     \item The \meta{csname} to define
+%     \item The \meta{csname} of the matrix function to use,
+%           which should have the signature |Vn|.
+%      \item The \enquote{predefined} delimiter of this version
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_new_matrix_shorth_doc_cmd:NNn
+{
+  \cs_if_free:NTF #1
+  {
+    \NewDocumentCommand #1 { o m }
+    {
+      \group_begin:
+      \tl_if_empty:nF {#3}
+      {
+        \keys_set:nn { conmath / matrix }
+        {
+          delimiter = #3
+        }
+      } % \tl_if_empty:nF {#3}
+      \tl_if_novalue:nF {##1}
+      {
+        \keys_set:nn { conmath / matrix } {##1}
+      }
+      #2 \l_@@_matrix_delim_tl {##2}
+      \group_end:
+    }
+  }{
+    \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+    {
+      #1
+    }
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% We now define the shorthand commands with predefined delimiters.
+% \begin{macro}{
+%   \pdiagmat,
+%   \bdiagmat,
+%   \Bdiagmat,
+%   \vdiagmat,
+%   \Vdiagmat,
+% }
+%   We begin with the regular diagonal matrix
+%    \begin{macrocode}
+\@@_new_matrix_shorth_doc_cmd:NNn \pdigmat \conmath_diagonal_matrix:Vn {p}
+\@@_new_matrix_shorth_doc_cmd:NNn \bdigmat \conmath_diagonal_matrix:Vn {b}
+\@@_new_matrix_shorth_doc_cmd:NNn \Bdigmat \conmath_diagonal_matrix:Vn {B}
+\@@_new_matrix_shorth_doc_cmd:NNn \vdigmat \conmath_diagonal_matrix:Vn {v}
+\@@_new_matrix_shorth_doc_cmd:NNn \Vdigmat \conmath_diagonal_matrix:Vn {V}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{
+%   \pantidiagmat,
+%   \bantidiagmat,
+%   \Bantidiagmat,
+%   \vantidiagmat,
+%   \Vantidiagmat,
+%  }
+%   Now for the anti-diagonal matrix commands.
+%    \begin{macrocode}
+\@@_new_matrix_shorth_doc_cmd:NNn \pantidiagmat
+  \conmath_antidiagonal_matrix:Vn {p}
+\@@_new_matrix_shorth_doc_cmd:NNn \bantidiagmat
+  \conmath_antidiagonal_matrix:Vn {b}
+\@@_new_matrix_shorth_doc_cmd:NNn \Bantidiagmat
+  \conmath_antidiagonal_matrix:Vn {B}
+\@@_new_matrix_shorth_doc_cmd:NNn \vantidiagmat
+  \conmath_antidiagonal_matrix:Vn {v}
+\@@_new_matrix_shorth_doc_cmd:NNn \Vantidiagmat
+  \conmath_antidiagonal_matrix:Vn {V}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \psmalldiagmat,
+%   \bsmalldiagmat,
+%   \Bsmalldiagmat,
+%   \vsmalldiagmat,
+%   \Vsmalldiagmat,
+% }
+%   We continue with the inline math versions based on the \env{smallmatrix*}
+%   environment.
+%    \begin{macrocode}
+\@@_new_matrix_shorth_doc_cmd:NNn \psmalldiagmat
+  \conmath_diagonal_smallmatrix:Vn {p}
+\@@_new_matrix_shorth_doc_cmd:NNn \bsmalldiagmat
+  \conmath_diagonal_smallmatrix:Vn {b}
+\@@_new_matrix_shorth_doc_cmd:NNn \Bsmalldiagmat
+  \conmath_diagonal_smallmatrix:Vn {B}
+\@@_new_matrix_shorth_doc_cmd:NNn \vsmalldiagmat
+  \conmath_diagonal_smallmatrix:Vn {v}
+\@@_new_matrix_shorth_doc_cmd:NNn \Vsmalldiagmat
+  \conmath_diagonal_smallmatrix:Vn {V}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{
+%   \psmallantidiagmat,
+%   \bsmallantidiagmat,
+%   \Bsmallantidiagmat,
+%   \vsmallantidiagmat,
+%   \Vsmallantidiagmat,
+% }
+% We provide also anti-diagonal versions of the small matrices.
+%    \begin{macrocode}
+\@@_new_matrix_shorth_doc_cmd:NNn \psmallantidiagmat
+  \conmath_antidiagonal_smallmatrix:Vn {p}
+\@@_new_matrix_shorth_doc_cmd:NNn \bsmallantidiagmat
+  \conmath_antidiagonal_smallmatrix:Vn {b}
+\@@_new_matrix_shorth_doc_cmd:NNn \Bsmallantidiagmat
+  \conmath_antidiagonal_smallmatrix:Vn {B}
+\@@_new_matrix_shorth_doc_cmd:NNn \vsmallantidiagmat
+  \conmath_antidiagonal_smallmatrix:Vn {v}
+\@@_new_matrix_shorth_doc_cmd:NNn \Vsmallantidiagmat
+  \conmath_antidiagonal_smallmatrix:Vn {V}
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+}{ % \bool_if:nTF \l_@@_predef_matrix_bool FALSE BRANCH
+  \msg_info:nnnn {conmath} { load / disabling } { no-matrix }
+  {
+    (anti-)diagonal~matrix~commands
+  }
+} % \bool_if:nTF \l_@@_predef_matrix_bool
+%     \end{macrocode}
+%
 %
 % \subsection{Shorthand Macros for Absolute Value and Norm}
 % \label{sec:impl-abs-shorthands}
