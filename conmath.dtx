@@ -172,6 +172,7 @@
 % \begin{variable}{
 %   \l_@@_predef_vector_op_bool,
 %   \l_@@_predef_operators_bool,
+%   \l_@@_predef_crvector_bool,
 %   \l_@@_predef_abs_bool,
 % }
 % Then we define options for en-/disabling predefined macros of this package
@@ -191,8 +192,12 @@
   no-abs-shorthands .usage:n = load,
 %    \end{macrocode}
 % The variables \cs{l_@@_predef_vector_op_bool}, \cs{l_@@_predef_operators_bool}
-% and \cs{l_@@_predef_abs_bool} control if the predefined macros
-% for vector calculus, delimited operators, and the shorthands for absolute value
+% \cs{l_@@_predef_abs_bool},
+% and \cs{l_@@_predef_crvector_bool}
+% control if the predefined macros
+% for vector calculus, delimited operators,
+% the row and column vectors,
+% and the shorthands for absolute value
 % and norm shall be defined.
 % \end{variable}
 %    \begin{macrocode}
@@ -377,6 +382,384 @@
 
 \RequirePackage{mathtools}[2004/06/05]
 %    \end{macrocode}
+%
+%
+% \subsection{Macros Producing Matrices and Vectors}
+% \label{sec:impl-matr-vec}
+%
+% \subsubsection{Producing Row and Column Vectors}
+%
+% The functions in this section are used to generate row and column vectors
+% utilizing \pkg{mathtools}~\autocite{mathtools} \env{matrix*} and
+% \env{smallmatrix*} environments.
+%
+% \begin{variable}{\l_@@_vector_entries_seq}
+%   For generating row or column vectors it is necessary to store the entries
+%   inside a variable. \cs{l_@@_vector_entries_seq} is used for this purpose.
+%    \begin{macrocode}
+\seq_new:N \l_@@_vector_entries_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% Then we need a function for formatting the actual entries of the vector.
+% We need two version one for the row vector and one for the column vector
+% version.
+% \begin{macro}{
+%   \@@_seq_to_column_vector:N,
+%   \@@_seq_to_row_vector:N
+% }
+%   These functions take one argument
+%   \begin{arguments}
+%     \item A sequence which should be converted to the contents of the single
+%     column/row matrix.
+%   \end{arguments}
+%   They format the input suitable to be put inside a \env{matrix*} environment.
+% We begin with the column vector version.
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \@@_seq_to_column_vector:N
+{
+  \seq_use:Nn #1 {\\}
+}
+%    \end{macrocode}
+% Then we get to the row vector.
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \@@_seq_to_row_vector:N
+{
+  \seq_use:Nn #1 {&}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% In the next step we construct the single row/column matrix from the user
+% provided input.
+% \begin{macro}{
+%   \conmath_column_vector:nn,
+%   \conmath_row_vector:nn,
+% }
+%   The two commands \cs{conmath_column_vector:n} and \cs{conmath_row_vector:n}
+%   construct the matrix, they both take two arguments.
+%   \begin{arguments}
+%     \item The delimiter specifier.
+%
+%     This should be one of the prefixes of the \env{\meta{prefix}matrix*},
+%     environments.
+%
+%     Another possibility is to issue |small| as this parameter to get
+%     an inline matrix.
+%
+%     \item The comma separated contents of the matrix.
+%   \end{arguments}
+%     \begin{macrocode}
+\cs_new_protected_nopar:Nn \conmath_column_vector:nn
+{
+  \seq_clear:N \l_@@_vector_entries_seq
+  \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
+
+  \begin{#1 matrix*} [\l_@@_matrix_align_tl]
+    \@@_seq_to_column_vector:N \l_@@_vector_entries_seq
+  \end{#1 matrix*}
+}
+
+\cs_new_protected_nopar:Nn \conmath_row_vector:nn
+{
+  \seq_clear:N \l_@@_vector_entries_seq
+  \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
+
+  \begin{#1matrix*}[\l_@@_matrix_align_tl]
+    \@@_seq_to_row_vector:N \l_@@_vector_entries_seq
+  \end{#1matrix*}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \conmath_column_smallvector:nn,
+%   \conmath_row_smallvector:nn
+% }
+%   To make the code more readable, we define functions specifically for
+%   creating row and column vectors using the \env{smallmatrix*} family of
+%   environments. These functions take the same arguments as the non-small
+%   versions above.
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \conmath_column_smallvector:nn
+{
+  \conmath_column_vector:nn {#1 small} {#2}
+}
+
+\cs_new_protected_nopar:Nn \conmath_row_smallvector:nn
+{
+  \conmath_row_vector:nn {#1 small} {#2}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Document Level Commands}
+% \label{sec:mat-doc-lvl-cmds}
+%
+% \NB{MI}{Guard these macros also behind a key-value option}
+%
+% Now we define document level commands for the previously defined
+% functions.
+%
+% But before we do so we define a message to be issued in case the targeted
+% \meta{csname} is already defined elsewhere.
+%    \begin{macrocode}
+\msg_new:nnnn { conmath } { matrix / already-defined-doc-cmd-skip }
+{
+  Control~sequence~'#1'~is~already~defined.\\
+  Skipping~definition~\msg_line_context:.
+}
+{
+  The~control~sequence~'#1'~has~already\\
+  been~defined~by~some~other~package.\\
+  And~I~am~refusing~to~overwrite~the~existing~definition,\\
+  therefore~I~am~skipping~the~definition~of~this~command.
+}
+%    \end{macrocode}
+% We begin with the row and column vector functions.
+% As with the other document level commands, we guard the definitions
+% with a key value option, so that the user can disable them.
+%    \begin{macrocode}
+\bool_if:nTF \l_@@_predef_crvector_bool
+{
+%    \end{macrocode}
+% \begin{macro}{
+%   \cvector,
+%   \rvector,
+%   \smallcvector,
+%   \smallrvector
+% }
+%    \begin{macrocode}
+% First we define the document level command for the bare column vector
+\cs_if_free:NTF \cvector
+{
+  \NewDocumentCommand \cvector { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_column_vector:nn {\l_@@_matrix_delim_tl} {#2}
+    \group_end:
+  }
+}{
+  % issue a warning message if the csname is already taken.
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  {
+    \cvector
+  }
+} % \cs_if_free:NTF \cvector
+%    \end{macrocode}
+% and the row vector.
+%    \begin{macrocode}
+\cs_if_free:NTF \rvector
+{
+  \NewDocumentCommand \rvector { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_row_vector:nn {\l_@@_matrix_delim_tl} {#2}
+    \group_end:
+  }
+}{
+  % warn if csname is already taken
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip}
+  {
+    \rvector
+  }
+} % \cs_if_free:NTF \rvector
+%    \end{macrocode}
+% Then we define the smaller inline versions of those commands.
+%    \begin{macrocode}
+\cs_if_free:NTF \smallcvector
+{
+  \NewDocumentCommand \smallcvector { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn {conmath / matrix} {#1}
+    }
+    \conmath_column_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
+    \group_end:
+  }
+}{
+  % Issue a warning message if the csname is already taken
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  {
+    \smallcvector
+  }
+} % \cs_if_free:NTF \smallcvector
+
+\cs_if_free:NTF \smallrvector
+{
+  \NewDocumentCommand \smallrvector { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_row_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
+    \group_end:
+  }
+}{
+  % warn if csname is taken
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  {
+    \smallrvector
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% Next we define several shorthands to for the commonly used delimiters,
+% to avoid code duplication, we first create some helper functions which
+% define those functions.
+% \begin{macro}{
+%   \@@_new_vector_shorth_doc_cmd:NNn
+% }
+%   The function \cs{@@_new_vector_shorth_doc_cmd} creates a new vector shorthand,
+%   command. It takes three arguments:
+%   \begin{arguments}
+%     \item The \meta{csname} to be defined.
+%     \item The \meta{function} to use for this shorthand.
+%
+%     This should be one of the
+%     \cs[no-index]{conmath_\meta{type}_\meta{size}vector:nn}
+%     like commands.
+%
+%     \item The \meta{delimiter} to use.
+%
+%      Usually one of |p|, |b|, |B|, |v|, |V|.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_new_vector_shorth_doc_cmd:NNn
+{
+  \cs_if_free:NTF #1
+  {
+    \NewDocumentCommand #1 { o m }
+    {
+      \group_begin:
+      % set the delimiter key pre-set for this function
+      \keys_set:nn {conmath / matrix } {delimiter = #3}
+      \tl_if_novalue:nF {##1}
+      {
+        \keys_set:nn {conmath / matrix } {##1}
+      }
+      #2 {\l_@@_matrix_delim_tl} {##2}
+      \group_end:
+    }
+  }{
+    % warn if csname is taken
+    \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+    {
+      #1
+    }
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \pcvector,
+%   \bcvector,
+%   \Bcvector,
+%   \vcvector,
+%   \Vcvector,
+%   \prvector,
+%   \brvector,
+%   \Brvector,
+%   \vrvector,
+%   \Vrvector,
+% }
+%   Now we define shorthands for all of the matrix types so that the user
+%   does not have to specify |delimiter=|\meta{delim} every time.
+%   We begin with the column vector.
+%    \begin{macrocode}
+% parenthesis
+\@@_new_vector_shorth_doc_cmd:NNn \pcvector \conmath_column_vector:nn {p}
+% brackets
+\@@_new_vector_shorth_doc_cmd:NNn \bcvector \conmath_column_vector:nn {b}
+% braces
+\@@_new_vector_shorth_doc_cmd:NNn \Bcvector \conmath_column_vector:nn {B}
+% single vert
+\@@_new_vector_shorth_doc_cmd:NNn \vcvector \conmath_column_vector:nn {v}
+% double vert
+\@@_new_vector_shorth_doc_cmd:NNn \Vcvector \conmath_column_vector:nn {V}
+%    \end{macrocode}
+%   Now to the row vectors.
+%    \begin{macrocode}
+% parenthesis
+\@@_new_vector_shorth_doc_cmd:NNn \prvector \conmath_row_vector:nn {p}
+% brackets
+\@@_new_vector_shorth_doc_cmd:NNn \brvector \conmath_row_vector:nn {b}
+% braces
+\@@_new_vector_shorth_doc_cmd:NNn \Brvector \conmath_row_vector:nn {B}
+% single vert
+\@@_new_vector_shorth_doc_cmd:NNn \vrvector \conmath_row_vector:nn {v}
+% double vert
+\@@_new_vector_shorth_doc_cmd:NNn \Vrvector \conmath_row_vector:nn {V}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \psmallcvector,
+%   \bsmallcvector,
+%   \Bsmallcvector,
+%   \vsmallcvector,
+%   \Vsmallcvector,
+%   \psmallrvector,
+%   \bsmallrvector,
+%   \Bsmallrvector,
+%   \vsmallrvector,
+%   \Vsmallrvector
+% }
+%   We also define shorthands for the \cs{shortcvector} and \cs{shortrvector}
+%   versions.
+%    \begin{macrocode}
+% column vectors
+% parenthesis
+\@@_new_vector_shorth_doc_cmd:NNn \psmallcvector \conmath_column_smallvector:nn
+  {p}
+% brackets
+\@@_new_vector_shorth_doc_cmd:NNn \bsmallcvector \conmath_column_smallvector:nn
+  {b}
+% braces
+\@@_new_vector_shorth_doc_cmd:NNn \Bsmallcvector \conmath_column_smallvector:nn
+  {B}
+% single vert
+\@@_new_vector_shorth_doc_cmd:NNn \vsmallcvector \conmath_column_smallvector:nn
+  {v}
+% double vert
+\@@_new_vector_shorth_doc_cmd:NNn \Vsmallcvector \conmath_column_smallvector:nn
+  {V}
+%
+% row vectors
+% parenthesis
+\@@_new_vector_shorth_doc_cmd:NNn \psmallrvector \conmath_row_smallvector:nn {p}
+% brackets
+\@@_new_vector_shorth_doc_cmd:NNn \bsmallrvector \conmath_row_smallvector:nn {b}
+% braces
+\@@_new_vector_shorth_doc_cmd:NNn \Bsmallrvector \conmath_row_smallvector:nn {B}
+% single vert
+\@@_new_vector_shorth_doc_cmd:NNn \vsmallrvector \conmath_row_smallvector:nn {v}
+% double vert
+\@@_new_vector_shorth_doc_cmd:NNn \Vsmallrvector \conmath_row_smallvector:nn {V}
+
+
+}{ % \bool_if:nTF \l_@@_predef_crvector_bool FALSE PATH
+  \msg_info:nnnn {conmath} {load / disabling} {no-crvector}
+  {
+    commands~producing~row~and~column~vectors
+  }
+} % \bool_if:nTF \l_@@_predef_crvector_bool
+%    \end{macrocode}
+% \end{macro}
 %
 % \subsection{Shorthand Macros for Absolute Value and Norm}
 % \label{sec:impl-abs-shorthands}
