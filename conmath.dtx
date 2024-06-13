@@ -333,7 +333,7 @@
 % Now we define a function for setting the options within the document
 % \begin{macro}{\conmath_setup:n}
 %    \begin{macrocode}
-\cs_new:Nn \conmath_setup:n
+\cs_new_protected:Nn \conmath_setup:n
 {
   \keys_set:nn {conmath} {#1}
 }
@@ -354,7 +354,7 @@
 % and pass unknown options to mathtools.
 % \begin{macro}{\@@_load_time_setup:}
 %    \begin{macrocode}
-\cs_new:Nn \@@_load_time_setup:
+\cs_new_protected:Nn \@@_load_time_setup:
 {
   \ProcessKeyOptions[ conmath / load ]
 }
