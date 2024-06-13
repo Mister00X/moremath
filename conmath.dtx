@@ -378,6 +378,64 @@
 \RequirePackage{mathtools}[2004/06/05]
 %    \end{macrocode}
 %
+% \subsection{Shorthand Macros for Absolute Value and Norm}
+% \label{sec:impl-abs-shorthands}
+%
+% We first declare another warning message to inform the user of the case that,
+% the \meta{csnames} are already taken.
+%    \begin{macrocode}
+\msg_new:nnnn { conmath } { abs-shorth / csname-already-defined-skip }
+{
+  Control~sequence~'#1'~is~already~defined.\\
+  Skipping~declaration~of~paired~delimiter~\msg_line_context:.\\
+  Use~package~option~'no-abs-shorthands'~to~disable~the~paired\\
+  delimiter~shorthands.
+}{
+  The~control~sequence~'#1'~has~already~been\\
+  defined~by~something~else.\\
+  I~am~refusing~to~overwrite~its~existing~definition~and~instead~avoid\\
+  declaring~a~paired~delimiter.\\
+}
+%    \end{macrocode}
+%
+%
+% As with the other parts these macros may be conditionally disabled.
+%    \begin{macrocode}
+\bool_if:NTF \l_@@_predef_abs_bool
+{
+%    \end{macrocode}
+% \begin{macro}{\abs,\norm}
+% These macros provide shorthands for \(\abs{\meta{content}}\)
+% and \(\norm{\meta{content}}\).
+%    \begin{macrocode}
+\cs_if_free:NTF \abs
+{
+  \DeclarePairedDelimiter \abs {\lvert} {\rvert}
+}{
+  % warn if the csname is taken
+  \msg_warning:nnn { conmath } { abs-shorth / csname-already-defined-skip }
+    {\abs}
+} % \cs_if_free:NTF \abs
+
+\cs_if_free:NTF \norm
+{
+  \DeclarePairedDelimiter \norm {\lVert} {\rVert}
+}{
+  % warn if csname is already taken
+  \msg_warning:nnn { conmath } { abs-shorth / csname-already-defined-skip }
+    {\norm}
+} % \cs_if_free:NTF
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+}{
+  \msg_info:nnnn {conmath} {load / disabling} {no-abs-shorthands}
+  {
+    '\abs'~and~'\norm'~macros
+  }
+} % End of the conditional
+%    \end{macrocode}
 %
 %
 %    \begin{macrocode}
