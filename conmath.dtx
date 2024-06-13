@@ -361,6 +361,23 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% ^^X SUBSECTION: Package Initialization
+% \subsection{Package Initialization}
+% \label{sec:init}
+%
+% We now \enquote{initialize} the package by processing the package options,
+% all unknown options are passed to \pkg{mathtools}~\autocite{mathtools},
+% which is loaded afterwards.
+% Because certain \pkg{mathtools}-features are needed by this package,
+% we need to require a version of at least 2004/06/05.
+% As explained in section~\ref{sec:load-time-options} this may also load \pkg{bm}
+% if the \verb|bm| package option has been given.
+%    \begin{macrocode}
+\@@_load_time_setup:
+
+\RequirePackage{mathtools}[2004/06/05]
+%    \end{macrocode}
+%
 %
 %
 %    \begin{macrocode}
