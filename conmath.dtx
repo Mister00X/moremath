@@ -440,6 +440,30 @@
 \RequirePackage{mathtools}[2004/06/05]
 %    \end{macrocode}
 %
+% ^^X SUBSECTION: Paired Delimiters
+% \subsection{Declaring Paired Delimiters for Internal Use}
+% \label{sec:impl-paired-delim}
+%
+% \begin{macro}{
+%   \@@_inparent:w,
+%   \@@_inbrack:w,
+%   \@@_inbrace:w,
+%   \@@_in_vert:w,
+%   \@@_in_Vert:w
+% }
+% As we are going to use \pkg{mathtools}' \emph{paired delimiters}
+% at several places throughout this package,
+% we define \emph{paired delimiters} for internal use, as functions with weird
+% syntax.
+%    \begin{macrocode}
+\DeclarePairedDelimiter{\@@_inparent:w}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\@@_inbrack:w}{\lbrack}{\rbrack}
+\DeclarePairedDelimiter{\@@_inbrace:w}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\@@_in_vert:w}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\@@_in_Vert:w}{\lVert}{\rVert}
+%    \end{macrocode}
+% \end{macro}
+%
 % ^^X SUBSECTION: Delimited Operators
 % \subsection{Delimited Operators}
 % \label{sec:impl-delim-op}
