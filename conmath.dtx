@@ -158,6 +158,16 @@
   Disabling~#2~\msg_line_context:.
 }
 %    \end{macrocode}
+% \begin{optionenv}{
+%   bm,
+%   no-vector,
+%   no-operators,
+%   no-abs-shorthands,
+%   no-matrix,
+%   no-crvector,
+%   nopredef,
+% }
+% Now we define package load time keys:
 %    \begin{macrocode}
 \keys_define:nn { conmath / load }
 {
@@ -248,11 +258,22 @@
   unknown .usage:n = load,
 }
 %    \end{macrocode}
+% \end{optionenv}
 %
 %
 % \subsubsection{Keys controlling appearance}
 % \label{sec:keys-appearance}
 %
+% \begin{optionenv}{
+%   nabla,
+%   arrownabla,
+%   boldnabla,
+%   grad-op,
+%   laplacian-symb,
+%   delta-laplace,
+%   arrowlaplace,
+%   laplacian
+% }
 % First define keys for the vector calculus macros.
 %    \begin{macrocode}
 \keys_define:nn { conmath }
@@ -328,16 +349,25 @@
 % the user provided list of tokens is stored in the variable
 % \cs{l_@@_laplacian_tl}.
 % \end{variable}
+% \end{optionenv}
 %
-% \begin{variable}{
-% \l_@@_matrix_delim_tl,
-% \l_@@_matrix_fill_tl,
-% \l_@@_matrix_align_tl,
+% \begin{optionenv}{
+%   delimiter,
+%   fill,
+%   align
 % }
 % Then we define some keys for the matrix based environments:
 %    \begin{macrocode}
 \keys_define:nn { conmath / matrix }
 {
+%    \end{macrocode}
+% \begin{variable}{
+% \l_@@_matrix_delim_tl,
+% \l_@@_matrix_fill_tl,
+% \l_@@_matrix_align_tl,
+% }
+% Every one of the following keys stores its value inside a token list variable.
+%    \begin{macrocode}
   delimiter .tl_set:N = \l_@@_matrix_delim_tl,
   delimiter .initial:n = {},
   fill .tl_set:N = \l_@@_matrix_fill_tl,
@@ -356,6 +386,7 @@
 % The variable \cs{l_@@_matrix_align_tl} contains the alignment specifier
 % for use with the \env{matrix*} environment.
 % \end{variable}
+% \end{optionenv}
 %
 % \subsubsection{Functions for Setting Options}
 % \label{sec:option-setters}
