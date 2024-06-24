@@ -680,6 +680,19 @@
 % \subsubsection{Document Level Commands}
 % \label{sec:impl-delim-op-doc-cmds}
 %
+% \begin{macro}{\DeclareDelimitedOperator}
+%     Finally provide the user with a command to declare an additional
+%     delimited operator.
+%    \begin{macrocode}
+\NewDocumentCommand\DeclareDelimitedOperator { m m m }
+{
+  \msg_redirect_name:nnn { conmath } { delimop / already-defined-skip } { error }
+  \conmath_new_delim_op_command:NNN #1 #2 #3
+  \msg_redirect_name:nnn { conmath } { delimop / already-defined-skip } {}
+}
+%    \end{macrocode}
+% \end{macro}
+%
 % As \pkg{amsmath}~\autocite{amsmath} pre-defines the following operators
 % it is only sensible to also define delimited versions of them:\\
 % \input{\jobname-ams-op-table.tex}
