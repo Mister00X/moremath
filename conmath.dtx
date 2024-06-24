@@ -128,6 +128,11 @@
 % renew the ctanbibpkgname command
 \NewDocumentCommand\ctanbibpkgname{m}{\pkg{#1}}
 
+% Example operators and commands
+\DeclareMathOperator{\glorb}{glorb}
+\DeclarePairedDelimiter{\inparen}{\lparen}{\rparen}
+\DeclareDelimitedOperator{\pglorb}{\glorb}{\inparen}
+
 \begin{document}
   \DocInput{conmath.dtx}
 \end{document}
@@ -303,6 +308,212 @@
 %   any column type valid in the usual \env{array} environment.}
 % \end{texnote}
 %
+%
+% \section{Delimited Operators}
+% \label{sec:delim-ops}
+%
+% \subsection{Delimited Operators Predefined by \pkg{conmath}}
+% \label{sec:delim-op-predef}
+%
+% \DescribeOption{no-operators}
+% If the package load time option |no-operators| is not given this package defines several
+% delimited mathematical operators.
+%
+% \begin{table}
+%   \caption{%
+%     Operator commands defined by the \pkg{amsmath}~\autocite{amsmath}
+%     package.}
+%  \label{tab:amsmath-operators}
+%  \vspace{.5\baselineskip}
+%   \input{\jobname-ams-op-table.tex}
+% \end{table}
+%
+% \begin{function}{
+%   \parccos, \barccos, \Barccos, \varccos, \Varccos,
+% }
+% \begin{syntax}
+%   \cs{parccos} \oarg{size cmd} \marg{contents}
+
+%   \cs{parccos} \oarg{size cmd} \textasciicircum\marg{superscript} \marg{contents}
+%
+%   \cs{parccos} \oarg{size cmd} \_\marg{subscript} \marg{contents}
+%
+%   \cs{parccos} \oarg{size cmd} \textasciicircum\marg{superscript} \_\marg{subscript} \marg{contents}
+%
+%   \cs{parccos}* \marg{contents}
+%
+%   \cs{parccos}* \textasciicircum\marg{superscript} \marg{contents}
+%
+%   \cs{parccos}* \_\marg{subscript} \marg{contents}
+%   \cs{parccos}* \textasciicircum\marg{superscript} \_\marg{subscript} \marg{contents}
+%
+%
+%   \cs[no-index]{\meta{prefix}\meta{op name}} \oarg{size cmd} \marg{contents}
+%   \cs[no-index]{\meta{prefix}\meta{op name}} \oarg{size cmd} \textasciicircum\marg{superscript}  \marg{contents}
+%   \cs[no-index]{\meta{prefix}\meta{op name}} \oarg{size cmd}  \_\marg{subscript} \marg{contents}
+%   \cs[no-index]{\meta{prefix}\meta{op name}} \oarg{size cmd} \textasciicircum\marg{superscript} \_\marg{subscript} \marg{contents}
+%   \cs[no-index]{\meta{prefix}\meta{op name}}* \marg{contents}
+%   \cs[no-index]{\meta{prefix}\meta{op name}}* \textasciicircum\marg{superscript}  \marg{contents}
+%   \cs[no-index]{\meta{prefix}\meta{op name}}* \_\marg{subscript} \marg{contents}
+%   \cs[no-index]{\meta{prefix}\meta{op name}}* \textasciicircum\marg{superscript} \_\marg{subscript} \marg{contents}
+% \end{syntax}
+% For all of the operators predefined by \pkg{amsmath}~\autocite{amsmath},
+% which are shown in table~\ref{tab:amsmath-operators},
+% \pkg{conmath} declares delimited versions.
+% The name of those commands follows the scheme \cs[no-index]{\meta{prefix}\meta{op}},
+% where \meta{prefix} is one of |p|, |b|, |B|, |v|, or |V|
+% and \meta{op} is the name of one of the operators shown in table~\ref{tab:amsmath-operators}.
+%
+% The \meta{prefix}es |p|, |b|, |B|, |v|, and |V| stand for
+% parenthesis, brackets, braces, single vertical lines (\enquote{\(\vert\)}), and double vertical lines
+% (\enquote{\(\Vert\)}) respectively.
+%
+% The commands accept a \meta{size cmd} optional argument, which is usually one of
+% \cs{big}, \cs{Big}, \cs{bigg} and \cs{Bigg}.
+% These \meta{size cmd}s are used to change the size of the delimiters.
+%
+% The commands also accept sub- and superscripts,
+% which have to be issued \emph{after} the optional argument (if present),
+% but before the mandatory argument \meta{contents}.
+%
+% The starred variant uses automatic scaling for the delimiters depending on the height of its contents.
+% \end{function}
+%
+% \paragraph{Examples}
+%
+% The following examples showcase the use of those predefined delimited operators:
+% \begin{enumerate}
+% \item Different delimited operators without any scaling:
+%
+% \begin{verbatim}
+% \[
+%   \pcos{x} \times \bcos{y}
+%   \times \Bcos{z} \times \vcos{a}
+%   \times \Vcos{b}
+% \]
+% \end{verbatim}
+% \[
+%   \pcos{x} \times \bcos{y}
+%   \times \Bcos{z} \times \vcos{a}
+%   \times \Vcos{b}
+% \]
+%
+% \item Delimited operator with automatic scaling:
+%
+% \begin{minipage}{.49\linewidth}
+% \begin{verbatim}
+% \[
+%   \pcos*{\frac{x^{2}}{2}}
+% \]
+% \end{verbatim}
+% \end{minipage}\hfill
+% \begin{minipage}{.49\linewidth}
+% \[
+%     \pcos*{\frac{x^{2}}{2}}
+%  \]
+% \end{minipage}
+%
+% \item Delimited operator with manual scaling:
+%
+% \begin{minipage}{.49\linewidth}
+% \begin{verbatim}
+% \[
+%   \pcos[\Big]{\frac{x^{2}}{2}}
+% \]
+% \end{verbatim}
+% \end{minipage}\hfill
+% \begin{minipage}{.49\linewidth}
+% \[
+%   \pcos[\Big]{\frac{x^{2}}{2}}
+% \]
+% \end{minipage}
+%
+% \item Delimited operator with subscript:
+%
+% \begin{minipage}{.49\linewidth}
+% \begin{verbatim}
+% \[
+%   \plog_{10}{1+x}
+% \]
+% \end{verbatim}
+% \end{minipage}\hfill
+% \begin{minipage}{.49\linewidth}
+% ^^X XXX: Using an underscore is broken here (because of l3doc???) therefore I
+% ^^X use "\sb" instead.
+% \[
+%   \plog\sb{10}{1+x}
+% \]
+% \end{minipage}
+%
+% \item Delimited operator with superscript:
+%
+% \begin{minipage}{.49\linewidth}
+% \begin{verbatim}
+% \[
+%   \pcos^{2}{x}
+% \]
+% \end{verbatim}
+% \end{minipage}\hfill
+% \begin{minipage}{.49\linewidth}
+% \[
+%   \pcos^{2}{x}
+% \]
+% \end{minipage}
+%
+% \item Delimited operator with both sub- and superscript and manual scaling:
+%
+% \begin{minipage}{.49\linewidth}
+% \begin{verbatim}
+% \[
+%   \pcos[\Big]^{2}_{x}{\frac{x}{2}}
+% \]
+% \end{verbatim}
+% \end{minipage}\hfill
+% \begin{minipage}{.49\linewidth}
+% ^^X XXX: Again use "\sb" instead of "_" because of l3doc
+% \[
+%   \pcos[\Big]^{2}\sb{x}{\frac{x}{2}}
+% \]
+% \end{minipage}
+% \end{enumerate}
+%
+%
+% \subsection{Declaring New Delimited Operators}
+% \label{sec:delim-op-new}
+%
+% \begin{function}{\DeclareDelimitedOperator}
+% \begin{syntax}
+%   \cs{DeclareDelimitedOperator}\marg{new op}\marg{op}\marg{delim}
+% \end{syntax}
+% Creates a new delimited operator,
+% the name of the new command will be \meta{new op}.
+% The \meta{op} is the command of the operator to use,
+% which is usually a command declared with \cs{DeclareMathOperator}.
+% \meta{delim} is the command to use as paired delimiter,
+% it is expected to behave like a paired delimiter declared by
+% \pkg{mathtools}~\autocite{mathtools} \cs{DeclarePairedDelimiter}.
+% \end{function}
+%
+% \paragraph{Example: Creating a New Delimited Operator}
+% The following code creates a new operator and a paired delimiter
+% and uses it afterwards to declare a paired operator.
+% \begin{verbatim}
+% \documentclass{scrartcl}
+%
+% \DeclareMathOperator{\glorb}{glorb}
+% \DeclarePairedDelimiter{\inparen}{\lparen}{\rparen}
+% \DeclarePairedOperator{\pglorb}{\glorb}{\inparen}
+%
+% \begin{document}
+% \[
+%   \pglorb{a}
+% \]
+% \end{document}
+% \end{verbatim}
+% The result then looks like this:
+% \[
+%   \pglorb{a}
+% \]
 % \end{documentation}
 % \begin{implementation}
 % \section{Implementation}
