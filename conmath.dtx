@@ -580,6 +580,84 @@
 \cs_generate_variant:Nn \conmath_delim_op_manuscale:NNnnnn {NNVnnn}
 %    \end{macrocode}
 % \end{macro}
+%
+% For the creation of document level commands we also create a function,
+% so that the user is also able to declare new delimited operators.
+% But before we do so we create a message to inform the user if a
+% \meta{csname} was already taken.
+%    \begin{macrocode}
+\msg_new:nnn { conmath } { delimop / already-defined-skip }
+{
+  Control~sequence~'#1'~is~already~defined.\\
+  Skipping~definition~of~delimited~operator~'#1'~\msg_line_context:.
+}
+%    \end{macrocode}
+%
+% We also create a message to inform the user about conflicting options
+% given to the command.
+%    \begin{macrocode}
+\msg_new:nnn { conmath } { delimop / auto-manu-scale-conflict }
+{
+  Both~star~and~scale~cmd~given~to~'#1'.\\
+  Automatic~scaling~will~be~preferred,~the~size~command~will~be~
+  ignored~\msg_line_context:.
+}
+%    \end{macrocode}
+% \begin{macro}{
+%   \conmath_new_delim_op_command:NNN,
+%   \conmath_new_delim_op_command:cNN,
+%}
+% \cs{conmath_new_delim_op_command:NNN} takes three arguments:
+% \begin{arguments}
+%   \item The \meta{csname} to be defined.
+%   \item The \meta{csname} of the operator to use,
+%     which should be an operator declared with \cs{DeclareMathOperator}.
+%   \item The \meta{csname} of the delimiter to use,
+%         which should have been declared with \cs{DeclarePairedDelimiter}.
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \conmath_new_delim_op_command:NNN
+{
+  \cs_if_free:NTF #1
+  {
+    \exp_args:NNe \NewDocumentCommand #1
+    { s o E{ ^ \char_generate:nn {`_} {8} }{{}{}} m }
+    {
+      \tl_if_novalue:nTF {##2}
+      {
+        % second argument empty
+        \bool_if:nTF {##1}
+        {
+          % star given
+          \conmath_delim_op_autoscale:NNnnn #2 #3 {##3} {##4} {##5}
+        }{
+          % star not given
+          \conmath_delim_op_noscale:NNnnn #2 #3 {##3} {##4} {##5}
+        }
+      }{
+        % second argument present
+        % star given?
+        \bool_if:nTF {##1}
+        {
+          % Warn if both star and scaling factor are present
+          \msg_warning:nnn { conmath } { delimop / auto-manu-scale-conflict }
+            {#1}
+          \conmath_delim_op_autoscale:NNnnn #2 #3 {##3} {##4} {##5}
+        }{ % FALSE BRANCH
+        \conmath_delim_op_manuscale:NNnnnn #2 #3 {##2} {##3} {##4} {##5}
+        }
+      }
+    }
+  }{ % \cs_if_free:nTF #1 FALSE BRANCH
+    \msg_warning:nnn { conmath } { delimop / already-defined-skip }
+      {#1}
+  }
+}
+
+\cs_generate_variant:Nn \conmath_new_delim_op_command:NNN {cNN}
+%    \end{macrocode}
+% \end{macro}
+%
 % ^^X SUBSECTION: Vector Calculus Macros
 % \subsection{Vector Calculus Macros}
 % \label{sec:vector-calc}
