@@ -18,6 +18,7 @@
 *.fdb_latexmk
 *.fls
 *.glo
+*.gls
 *.hd
 *.idx
 *.ilg
@@ -30,6 +31,7 @@
 *.synctex
 *.synctex.gz
 *.toc
+*-SAVE-ERROR
 
 # exclude generated bib file
 *.bbl
