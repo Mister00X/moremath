@@ -22,4 +22,14 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # add extentions to generated exts
-push(@generated_exts, "glo", "hd")
+push(@generated_exts, "glo", "hd", "gls");
+
+# generate the changes
+add_cus_dep('glo', 'gls', 0, 'make_changes');
+
+sub make_changes {
+  return Run_subst( 'makeindex -s gglo.ist -o %D %S');
+}
+
+# to generate the index
+$makeindex = 'makeindex %O -s gind.ist -o %D %S';
