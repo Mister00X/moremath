@@ -77,6 +77,38 @@
 \end{center}
 \end{filecontents*}
 
+
+% custom commands for use inside the documentation
+\ExplSyntaxOn
+% Property list storing version date information
+\prop_new:N \l__conmathdoc_version_date_prop
+
+\cs_new_protected:Nn \conmathdoc_add_version:nn
+{
+  \prop_put_if_new:Nnn \l__conmathdoc_version_date_prop {#1} {#2}
+}
+
+\cs_new_protected:Nn \conmathdoc_get_version:n
+{
+  \group_begin:
+  \prop_get:NnNT \l__conmathdoc_version_date_prop {#1} \l_tmpa_tl
+  {
+    \tl_use:N \l_tmpa_tl
+  }
+  \group_end:
+}
+
+\NewDocumentCommand \AddVersion { m m }
+{
+  \conmathdoc_add_version:nn {#1} {#2}
+}
+
+\NewDocumentCommand \GetVersionDate { m }
+{
+  \conmathdoc_get_version:n {#1}
+}
+\ExplSyntaxOff
+
 \documentclass[show-notes]{l3doc}
 
 \SetupDoc{reportchangedates=true}
