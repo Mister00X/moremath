@@ -154,6 +154,155 @@
 % \section{Introduction}
 % \label{sec:intro}
 %
+%
+% \section{Package Options}
+% \label{sec:pack-opts}
+%
+% ^^X SUBSECTION: Package Load Time Options
+% \subsection{Package Load Time Options}
+% \label{sec:pkg-load-time-opts}
+% The options described in this section \emph{must} be given
+% at package load time i.e.\ as package options.
+% All options which are not described below will be passed to
+% \pkg{mathtools}~\autocite{mathtools},
+% see its documentation for more information.
+%
+% \DescribeOption{bm} The \verb|bm| option
+% loads the \pkg{bm}~\autocite{bm} package which provides a better version of
+% the \cs{boldsymbol} command.
+%
+% \DescribeOption{no-vector}
+% \DescribeOption{no-abs-shorthands}
+% \DescribeOption{no-operators}
+% \NB{MI}{Missing: no-crvector and no-matrix}
+% The options \verb|no-vector|, \verb|no-abs-shorthands| and \verb|no-operators|
+% disable the definition of the predefined commands described in sections~\ref{sec:vector-calculus},
+% \ref{sec:shorthands} and~\ref{sec:delim-ops} respectively.
+%
+% \DescribeOption{nopredef}
+%   The option |nopredef| achieves the same as the three
+%   |no-|\meta{functionality} options above.
+%   It accepts multiple values, valid option values are: |vector|, |abs|,
+%   |operators| and |all|.
+%   The values |abs|, |operators|, and |vector| disable the predefined
+%   document level commands for delimited operators, vector calculus and
+%   the shorthands for absolute value and norm respectively.
+%   The special value |all| disables all of them.
+%
+%   The option accepts multiple values which can be given as a comma separated
+%   list, or as multiple key-value options, like in the examples below:
+% \begin{verbatim}
+% \usepackage[nopredef={vector,abs,operators}]{conmath}
+% \end{verbatim}
+%   This is equivalent to
+% \begin{verbatim}
+% \usepackage[nopredef=all]{conmath}
+% \end{verbatim}
+%   and to:
+% \begin{verbatim}
+% \usepackage[nopredef=vector,nopredef=abs,nopredef=operators]{conmath}
+% \end{verbatim}
+%
+% The command \cs{NewDelimitedOperator} is not affected by any of the above
+% settings.
+%
+% ^^X SUBSECTION: General Options
+% \subsection{General Options}
+% \label{sec:pkg-general-options}
+%
+% The options described in this section
+% \emph{must not} be given as package options,
+% instead they should be set using \cs{conmathsetup}
+% or given as optional argument to the commands described later.
+% \begin{function}{\conmathsetup}
+% \begin{syntax}
+%   \cs{conmathsetup}\marg{kv~list}
+% \end{syntax}
+% Sets the options specified in the \meta{key-value list},
+% the assignment is local to the current group.
+% If a \meta{value} contains a comma it needs to be wrapped in braces.
+% This command may be used anywhere in the document after \pkg{conmath}
+% has been loaded.
+% \end{function}
+%
+% \subsubsection{Options Affecting Vector Calculus Operators}
+% \label{sec:options-vec-calc}
+%
+% \DescribeOption{nabla}
+% The option |nabla| sets the symbol to use by the document level commands
+% described in section~\ref{sec:vector-calculus} to use for the nabla.
+% It accepts a list of \meta{tokens}. Its default value is |\nabla|.
+%
+% \DescribeOption{arrownabla}
+% The option |arrownabla| puts a small arrow over the gradient operator symbol.
+% Its default value is |false|.
+%
+% \DescribeOption{boldnabla}
+% The option |boldnabla| makes the nabla symbol bold.
+% If the |bm| package option has been given the |\boldsymbol| command from
+% the \pkg{bm} package is used for the bold symbol,
+% otherwise the \pkg{amsmath}~\autocite{amsmath} version is used.
+%
+% \DescribeOption{grad-op}
+% The option |grad-op| may be used to overwrite,
+% the built in version of the gradient operator, it accepts a \meta{token list}.
+% Use at your own responsibility.
+%
+% \DescribeOption{laplacian-symb}
+% The option |laplacian-symb| sets the symbol to use by the document level
+% commands described in section~\ref{sec:vector-calculus} to use for the
+% Laplace operator. It accepts a list of \meta{tokens}.
+%
+% \DescribeOption{delta-laplace}
+% The option |delta-laplace| replaces the Laplace operator symbol
+% (by default \(\laplacian\)) with a uppercase delta
+% (\(\laplacian[delta-laplace=true]\)).
+% Its default value is |false|.
+%
+% \DescribeOption{arrowlaplace}
+% The option |arrowlaplace| if set to |true| makes the Laplace operator look
+% like this: \(\laplacian[arrowlaplace=true]\).
+%
+% \DescribeOption{laplacian}
+% Like the option |grad-op| above the option |laplacian| may be used to
+% overwrite the built-in version of the Laplace operator.
+% Use at your own responsibility.
+%
+% \subsubsection{Options Affecting Matrices and Vectors}
+% \label{sec:options-matrix}
+%
+% The options in this section only affect the commands described in sections~\ref{sec:rc-vectors}
+% and~\ref{sec:matrices}. To set them with \cs{conmathsetup} it is necessary
+% to add the prefix |matrix / | to these options,
+% so that the resulting command looks like \cs{conmathsetup}\texttt{\{matrix / \meta{option}\}}.
+% When using these options inside the optional argument of the commands described
+% in sections~\ref{sec:rc-vectors} and~\ref{sec:matrices}, the prefix "matrix /"
+% must be omitted.
+%
+% \DescribeOption{delimiter}
+% The option |delimiter| determines the delimiters used for the matrices,
+% valid values are "p" for parenthesis, "b" for brackets, "B" for braces,
+% "v" for single vertical lines (\enquote{\(\vert\)}),
+% "V" for double vertical lines (\enquote{\(\Vert\)}) or empty for no delimiters.
+% The default value is "{}" (empty).
+%
+% \DescribeOption{fill}
+% The fill option determines the values an (anti-)diagonal matrix is filled with,
+% outside the diagonal. The default is again empty.
+%
+% \DescribeOption{align}
+% This option determines the alignment of the numbers inside the matrix.
+% The value of this option gets passed to the optional argument of the \env{matrix*}
+% or \env{smallmatrix*} family of environments defined by \pkg{mathtools}~\autocite{mathtools}.
+% Valid values for both types of those environments are |l| for left alignment,
+% |r| for right alignment and |c| for centered alignment. The default is |c|.
+%
+% \begin{texnote}
+%   The non-"small" versions of the commands described in the sections~\ref{sec:rc-vectors}
+%   and~\ref{sec:matrices}, accept \textcquote{mathtools}{\textelp{}
+%   any column type valid in the usual \env{array} environment.}
+% \end{texnote}
+%
 % \end{documentation}
 % \begin{implementation}
 % \section{Implementation}
