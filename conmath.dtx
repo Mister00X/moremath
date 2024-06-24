@@ -1190,107 +1190,85 @@
 % \subsubsection{Producing Delimited Vector Calculus Operators}
 % \label{sec:delim-vec-ops}
 %
-% To avoid duplicating a lot of code we declare a functions which
-% declare the delimited versions of those operators.
 % \begin{macro}{
-%   \@@_new_delim_nabla_op_noscale:NNN,
-%   \@@_new_delim_nabla_op_noscale:cNN,
-%   \@@_new_delim_nabla_op_autoscale:NNN,
-%   \@@_new_delim_nabla_op_autoscale:cNN,
-%   \@@_new_delim_nabla_op_manuscale:NNN,
-%   \@@_new_delim_nabla_op_manuscale:cNN,
+%   \conmath_delim_nabla_op_noscale:NNnn,
+%   \conmath_delim_nabla_op_autoscale:NNnn
 % }
-% Each of those functions takes three arguments:
+%   These functions produce a vector calculus operator with \meta{contents}
+%   inside delimiters.
+%   The "autoscale" variant scales the delimiters with the size of \meta{contents},
+%   the "noscale" variant does no scaling at all.
 % \begin{arguments}
-%   \item The \meta{cs-name} of to be defined
-%   \item The \meta{operator} to use.
+%   \item The \meta{csname} of the operator to use.
 %
-%   This should be one of the \cs{conmath_gradient_operator:n}-like functions.
-%   \item The paired delimiter to use, for example \cs{@@_inparent:w}.
-% \end{arguments}
+%         This should have the same form as \cs{conmath_gradient_operator:n},
+%         i.e.\ the function passed as \meta{csname} should accept one argument
+%         to typeset as subscript.
 %
-% We begin with the non scaled version,
-% This version takes two arguments
-% \begin{arguments}
-%   \item \dots{}the subscript
-%   \item and the content to be inside the delimiters.
+%   \item The \meta{csname} of the \emph{paired delimiter} to use.
+%
+%         The paired delimiter has to be one declared using \pkg{mathtools}'
+%         \cs{DeclarePairedDelimiter} command.
+%
+%   \item A \meta{tl} with the subscript of the operator.
+%
+%   \item A \meta{tl} with the contents to typeset inside the delimiters
 % \end{arguments}
-% Its signature should therefore be of the form
-% \cs[no-index]{\meta{prefix}_\meta{operator name}_noscale:nn}.
+% We begin with the "noscale" version.
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_new_delim_nabla_op_noscale:NNN
+\cs_new_protected_nopar:Nn \conmath_delim_nabla_op_noscale:NNnn
 {
-  \cs_new_protected_nopar:Nn #1
-  {
-    #2 {##1} #3{##2}
-  }
+  #1 {#3} #2{#4}
 }
 %    \end{macrocode}
-%
-% Next we provide the function with automatic scaling.
-% Like above this version also takes three arguments.
-% The signature of the function produced by this function should have the form
-% \cs[no-index]{\meta{prefix}_\meta{operator name}_autoscale:nn}
+% Then we create the version with automatic scaling.
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_new_delim_nabla_op_autoscale:NNN
+\cs_new_protected_nopar:Nn \conmath_delim_nabla_op_autoscale:NNnn
 {
-  \cs_new_protected_nopar:Nn #1
-  {
-    #2 {##1} #3*{##2}
-  }
+  #1 {#3} #2 * {#4}
 }
 %    \end{macrocode}
+% \end{macro}
 %
-% Finally we define the version with manual scaling.
-% The function declared by this function should have the signature
-% \cs[no-index]{\meta{prefix}_\meta{operator name}_manuscale:nnn}
-% and takes the following arguments:
-% \begin{arguments}
-%   \item The scaling macro which is passed to \cls{mathtools}' paired delimiter.
-%   \item The subscript of the operator
-%   \item The contents inside the delimiters.
-% \end{arguments}
+% \begin{macro}{
+%   \conmath_delim_nabla_op_manuscale:NNnnn
+% }
+%   This function produces a vector calculus operator like
+%   \cs{conmath_delim_nabla_op_noscale:NNnn}
+%   and \cs{conmath_delim_nabla_op_autoscale:NNnn},
+%   but with manual scaling.
+%   It takes five arguments:
+%   \begin{arguments}
+%     \item The \meta{csname} of the operator to use.
+%
+%     \item The \meta{csname} of the paired delimiter.
+%
+%     \item A \meta{token~list} containing the \meta{scale~cmd} like
+%           \cs{big}, \cs{Big}, \cs{bigg}, etc.
+%
+%     \item A \meta{tl} with the subscript of the operator.
+%
+%     \item A \meta{tl} with the contents to typeset inside the delimiters.
+%   \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_new_delim_nabla_op_manuscale:NNN
+\cs_new_protected_nopar:Nn \conmath_delim_nabla_op_manuscale:NNnnn
 {
-  \cs_new_protected_nopar:Nn #1
-  {
-    #2 {##2} #3 [##1] {##3}
-  }
+  #1 {#4} #2 [#3] {#5}
 }
 %    \end{macrocode}
-%
-% For good measure we also declare some variants of these functions
+% \begin{macro}{
+%   \conmath_delim_nabla_op_manuscale:NNVnn
+% }
+%   We also declare a variant for passing a variable with the \meta{scale~cmd}
+%   instead of a \meta{token~list}.
 %    \begin{macrocode}
-\cs_generate_variant:Nn \@@_new_delim_nabla_op_noscale:NNN {cNN}
-\cs_generate_variant:Nn \@@_new_delim_nabla_op_autoscale:NNN {cNN}
-\cs_generate_variant:Nn \@@_new_delim_nabla_op_manuscale:NNN {cNN}
+\cs_generate_variant:Nn \conmath_delim_nabla_op_manuscale:NNnnn {NNVnn}
 %    \end{macrocode}
+% \end{macro}
 % \end{macro}
 %
 % To ease the definition of those macros we define a function for defining
 % the delimited  versions.
-% \begin{macro}{\@@_new_delim_nabla_ops:nN}
-%   This macro takes a three arguments
-%   \begin{arguments}
-%     \item The name part of the to be produced \meta{csname}
-%     \item The operator to use
-%     \item The delimiter function to use.
-%   \end{arguments}
-%  It declares functions with a signature with the form
-%  \cs[no-index]{conmath_\#1_noscale:nn},
-%  \cs[no-index]{conmath_\#1_autoscale:nn}
-%  and \cs[no-index]{conmath_\#1_manuscale:nnn}.
-%    \begin{macrocode}
-\cs_new_protected:Nn \@@_new_delim_nabla_ops:nNN
-{
-  \@@_new_delim_nabla_op_noscale:cNN {conmath_#1_noscale:nn} #2 #3
-  \@@_new_delim_nabla_op_autoscale:cNN {conmath_#1_autoscale:nn} #2 #3
-  \@@_new_delim_nabla_op_manuscale:cNN {conmath_#1_manuscale:nnn} #2 #3
-}
-%    \end{macrocode}
-% \end{macro}
-%
 %
 % Of course we also need a way to declare a user interface for this functions.
 % For this purpose we first need some helpers for setting
@@ -1321,52 +1299,102 @@
 }
 %    \end{macrocode}
 % \end{macro}
-% We also need a warning message for conflicting arguments % TODO
 %
-% \begin{macro}{\@@_new_nabla_doc_command:NNNN}
-%   This function takes four arguments
-%   \begin{arguments}
-%     \item The name of the to be defined command
-%     \item The function to use without scaling
-%     \item The function to use for automatic scaling
-%     \item The function to use for manual scaling
-%   \end{arguments}
-%
+% We also need a warning message for conflicting arguments,
+% to inform the user that one of his options is going to be ignored.
 %    \begin{macrocode}
-\cs_new_protected:Nn \@@_new_nabla_doc_command:NNNN
+\msg_new:nnn { conmath } { vector-calc / scale-star-conflict }
+{
+  Both~star~and~scaling~factor~given~to~'#1'.\\
+  Automatic~scaling~will~be~preferred,~the~size~command~'#2'~will~be~
+  ignored~\msg_line_context:.
+}
+%    \end{macrocode}
+%
+% \begin{macro}{
+%   \@@_new_delim_nabla_doc_cmd:NNN,
+%   \@@_new_delim_nabla_doc_cmd:cNN,
+% }
+%   This function takes three arguments:
+%   \begin{arguments}
+%     \item The \meta{csname} of the to be defined command
+%     \item The \meta{csname} of the operator to use.
+%
+%           This should be a function like \cs{conmath_gradient_operator:n}.
+%     \item The \meta{csname} of the delimiter function to use.
+%
+%     This should be a macro/command created with \pkg{mathtools}
+%     \cs{DeclarePairedDelimiter} command.
+%   \end{arguments}
+%   Its purpose is to create a new document level command,
+%   for the delimited vector calculus operators.
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_new_delim_nabla_doc_cmd:NNN
 {
   \cs_if_free:NTF #1
   {
     \exp_args:NNe \NewDocumentCommand #1
-    {s  ={scale} o E{\char_generate:nn{`_}{8}}{{}} m}
     {
+      s ={scale} o E{ \char_generate:nn {`_}{8} }{ {} } m
+    }
+    { % command code
       \group_begin:
       % optional arguments given?
-      \tl_if_novalue:nF{##2}
+      \tl_if_novalue:nF {##2}
       {
         \@@_parse_kv_args:nN {##2} \l_tmpa_tl
       }
-      % scale parameter given?
-      \tl_if_empty:NTF \l_tmpa_tl
+      % star given?
+      \bool_if:nTF {##1}
       {
-        % star given?
-        \bool_if:nTF {##1}
+        % scale factor given?
+        \tl_if_empty:NF \l_tmpa_tl
         {
-          % automatic scaling
-          #3 {##3} {##4}
-        }{
-          % no scaling
-          #2 {##3} {##4}
+          \msg_warning:nnnV { conmath } { vector-calc / scale-star-conflict }
+            {#1} \l_tmpa_tl
         }
-      }{
-        % manual scaling
-        \exp_args:No #4 \l_tmpa_tl {##3} {##4}
-      }
+        \conmath_delim_nabla_op_autoscale:NNnn #2 #3 {##3} {##4}
+      }{ % \bool_if:nTF {##1} FALSE BRANCH
+        % scale factor given?
+        \tl_if_empty:NTF \l_tmpa_tl
+        {
+          \conmath_delim_nabla_op_noscale:NNnn #2 #3 {##3} {##4}
+        }{ % FALSE BRANCH
+          \conmath_delim_nabla_op_manuscale:NNVnn #2 #3 \l_tmpa_tl {##3} {##4}
+        }
+      } % \bool_if:nTF {##1}
       \group_end:
     }
-  }{
-    \msg_warning:nnn {conmath} { vector-calc / already-defined-skip } #1
-  }
+  }{ % \cs_if_free:NTF #1 FALSE BRANCH
+    \msg_warning:nnn { conmath } { vector-calc / already-defined-skip } {#1}
+  } % \cs_if_free:NTF #1
+}
+%
+\cs_generate_variant:Nn \@@_new_delim_nabla_doc_cmd:NNN {cNN}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_new_nabla_doc_cmds:nN}
+%   This internal function creates five different document level commands at once,
+%   using \cs{@@_new_delim_nabla_doc_cmd:cNN}.
+%   It takes two arguments:
+%   \begin{arguments}
+%     \item The a \meta{suffix~tl} for constructing the command names.
+%
+%     The resulting commands will have the form \cs[no-index]{p\meta{suffix}},
+%     \cs[no-index]{b\meta{suffix}}, \cs[no-index]{B\meta{suffix}},
+%     \cs[no-index]{v\meta{suffix}} and \cs[no-index]{V\meta{suffix}}.
+%
+%     \item The \meta{csname} of the operator to use
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_new_nabla_doc_cmds:nN
+{
+  \@@_new_delim_nabla_doc_cmd:cNN { p #1 } #2 \@@_inparent:w
+  \@@_new_delim_nabla_doc_cmd:cNN { b #1 } #2 \@@_inbrack:w
+  \@@_new_delim_nabla_doc_cmd:cNN { B #1 } #2 \@@_inbrace:w
+  \@@_new_delim_nabla_doc_cmd:cNN { v #1 } #2 \@@_in_vert:w
+  \@@_new_delim_nabla_doc_cmd:cNN { V #1 } #2 \@@_in_Vert:w
 }
 %    \end{macrocode}
 % \end{macro}
@@ -1473,300 +1501,66 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% Now lets declare the delimited gradient operators:
+% \paragraph{Operators with Delimiters}
+% \label{par:impl-vec-calc-op-delim}
+%
+% \begin{NOTE}{MI}
+% Redo the document level commands using the new functions.
+% \end{NOTE}
 % \begin{macro}{
-%   \conmath_pgrad_noscale:nn,
-%   \conmath_pgrad_autoscale:nn,
-%   \conmath_pgrad_manuscale:nnn,
-%   \pgrad
+%   \pgrad,
+%   \bgrad,
+%   \Bgrad,
+%   \vgrad,
+%   \Vgrad,
 % }
-% First we provide the version delimited by parenthesis,
+%   Now lets declare the delimited gradient operators.
+%   We provide five versions using parenthesis, brackets, braces, single \tn{vert},
+%   and double \tn{vert}.
 %    \begin{macrocode}
-\@@_new_delim_nabla_ops:nNN {pgrad} \conmath_gradient_operator:n \@@_inparent:w
-
-\@@_new_nabla_doc_command:NNNN \pgrad
-  \conmath_pgrad_noscale:nn
-  \conmath_pgrad_autoscale:nn
-  \conmath_pgrad_manuscale:nnn
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{
-%   \conmath_bgrad_noscale:nn,
-%   \conmath_bgrad_autoscale:nn,
-%   \conmath_bgrad_manuscale:nnn,
-%   \bgrad
-% }
-% followed by the bracketed version,
-%    \begin{macrocode}
-\@@_new_delim_nabla_ops:nNN {bgrad} \conmath_gradient_operator:n \@@_inbrack:w
-
-\@@_new_nabla_doc_command:NNNN \bgrad
-  \conmath_bgrad_noscale:nn
-  \conmath_bgrad_autoscale:nn
-  \conmath_brgad_manuscale:nnn
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{
-%   \conmath_Bgrad_noscale:nn,
-%   \conmath_Bgrad_autoscale:nn,
-%   \conmath_Bgrad_manuscale:nnn,
-%   \Bgrad
-% }
-% the version delimited by braces,
-%    \begin{macrocode}
-\@@_new_delim_nabla_ops:nNN {Bgrad} \conmath_gradient_operator:n \@@_inbrace:w
-
-\@@_new_nabla_doc_command:NNNN \Bgrad
-  \conmath_Bgrad_noscale:nn
-  \conmath_Bgrad_autoscale:nn
-  \conmath_Bgrad_manuscale:nnn
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{
-%   \conmath_vgrad_noscale:nn,
-%   \conmath_vgrad_autoscale:nn,
-%   \conmath_vgrad_manuscale:nnn,
-%   \vgrad
-% }
-% the version delimited by the pipe-symbol aka.\ \texttt{\enquote{\(\vert\)}},
-%    \begin{macrocode}
-\@@_new_delim_nabla_ops:nNN {vgrad} \conmath_gradient_operator:n \@@_in_vert:w
-
-\@@_new_nabla_doc_command:NNNN \vgrad
-  \conmath_vgrad_noscale:nn
-  \conmath_vgrad_autoscale:nn
-  \conmath_vgrad_manuscale:nnn
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{
-%   \conmath_Vgrad_noscale:nn,
-%   \conmath_Vgrad_autoscale:nn,
-%   \conmath_Vgrad_manuscale:nnn,
-%   \Vgrad
-% }
-% and finally the version delimited by \texttt{\enquote{\(\Vert\)}}.
-%    \begin{macrocode}
-\@@_new_delim_nabla_ops:nNN {Vgrad} \conmath_gradient_operator:n \@@_in_Vert:w
-
-\@@_new_nabla_doc_command:NNNN \Vgrad
-  \conmath_Vgrad_noscale:nn
-  \conmath_Vgrad_autoscale:nn
-  \conmath_Vgrad_manuscale:nnn
+\@@_new_nabla_doc_cmds:nN {grad} \conmath_gradient_operator:n
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_pdiv_noscale:nn,
-%   \conmath_pdiv_autoscale:nn,
-%   \conmath_pdiv_manuscale:nnn,
 %   \pdiv,
-%   \conmath_bdiv_noscale:nn,
-%   \conmath_bdiv_autoscale:nn,
-%   \conmath_bdiv_manuscale:nnn,
 %   \bdiv,
-%   \conmath_Bdiv_noscale:nn,
-%   \conmath_Bdiv_autoscale:nn,
-%   \conmath_Bdiv_manuscale:nnn,
 %   \Bdiv,
-%   \conmath_vdiv_noscale:nn,
-%   \conmath_vdiv_autoscale:nn,
-%   \conmath_vdiv_manuscale:nnn,
 %   \vdiv,
-%   \conmath_Vdiv_noscale:nn,
-%   \conmath_Vdiv_autoscale:nn,
-%   \conmath_Vdiv_manuscale:nnn,
 %   \Vdiv
 % }
 % Now we do the same for the divergence operator.
 %    \begin{macrocode}
-% parenthesis
-\@@_new_delim_nabla_ops:nNN {pdiv} \conmath_divergence_operator:n
-  \@@_inparent:w
-
-\@@_new_nabla_doc_command:NNNN \pdiv
-  \conmath_pdiv_noscale:nn
-  \conmath_pdiv_autoscale:nn
-  \conmath_pdiv_manuscale:nnn
-
-% brackets
-\@@_new_delim_nabla_ops:nNN {bdiv} \conmath_divergence_operator:n
-  \@@_inbrack:w
-
-\@@_new_nabla_doc_command:NNNN \bdiv
-  \conmath_bdiv_noscale:nn
-  \conmath_bdiv_autoscale:nn
-  \conmath_bdiv_manuscale:nnn
-
-% braces
-\@@_new_delim_nabla_ops:nNN {Bdiv} \conmath_divergence_operator:n
-  \@@_inbrace:w
-
-\@@_new_nabla_doc_command:NNNN \Bdiv
-  \conmath_Bdiv_noscale:nn
-  \conmath_Bdiv_autoscale:nn
-  \conmath_Bdiv_manuscale:nnn
-
-% pipe symbol
-\@@_new_delim_nabla_ops:nNN {vdiv} \conmath_divergence_operator:n
-  \@@_in_vert:w
-
-\@@_new_nabla_doc_command:NNNN \vdiv
-  \conmath_vdiv_noscale:nn
-  \conmath_vdiv_autoscale:nn
-  \conmath_vdiv_manuscale:nnn
-
-% double pipes
-\@@_new_delim_nabla_ops:nNN {Vdiv} \conmath_divergence_operator:n
-  \@@_in_Vert:w
-
-\@@_new_nabla_doc_command:NNNN \Vdiv
-  \conmath_Vdiv_noscale:nn
-  \conmath_Vdiv_autoscale:nn
-  \conmath_Vdiv_manuscale:nnn
+\@@_new_nabla_doc_cmds:nN {div} \conmath_divergence_operator:n
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_pcurl_noscale:nn,
-%   \conmath_pcurl_autoscale:nn,
-%   \conmath_pcurl_manuscale:nnn,
 %   \pcurl,
-%   \conmath_bcurl_noscale:nn,
-%   \conmath_bcurl_autoscale:nn,
-%   \conmath_bcurl_manuscale:nnn,
 %   \bcurl,
-%   \conmath_Bcurl_noscale:nn,
-%   \conmath_Bcurl_autoscale:nn,
-%   \conmath_Bcurl_manuscale:nnn,
 %   \Bcurl,
-%   \conmath_vcurl_noscale:nn,
-%   \conmath_vcurl_autoscale:nn,
-%   \conmath_vcurl_manuscale:nnn,
 %   \vcurl,
-%   \conmath_Vcurl_noscale:nn,
-%   \conmath_Vcurl_autoscale:nn,
-%   \conmath_Vcurl_manuscale:nnn,
 %   \Vcurl
 % }
 % Now to the curl macros.
 %    \begin{macrocode}
-% parenthesis
-\@@_new_delim_nabla_ops:nNN {pcurl} \conmath_divergence_operator:n
-  \@@_inparent:w
-
-\@@_new_nabla_doc_command:NNNN \pcurl
-  \conmath_pcurl_noscale:nn
-  \conmath_pcurl_autoscale:nn
-  \conmath_pcurl_manuscale:nnn
-
-% brackets
-\@@_new_delim_nabla_ops:nNN {bcurl} \conmath_divergence_operator:n
-  \@@_inbrack:w
-
-\@@_new_nabla_doc_command:NNNN \bcurl
-  \conmath_bcurl_noscale:nn
-  \conmath_bcurl_autoscale:nn
-  \conmath_bcurl_manuscale:nnn
-
-% braces
-\@@_new_delim_nabla_ops:nNN {Bcurl} \conmath_divergence_operator:n
-  \@@_inbrace:w
-
-\@@_new_nabla_doc_command:NNNN \Bcurl
-  \conmath_Bcurl_noscale:nn
-  \conmath_Bcurl_autoscale:nn
-  \conmath_Bcurl_manuscale:nnn
-
-% single pipes
-\@@_new_delim_nabla_ops:nNN {vcurl} \conmath_divergence_operator:n
-  \@@_in_vert:w
-
-\@@_new_nabla_doc_command:NNNN \vcurl
-  \conmath_vcurl_noscale:nn
-  \conmath_vcurl_autoscale:nn
-  \conmath_vcurl_manuscale:nnn
-
-% double pipes
-\@@_new_delim_nabla_ops:nNN {Vcurl} \conmath_divergence_operator:n
-  \@@_in_Vert:w
-
-\@@_new_nabla_doc_command:NNNN \Vcurl
-  \conmath_Vcurl_noscale:nn
-  \conmath_Vcurl_autoscale:nn
-  \conmath_Vcurl_manuscale:nnn
+\@@_new_nabla_doc_cmds:nN {curl} \conmath_curl_operator:n
 %    \end{macrocode}
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_plaplacian_noscale:nn,
-%   \conmath_plaplacian_autoscale:nn,
-%   \conmath_plaplacian_manuscale:nnn,
 %   \plaplacian,
-%   \conmath_blaplacian_noscale:nn,
-%   \conmath_blaplacian_autoscale:nn,
-%   \conmath_blaplacian_manuscale:nnn,
 %   \blaplacian,
-%   \conmath_Blaplacian_noscale:nn,
-%   \conmath_Blaplacian_autoscale:nn,
-%   \conmath_Blaplacian_manuscale:nnn,
 %   \Blaplacian,
-%   \conmath_vlaplacian_noscale:nn,
-%   \conmath_vlaplacian_autoscale:nn,
-%   \conmath_vlaplacian_manuscale:nnn,
 %   \vlaplacian,
-%   \conmath_Vlaplacian_noscale:nn,
-%   \conmath_Vlaplacian_autoscale:nn,
-%   \conmath_Vlaplacian_manuscale:nnn,
 %   \Vlaplacian
 % }
 % Next we take care of the laplacian
 %    \begin{macrocode}
-% parenthesis
-\@@_new_delim_nabla_ops:nNN {plaplacian} \conmath_laplace_operator:n
-  \@@_inparent:w
-
-\@@_new_nabla_doc_command:NNNN \plaplacian
-  \conmath_plaplacian_noscale:nn
-  \conmath_plaplacian_autoscale:nn
-  \conmath_plaplacian_manuscale:nnn
-
-% brackets
-\@@_new_delim_nabla_ops:nNN {blaplacian} \conmath_laplace_operator:n
-  \@@_inbrack:w
-
-\@@_new_nabla_doc_command:NNNN \blaplacian
-  \conmath_blaplacian_noscale:nn
-  \conmath_blaplacian_autoscale:nn
-  \conmath_blaplacian_manuscale:nnn
-
-% braces
-\@@_new_delim_nabla_ops:nNN {Blaplacian} \conmath_laplace_operator:n
-  \@@_inbrace:w
-
-\@@_new_nabla_doc_command:NNNN \Blaplacian
-  \conmath_Blaplacian_noscale:nn
-  \conmath_Blaplacian_autoscale:nn
-  \conmath_Blaplacian_manuscale:nnn
-
-% single pipes
-\@@_new_delim_nabla_ops:nNN {vlaplacian} \conmath_laplace_operator:n
-  \@@_in_vert:w
-
-\@@_new_nabla_doc_command:NNNN \vlaplacian
-  \conmath_vlaplacian_noscale:nn
-  \conmath_vlaplacian_autoscale:nn
-  \conmath_vlaplacian_manuscale:nnn
-
-% double pipes
-\@@_new_delim_nabla_ops:nNN {Vlaplacian} \conmath_laplace_operator:n
-  \@@_in_Vert:w
-
-\@@_new_nabla_doc_command:NNNN \Vlaplacian
-  \conmath_Vlaplacian_noscale:nn
-  \conmath_Vlaplacian_autoscale:nn
-  \conmath_Vlaplacian_manuscale:nnn
+\@@_new_nabla_doc_cmds:nN {laplacian} \conmath_laplace_operator:n
 %    \end{macrocode}
 % \end{macro}
+%
 % If the user issued \texttt{no-vector} as a package loading option,
 % write this to the log file.
 %    \begin{macrocode}
