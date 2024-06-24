@@ -39,5 +39,10 @@
 *.bib
 *.blg
 
+# exclude all .tex files
+*.tex
+# but don't exclude these
+!test.tex
+
 # ignore potential build directory
 /build/

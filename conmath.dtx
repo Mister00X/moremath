@@ -57,8 +57,27 @@
   version = {1.30},
 }
 \end{filecontents}
-\documentclass[full]{l3doc}
+\begin{filecontents*}[overwrite]{\jobname-ams-op-table.tex}
+\begin{tabular}{rlrlrlrl}
+  \cs{arccos} &\(\arccos\)  &\cs{deg}    &\( \deg \)  &\cs{lg}      &\( \lg \)      &\cs{projlim} &\( \projlim \)\\
+  \cs{arcsin} &\(\arcsin\)  &\cs{det}    &\( \det \)  &\cs{lim}     &\( \lim \)     &\cs{sec}     &\( \sec \)\\
+  \cs{arctan} &\(\arctan\)  &\cs{dim}    &\( \dim \)  &\cs{liminf}  &\( \liminf \)  &\cs{sin}     &\( \sin \)\\
+  \cs{arg}    &\(\arg\)     &\cs{exp}    &\( \exp \)  &\cs{limsup}  &\( \limsup \)  &\cs{sinh}    &\( \sinh \)\\
+  \cs{cos}    &\(\cos\)     &\cs{gcd}    &\( \gcd \)  &\cs{ln}      &\( \ln \)      &\cs{sup}     &\( \sup \)\\
+  \cs{cosh}   &\(\cosh\)    &\cs{hom}    &\( \hom \)  &\cs{log}     &\( \log \)     &\cs{tan}     &\( \tan \)\\
+  \cs{cot}    &\(\cot\)     &\cs{inf}    &\( \inf \)  &\cs{max}     &\( \max \)     &\cs{tanh}    &\( \tanh \)\\
+  \cs{coth}   &\(\coth\)    &\cs{injlim} &\(\injlim\) &\cs{min}     &\( \min \)     &                       &\\
+  \cs{csc}    &\(\csc\)     &\cs{ker}    &\(\ker\)    &\cs{Pr}      &\( \Pr \)      &                       &\\
+\end{tabular}
+\begin{center}
+  \begin{tabular}{rlrl}
+    \cs{varinjlim}  &\(\varinjlim\)   &\cs{varliminf} &\(\varliminf\)\\
+    \cs{varprojlim} &\(\varprojlim\)  &\cs{varlimsup} &\(\varlimsup\)\\
+  \end{tabular}
+\end{center}
+\end{filecontents*}
 
+\documentclass[show-notes]{l3doc}
 \usepackage[american]{babel}
 
 \usepackage[style=alphabetic]{biblatex}
@@ -657,6 +676,341 @@
 \cs_generate_variant:Nn \conmath_new_delim_op_command:NNN {cNN}
 %    \end{macrocode}
 % \end{macro}
+%
+% \subsubsection{Document Level Commands}
+% \label{sec:impl-delim-op-doc-cmds}
+%
+% As \pkg{amsmath}~\autocite{amsmath} pre-defines the following operators
+% it is only sensible to also define delimited versions of them:\\
+% \input{\jobname-ams-op-table.tex}
+%
+% \begin{macro}{\@@_new_delim_op_cmds:nN}
+%   \cs{@@_new_delim_op_cmds:nN} creates document level macros of the form
+%   \cs[no-index]{\meta{prefix}\meta{op name}}.
+%   It declares fife versions \cs[no-index]{p\meta{op name}},
+%   \cs[no-index]{b\meta{op name}}, \cs[no-index]{B\meta{op name}},
+%   \cs[no-index]{v\meta{op name}} and \cs[no-index]{V\meta{op name}}.
+%
+%   The function takes two arguments:
+%   \begin{arguments}
+%     \item A token list which contains \meta{op name}
+%
+%     \item The \meta{csname} of the operator to use.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_new_delim_op_cmds:nN
+{
+  \conmath_new_delim_op_command:cNN {p #1} #2 \@@_inparent:w
+  \conmath_new_delim_op_command:cNN {b #1} #2 \@@_inbrack:w
+  \conmath_new_delim_op_command:cNN {B #1} #2 \@@_inbrace:w
+  \conmath_new_delim_op_command:cNN {v #1} #2 \@@_in_vert:w
+  \conmath_new_delim_op_command:cNN {V #1} #2 \@@_in_Vert:w
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%  The decision if the following macros are defined depends on a package load
+%  time option.
+%    \begin{macrocode}
+\bool_if:NTF \l_@@_predef_operators_bool
+{
+%    \end{macrocode}
+% We define the commands for the operators already declared by amsmath.
+% \begin{macro}[documented-as=\parccos]{
+%   \parccos, \barccos, \Barccos, \varccos, \Varccos,
+% }
+% For \cs{arccos},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {arccos} \arccos
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \parcsin, \barcsin, \Barcsin, \varcsin, \Varcsin,
+% }
+% \cs{arcsin},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {arcsin} \arcsin
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \parctan, \barctan, \Barctan, \varctan, \Varctan,
+% }
+% \cs{arctan},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {arctan} \arctan
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \Parg, \barg, \Barg, \varg, \Varg,
+% }
+% \cs{arg}
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {arg} \arg
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pcos, \bcos, \Bcos, \vcos, \Vcos,
+% }
+% \cs{cos}
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {cos} \cos
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pcosh, \bcosh, \Bcosh, \vcosh, \Vcosh,
+% }
+% \cs{cosh},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {cosh} \cosh
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pcot, \bcot, \Bcot, \vcot, \Vcot,
+% }
+% \cs{cot},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {cot} \cot
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pcoth, \bcoth, \Bcoth, \vcoth, \Vcoth,
+% }
+% \cs{coth},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {coth} \coth
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pcsc, \bcsc, \Bcsc, \vcsc, \Vcsc,
+% }
+% \cs{csc},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {csc} \csc
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pdeg, \bdeg, \Bdeg, \vdeg, \Vdeg,
+% }
+% \cs{deg},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {deg} \deg
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pdet, \bdet, \Bdet, \vdet, \Vdet,
+% }
+% \cs{det},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {det} \det
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pdim, \bdim, \Bdim, \vdim, \Vdim,
+% }
+% \cs{dim},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {dim} \dim
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pexp, \bexp, \Bexp, \vexp, \Vexp,
+% }
+% \cs{exp},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {exp} \exp
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pgcd, \bgcd, \Bgcd, \vgcd, \Vgcd,
+% }
+% \cs{gcd},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {gcd} \gcd
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \phom, \bhom, \Bhom, \vhom, \Vhom,
+% }
+% \cs{hom},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {hom} \hom
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pinf, \binf, \Binf, \vinf, \Vinf,
+% }
+% \cs{inf},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {inf} \inf
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pinjlim, \binjlim, \Binjlim, \vinjlim, \Vinjlim,
+% }
+% \cs{injlim},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {injlim} \injlim
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pker, \bker, \Bker, \vker, \Vker,
+% }
+% \cs{ker},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {ker} \ker
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \plg, \blg, \Blg, \vlg, \Vlg,
+% }
+% \cs{lg},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {lg} \lg
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \plim, \blim, \Blim, \vlim, \Vlim,
+% }
+% \cs{lim},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {lim} \lim
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pliminf, \bliminf, \Bliminf, \vliminf, \Vliminf,
+% }
+% \cs{liminf},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {liminf} \liminf
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \plimsup, \blimsup, \Blimsup, \vlimsup, \Vlimsup,
+% }
+% \cs{limsup},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {limsup} \limsup
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pln, \bln, \Bln, \vln, \Vln,
+% }
+% \cs{ln}
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {ln} \ln
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \plog, \blog, \Blog, \vlog, \Vlog,
+% }
+% \cs{log},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {log} \log
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pmax, \bmax, \Bmax, \vmax, \Vmax,
+% }
+% \cs{max},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {max} \max
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pmin, \bmin, \Bmin, \vmin, \Vmin,
+% }
+% \cs{min},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {min} \min
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pPr, \bPr, \BPr, \vPr, \VPr,
+% }
+% \cs{Pr},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {Pr} \Pr
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \pprojlim, \bprojlim, \Bprojlim, \vprojlim, \Vprojlim,
+% }
+% \cs{projlim},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {projlim} \projlim
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \psec, \bsec, \Bsec, \vsec, \Vsec,
+% }
+% \cs{sec},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {sec} \sec
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \psin, \bsin, \Bsin, \vsin, \Vsin,
+% }
+% \cs{sin},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {sin} \sin
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \psinh, \bsinh, \Bsinh, \vsinh, \Vsinh,
+% }
+% \cs{sinh},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {sinh} \sinh
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \psup, \bsup, \Bsup, \vsup, \Vsup,
+% }
+% \cs{sup},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {sup} \sup
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \ptan, \btan, \Btan, \vtan, \Vtan,
+% }
+% \cs{tan},
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {tan} \tan
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[documented-as=\parccos]{
+%   \ptanh, \btanh, \Btanh, \vtanh, \Vtanh
+% }
+% and \cs{tanh}.
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {tanh} \tanh
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{
+%   \pvarinjlim, \bvarinjlim, \Bvarinjlim, \vvarinjlim, \Vvarinjlim,
+%   \pvarprojlim, \bvarprojlim, \Bvarprojlim, \vvarprojlim, \Vvarprojlim,
+%   \pvarliminf, \bvarliminf, \Bvarliminf, \vvarliminf, \Vvarliminf,
+%   \pvarlimsup, \bvarlimsup, \Bvarlimsup, \vvarlimsup, \Vvarlimsup,
+% }
+%   We also provide delimited versions of \cs{varinjlim}, \cs{varprojlim},
+%   \cs{varliminf} and \cs{varlimsup}.
+%    \begin{macrocode}
+\@@_new_delim_op_cmds:nN {varinjlim} \varinjlim
+\@@_new_delim_op_cmds:nN {varprojlim} \varprojlim
+\@@_new_delim_op_cmds:nN {varliminf} \varliminf
+\@@_new_delim_op_cmds:nN {varlimsup} \varlimsup
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+}{
+  \msg_info:nnnn {conmath} {load /disabling} {no-operators}
+  {
+    predefined~delimited~operator~macros
+  }
+} % End of the conditional
+%    \end{macrocode}
 %
 % ^^X SUBSECTION: Vector Calculus Macros
 % \subsection{Vector Calculus Macros}
