@@ -440,6 +440,122 @@
 \RequirePackage{mathtools}[2004/06/05]
 %    \end{macrocode}
 %
+% ^^X SUBSECTION: Delimited Operators
+% \subsection{Delimited Operators}
+% \label{sec:impl-delim-op}
+%
+% We need three different functions for providing the delimited operators.
+% But as we share a lot of code between those, we define an additional
+% helper function beforehand.
+% \begin{macro}{
+%   \@@_operator:Nnn
+% }
+% The function \cs{@@_operator:Nnn} takes care of the operator part
+% of the new delimiter.
+% It allows the operator to have super- and subscripts.
+% It takes three arugments.
+% \begin{arguments}
+%   \item The \meta{csname} of the operator to use.
+%   \item A \meta{token list}, which is used as the superscript operator.
+%
+%         This argument may be empty
+%   \item A \meta{tl}, which is used as the subscript operator.
+%
+%         The \meta{tl} may be empty.
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_operator:Nnn
+{
+  #1
+  % add superscript if present
+  \tl_if_empty:nF {#2} {^{#2}}
+  % add subscript if present
+  \tl_if_empty:nF {#3} { \c_math_subscript_token {#3} }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% We now define three version of the delimited operators.
+% \begin{macro}{
+%   \conmath_delim_op_noscale:NNnnn,
+%   \conmath_delim_op_autoscale:NNnnn,
+% }
+%   \cs{conmat_delim_op_noscale:NNnnn} is provides a delimited operator without
+%   any scaling of the delimiters
+%   and \cs{conmath_delim_op_autoscale:NNnnn} provides a version with
+%   automatic scaling of the delimiters.
+%   Both of them take five arguments:
+%   \begin{arguments}
+%     \item The \meta{csname} of the operator to use.
+%
+%           Any operator declared with \pkg{amsmath}'s \cs{operatorname}
+%           and/or\linebreak[3] \cs{DeclareMathOperator} is valid for this.
+%
+%     \item The \meta{csname} of a paired delimiter declared by
+%           \pkg{mathtools}'~\autocite{mathtools} \cs{DeclarePairedDelimiter}.
+%
+%     \item A \meta{tl} to use as the superscript of the operator.
+%
+%     \item A \meta{tl} to use as the subscript of the operator.
+%
+%     \item A \meta{tl} to insert inside the delimiters.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \conmath_delim_op_noscale:NNnnn
+{
+  \@@_operator:Nnn #1 {#3} {#4}
+  % #2 is the paired delimiter
+  #2 {#5}
+}
+
+\cs_new_protected_nopar:Nn \conmath_delim_op_autoscale:NNnnn
+{
+  \@@_operator:Nnn #1 {#3} {#4}
+  % #2 is the paired delimiter
+  #2 * {#5}
+}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{
+%   \conmath_delim_op_manuscale:NNnnnn,
+%   \conmath_delim_op_manuscale:NNVnnn
+% }
+%   \cs{conmath_delim_op_manuscale:NNnnnn} provides a delimited operator with
+%   manual scaling.
+%   This version takes six arguments:
+%   \begin{arguments}
+%     \item The \meta{csname} of the operator to use.
+%
+%     \item The \meta{csname} of the paired delimiter
+%     declared by \pkg{mathtools}'~\autocite{mathtools}\linebreak[3]
+%     \cs{DeclarePairedDelimiter}.
+%
+%     \item A \meta{tl} containing the scaling macro i.e.\ \cs{big}, \cs{Big},
+%       \cs{Bigg},\dots
+%
+%     \item A \meta{tl} containing the superscript of the operator.
+%
+%      The \meta{tl} may be empty
+%
+%     \item A \meta{tl} containing the subscript of the operator
+%
+%       The \meta{tl} may be empty.
+%
+%     \item A \meta{tl} to insert inside the delimiters
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \conmath_delim_op_manuscale:NNnnnn
+{
+  \@@_operator:Nnn #1 {#4} {#5}
+  % #2 is the paired delimiter
+  #2 [ #3 ] {#6}
+}
+%    \end{macrocode}
+% We also provide a variant for the scaling macro.
+%    \begin{macrocode}
+\cs_generate_variant:Nn \conmath_delim_op_manuscale:NNnnnn {NNVnnn}
+%    \end{macrocode}
+% \end{macro}
 % ^^X SUBSECTION: Vector Calculus Macros
 % \subsection{Vector Calculus Macros}
 % \label{sec:vector-calc}
