@@ -577,12 +577,30 @@
 %    \begin{macrocode}
 \cs_new_protected_nopar:Nn \conmath_divergence_operator:n
 {
-  \conmath_gradient_operator:n {#1} \cdot
+%    \end{macrocode}
+%   The braces around \cs{conmath_gradient_operator:n} are necessary to avoid
+%   issues with the spacing between \tn{cdot} and the following \tn{mathopen}
+%   from any braces.\footnote{%
+%   See: \url{https://tex.stackexchange.com/a/223914}
+%   }
+%   Example:
+%   \[
+%   \text{With braces:}\quad \pdiv{f(x)} \text{,}
+%   \qquad\text{without braces: }\quad \mathop{\nabla}\nolimits\cdot(f(x))
+%   \]
+%    \begin{macrocode}
+  {
+    \conmath_gradient_operator:n {#1}
+  }
+  \cdot
 }
 
 \cs_new_protected_nopar:Nn \conmath_curl_operator:n
 {
-  \conmath_gradient_operator:n {#1} \times
+  {
+    \conmath_gradient_operator:n {#1}
+  }
+  \times
 }
 %    \end{macrocode}
 % \end{macro}
