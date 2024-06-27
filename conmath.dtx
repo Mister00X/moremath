@@ -2046,7 +2046,7 @@
   \seq_clear:N \l_@@_vector_entries_seq
   \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
 
-  \begin{#1 matrix*} [\l_@@_matrix_align_tl]
+  \exp_args:NnNV \begin{#1 matrix*} [ \l_@@_matrix_align_tl ]
     \@@_seq_to_column_vector:N \l_@@_vector_entries_seq
   \end{#1 matrix*}
 }
@@ -2056,7 +2056,7 @@
   \seq_clear:N \l_@@_vector_entries_seq
   \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
 
-  \begin{#1matrix*}[\l_@@_matrix_align_tl]
+  \exp_args:NnNV \begin{#1matrix*} [ \l_@@_matrix_align_tl ]
     \@@_seq_to_row_vector:N \l_@@_vector_entries_seq
   \end{#1matrix*}
 }
@@ -2201,7 +2201,7 @@
 \cs_new_protected:Nn \conmath_diagonal_matrix:nn
 {
   \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
-  \begin{#1 matrix*} [ \l_@@_matrix_align_tl ]
+  \exp_args:NnNV \begin{#1 matrix*} [ \l_@@_matrix_align_tl ]
     \int_step_function:nN { \seq_count:N \l_@@_mat_diag_entries_seq }
       \@@_constr_diagmat_row:n
   \end{#1 matrix*}
@@ -2211,7 +2211,7 @@
 \cs_new_protected:Nn \conmath_antidiagonal_matrix:nn
 {
   \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
-  \begin{ #1 matrix* } [ \l_@@_matrix_align_tl ]
+  \exp_args:NnNV \begin{ #1 matrix* } [ \l_@@_matrix_align_tl ]
     \int_step_function:nN { \seq_count:N \l_@@_mat_diag_entries_seq }
       \@@_constr_antidiagmat_row:n
   \end{ #1 matrix* }
