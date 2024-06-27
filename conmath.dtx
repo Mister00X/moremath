@@ -1627,6 +1627,31 @@
 % \end{quote}
 %
 %
+% \section{Shorthands for Absolute Value and Norm}
+% \label{sec:shorthands}
+%
+% \DescribeOption{no-abs-shorthands}
+% The commands in this section are only declared if the option "no-abs-shorthands"
+% has not been given to the package as a load time option.
+%
+% \begin{function}{
+%   \abs,
+%   \norm
+% }
+%   \begin{syntax}
+%     \cs{abs} \oarg{size cmd} \marg{content}
+%     \cs{abs}* \marg{content}
+%     \cs{norm} \oarg{size cmd} \marg{content}
+%     \cs{norm}* \marg{content}
+%   \end{syntax}
+%   The commands \cs{abs} and \cs{norm}, produce \(\abs{\cdot}\) and
+%   \(\norm{\cdot}\) respectively.
+%   These commands are simply paired delimiters defined using \pkg{mathtools}'
+%   \cs[module=mathtools,replace=false]{DeclarePairedDelimiter} command,
+%   instruction on their usage can therefore be found in~\textcite{mathtools}.
+% \end{function}
+%
+%
 % \end{documentation}
 % \begin{implementation}
 % \section{Implementation}
