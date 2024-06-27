@@ -123,6 +123,7 @@
 \usepackage{csquotes}
 \SetCiteCommand{\autocite}
 
+\usepackage{amssymb}
 \usepackage[bm]{conmath}
 
 % renew the ctanbibpkgname command
@@ -176,26 +177,47 @@
 % loads the \pkg{bm}~\autocite{bm} package which provides a better version of
 % the \cs{boldsymbol} command.
 %
-% \DescribeOption{no-vector}
-% \DescribeOption{no-abs-shorthands}
-% \DescribeOption{no-operators}
-% \NB{MI}{Missing: no-crvector and no-matrix}
-% The options \verb|no-vector|, \verb|no-abs-shorthands| and \verb|no-operators|
+%
+%
+% 
+% The options
+% \DescribeOption{no-vector} "no-vector",
+% \DescribeOption{no-abs-shorthands} "no-abs-shorthands",
+% \DescribeOption{no-operators} "no-operators",
+% \DescribeOption{no-crvector} "no-crvector",
+% and \DescribeOption{no-matrix} "no-matrix"
 % disable the definition of the predefined commands described in sections~\ref{sec:vector-calculus},
-% \ref{sec:shorthands} and~\ref{sec:delim-ops} respectively.
+% \ref{sec:shorthands},
+% \ref{sec:delim-ops},
+% \ref{sec:rc-vectors},
+% and~\ref{sec:matrices}
+% respectively.
 %
 % \DescribeOption{nopredef}
-%   The option |nopredef| achieves the same as the three
-%   |no-|\meta{functionality} options above.
-%   It accepts multiple values, valid option values are: |vector|, |abs|,
-%   |operators| and |all|.
-%   The values |abs|, |operators|, and |vector| disable the predefined
-%   document level commands for delimited operators, vector calculus and
-%   the shorthands for absolute value and norm respectively.
-%   The special value |all| disables all of them.
+% The option |nopredef| achieves the same as the three
+% |no-|\meta{functionality} options above.
+% It accepts multiple values, valid option values are:
+% |vector|,
+% |abs|,
+% |operators|,
+% |crvector|,
+% |matrix|,
+% and |all|.
+% The values
+% |abs|,
+% |operators|,
+% and |vector|
+% disable the predefined
+% document level commands for
+% delimited operators,
+% vector calculus
+% and the shorthands for absolute value and norm respectively.
+% The values "crvector" and "matrix" disable the shorthand commands
+% for row and column vectors, and simple matrices respectively.
+% The special value |all| disables all of them.
 %
-%   The option accepts multiple values which can be given as a comma separated
-%   list, or as multiple key-value options, like in the examples below:
+% The option accepts multiple values which can be given as a comma separated
+% list, or as multiple key-value options, like in the examples below:
 % \begin{verbatim}
 % \usepackage[nopredef={vector,abs,operators}]{conmath}
 % \end{verbatim}
@@ -1309,6 +1331,299 @@
 %   \end{verbatim}
 % An inline version of \verb|\pcvector| looks like this
 % \(\psmallcvector{1,0}\).
+% \end{quote}
+%
+%
+% \section{Shorthands for Simple Matrices}
+% \label{sec:matrices}
+%
+% \DescribeOption{no-matrix}
+% The commands in this section are only defined if the option "no-matrix"
+% \emph{has not been given} to the package at load-time.
+%
+%
+% \subsection{(Anti-)diagonal Matrices}
+% \label{sec:diagonal-matrices}
+%
+% \begin{function}{
+%   \diagmat,
+%   \antidiagmat,
+% }
+% \begin{syntax}
+%   \cs{diagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{antidiagmat} \oarg{kv opts} \marg{diagonal}
+% \end{syntax}
+% \cs{diagmat} and \cs{antidiagmat} produce a diagonal or anti-diagonal matrix
+% respectively.
+% The optional argument \meta{kv~opts} accepts the key value options
+% described in section~\ref{sec:options-matrix}.
+%
+% The key "fill" determines the contents of the matrix entries
+% which are not part of the (anti-)diagonal,
+% its default value is |{}| i.e.\ empty.
+% The key "align" determines the alignment of the entries inside the
+% matrix, valid values are usually "l", "c", and "r",
+% the default is "c".
+% The key "delimiter" determines the delimiter around the matrix,
+% its default value is |{}| (none).
+% Valid values for the delimiters are "p" for parenthesis,
+% "b" for brackets, "B" for braces, "v" for a single vertical line
+% (\enquote{\(\vert\)}), and "V" for a double vertical line (\enquote{\(\Vert\)}).
+% See the \pkg{mathtools} manual~\autocite{mathtools} for more information.
+%
+% \begin{texnote}
+%   The value of "delimiter" gets inserted inside the |\begin{#1matrix*}|
+%   and |\end{#1matrix*}| commands.
+%   Therefore it would be possible to define your own \env{matrix*}
+%   like environment,
+%   called for example \env{mymatrix*} and set "delimiter=my"
+%   to make use of it.
+% \end{texnote}
+%
+% The mandatory argument \meta{diagonal} has to be a comma separated list
+% of the entries of the (anti-)diagonal.
+% If an entry of the diagonal needs to contain a comma "," the entire entry
+% has to be wrapped in braces.
+% \end{function}
+%
+% \medskip\noindent
+% \textbf{Examples:}
+% \begin{enumerate}
+%   \item A diagonal and an anti-diagonal matrix without delimiters:
+%
+%        \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \begin{gather*}
+%   \diagmat{1,2,3}\\[.5ex]
+%   \antidiagmat{1,2,3}
+% \end{gather*}
+%           \end{verbatim}
+%        \end{minipage}\hfill
+%        \begin{minipage}{.49\linewidth}
+%          \begin{gather*}
+%             \diagmat{1,2,3}\\[.5ex]
+%             \antidiagmat{1,2,3}
+%          \end{gather*}
+%        \end{minipage}
+%     \item A diagonal matrix delimited by parenthesis filled with zeros:
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \diagmat[delimiter=p,fill=0]{1,2,3}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[
+%                \diagmat[delimiter=p,fill=0]{1,2,3}
+%             \]
+%           \end{minipage}
+%
+%     \item A diagonal matrix filled with a symbol:
+%
+%       \begin{minipage}{.49\linewidth}
+%         \begin{verbatim}
+% \[
+%   \diagmat[fill=\square]{1,2,3}
+% \]
+%         \end{verbatim}
+%       \end{minipage}\hfill
+%       \begin{minipage}{.49\linewidth}
+%         \[\diagmat[fill=\square]{1,2,3}\]
+%       \end{minipage}
+%
+%   \item Diagonal matrices with different alignment:
+%
+%         \begin{verbatim}
+% \[
+%   \diagmat[delimiter=p,align=c,fill=0]{-1,-2,-3} \qquad
+%   \diagmat[delimiter=p,align=l,fill=0]{-1,-2,-3} \qquad
+%   \diagmat[delimiter=p,align=r,fill=0]{-1,-2,-3}
+% \]
+%         \end{verbatim}
+%         \[
+%           \diagmat[delimiter=p,align=c,fill=0]{-1,-2,-3} \qquad
+%           \diagmat[delimiter=p,align=l,fill=0]{-1,-2,-3} \qquad
+%           \diagmat[delimiter=p,align=r,fill=0]{-1,-2,-3}
+%         \]
+% \end{enumerate}
+%
+%
+% \paragraph{Shorthands for (Anti-)diagonal Matrices with Delimiters}
+%
+% As matrices are more often than not written inside of delimiters,
+% \pkg{conmath} provides several shorthands for producing those matrices
+% without having to set the "delimiter" key explicitly.
+% \begin{function}{
+%   \pdiagmat,
+%   \bdiagmat,
+%   \Bdiagmat,
+%   \vdiagmat,
+%   \Vdiagmat
+% }
+% \begin{syntax}
+%   \cs{pdiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{bdiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Bdiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{vdiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Vdiagmat} \oarg{kv opts} \marg{diagonal}
+% \end{syntax}
+% The \cs[no-index]{\meta{delim}diagmat} family of commands provides
+% shorthands for producing a delimited (anti-)diagonal matrix
+% without having to set the "delimiter" key explicitly every time.
+% The pre-set "delimiter" may be overwritten by explicitly passing "delimiter"
+% as a key-value option.
+%
+% The optional argument \meta{kv~opts} accepts the same key-value arguments
+% as \cs{diagmat}.
+% \end{function}
+%
+% \medskip\noindent
+% \textbf{Example:}
+% \begin{quote}
+%   \begin{minipage}{.49\linewidth}
+%     \begin{verbatim}
+% \[
+%   \pdiagmat{1,2,3}
+% \]
+%     \end{verbatim}
+%   \end{minipage}\hfill
+%   \begin{minipage}{.49\linewidth}
+%     \[
+%       \pdiagmat{1,2,3}
+%     \]
+%   \end{minipage}
+% \end{quote}
+%
+% \begin{function}{
+%   \pantidiagmat,
+%   \bantidiagmat,
+%   \Bantidiagmat,
+%   \vantidiagmat,
+%   \Vantidiagmat
+% }
+% \begin{syntax}
+%   \cs{pantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{bantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Bantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{vantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Vantidiagmat} \oarg{kv opts} \marg{diagonal}
+% \end{syntax}
+% The \cs[no-index]{\meta{delim}antidiagmat} family of commands behaves
+% like the \cs[no-index]{\meta{delim}diagmat} commands described above,
+% except they produce anti-diagonal matrices.
+% \end{function}
+%
+% \medskip\noindent
+% \textbf{Example:}
+% \begin{quote}
+%   \begin{minipage}{.49\linewidth}
+%     \begin{verbatim}
+% \[
+%   \pantidiagmat{1,2,3}
+% \]
+%     \end{verbatim}
+%   \end{minipage}
+%   \begin{minipage}{.49\linewidth}
+%     \[
+%       \pantidiagmat{1,2,3}
+%     \]
+%   \end{minipage}
+% \end{quote}
+%
+%
+% \subsubsection{Small Versions for Inline Math}
+% \label{sec:matrices-small}
+%
+% \pkg{mathtools} defines special matrix environments for use in
+% inline math mode,
+% the \env{smallmatrix} and \env{smallmatrix*} family of environments.
+% \pkg{conmath} provides for the case of typesetting an (anti-)diagonal
+% matrix several commands which utilize these inline math versions.
+%
+% \begin{function}{
+%   \smalldiagmat,
+%   \smallantidiagmat,
+% }
+% \begin{syntax}
+%   \cs{smalldiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{smallantidiagmat} \oarg{kv opts} \marg{diagonal}
+% \end{syntax}
+% The \cs{smalldiagmat} and \cs{smallantidiagmat} commands behave like
+% their non-"small" counterpart described above,
+% see their description for more information.
+% \end{function}
+%
+% \medskip\noindent
+% \textbf{Example:}
+% \begin{quote}
+%   \begin{verbatim}
+% An inline version of a diagonal matrix looks like this
+% \(\smalldiagmat{1,1}\).
+%   \end{verbatim}
+% An inline version of a diagonal matrix looks like this
+% \(\smalldiagmat{1,1}\).
+% \end{quote}
+%
+% \begin{function}{
+%   \psmalldiagmat,
+%   \bsmalldiagmat,
+%   \Bsmalldiagmat,
+%   \vsmalldiagmat,
+%   \Vsmalldiagmat,
+% }
+% \begin{syntax}
+%   \cs{psmalldiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{bsmalldiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Bsmalldiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{vsmalldiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Vsmalldiagmat} \oarg{kv opts} \marg{diagonal}
+% \end{syntax}
+% Like the \cs[no-index]{\meta{delim}diagmat} commands described above
+% there are also shorthand commands for producing an inline math version
+% of a diagonal matrix with pre-set delimiters.
+% \end{function}
+%
+% \medbreak\noindent
+% \textbf{Example:}
+% \begin{quote}
+%   \begin{verbatim}
+% An inline math delimited diagonal matrix looks like this
+% \(\psmalldiagmat{1,1}\).
+%   \end{verbatim}
+% An inline math delimited diagonal matrix looks like this
+% \(\psmalldiagmat{1,1}\).
+% \end{quote}
+%
+% \begin{function}{
+%   \psmallantidiagmat,
+%   \bsmallantidiagmat,
+%   \Bsmallantidiagmat,
+%   \vsmallantidiagmat,
+%   \Vsmallantidiagmat,
+% }
+% \begin{syntax}
+%   \cs{psmallantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{bsmallantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Bsmallantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{vsmallantidiagmat} \oarg{kv opts} \marg{diagonal}
+%   \cs{Vsmallantidiagmat} \oarg{kv opts} \marg{diagonal}
+% \end{syntax}
+% Like the \cs[no-index]{\meta{delim}antidiagmat} commands described above
+% there are also shorthand commands for producing inline math versions
+% of anti-diagonal matrices inside of delimiters.
+% \end{function}
+%
+% \medbreak\noindent
+% \textbf{Example:}
+% \begin{quote}
+%   \begin{verbatim}
+% A delimited version of an inline math anti-diagonal matrix
+% looks like this \(\psmallantidiagmat{1,1}\).
+%   \end{verbatim}
+% A delimited version of an inline math anti-diagonal matrix
+% looks like this \(\psmallantidiagmat{1,1}\).
 % \end{quote}
 %
 %
