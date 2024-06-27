@@ -516,6 +516,575 @@
 % \[
 %   \pglorb{a}
 % \]
+%
+%
+% \section{Vector Calculus Operators}
+% \label{sec:vector-calculus}
+%
+% \DescribeOption{no-vector}
+% The commands in this section are only declared if the option |no-vector|
+% has not been given to the package as a load time option.
+%
+% All of the commands described in this section take key-value options
+% as optional argument, which are described in section~\ref{sec:options-vec-calc}
+%
+% \subsection{Gradient Operator Commands}
+% \label{sec:grad-op-cmds}
+%
+% \subsubsection{Standalone Operator Command}
+% \label{sec:grad-op-standalone}
+%
+% \begin{function}{
+%   \grad,
+% }
+%   \begin{syntax}
+%     \cs{grad} \oarg{kv opts}
+%     \cs{grad} \oarg{kv opts} \_\marg{subscript}
+%   \end{syntax}
+%   The \cs{grad} command produces a gradient operator
+%   looking like this \enquote{\(\grad\)} by default.
+%   The optional argument \meta{kv opts} accepts the key-value options
+%   described in section~\ref{sec:options-vec-calc}.
+%   An optional subscript using "_" may be given after the optional argument.
+% \end{function}
+%
+% \paragraph{Examples of Use}
+% \begin{enumerate}
+%   \item Standalone gradient operator (with and without subscript):
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \grad f(x), \quad \grad_{x} f(x)
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[
+%             \grad f(x), \quad \grad\sb{x} f(x)
+%           \]
+%         \end{minipage}
+%
+%   \item Bold version of the gradient operator:
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \grad[boldnabla] f(x)
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[
+%             \grad[boldnabla] f(x)
+%           \]
+%         \end{minipage}
+%
+%   \item Gradient operator with an arrow:
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \grad[arrownabla] f(x)
+% \]
+%           \end{verbatim}
+%         \end{minipage}
+%         \begin{minipage}{.49\linewidth}
+%           \[
+%             \grad[arrownabla] f(x)
+%           \]
+%         \end{minipage}
+% \end{enumerate}
+%
+% \subsubsection{Operators with Delimiters}
+% \label{sec:grad-op-delim}
+%
+% \begin{function}{
+%   \pgrad,
+%   \bgrad,
+%   \Bgrad,
+%   \vgrad,
+%   \Vgrad
+% }
+% \begin{syntax}
+%   \cs[no-index]{\meta{delim}grad} \oarg{size cmd} \marg{content}
+%   \cs[no-index]{\meta{delim}grad} \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}grad} \oarg{size cmd} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}grad} \oarg{kv opts} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}grad}* \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}grad}* \oarg{kv opts} \_\marg{subscript} \marg{content}
+% \end{syntax}
+% The \cs[no-index]{\meta{delim}grad} family of commands produces
+% gradient operator which is followed by \meta{contents} inside delimiters.
+% The delimiter is determined by the first letter of the command \meta{delim},
+% which may be "p" for parenthesis, "b" for brackets, "B" for braces,
+% "v" for a single vertical line (\enquote{\(\vert\)}), or "V" for a double
+% vertical line (\enquote{\(\Vert\)}).
+%
+% The commands accept either a \meta{size command} as optional argument,
+% which gets passed to \pkg{mathtools}~\autocite{mathtools} paired delimiter
+% or a list of \meta{key-value option}s,
+% the \meta{kv opts} \emph{must} be given using the complete syntax,
+% i.e.\ \meta{key}"="\meta{value},
+% shorthands for options with an implicit default value (|arrownabla|),
+% will not work here.
+% The \meta{size~command} is usually one of \cs{big}, \cs{Big}, \cs{bigg} and
+% \cs{Bigg}.
+% Valid \meta{kv opts} are all options described in section~\ref{sec:options-vec-calc}
+% and the key "scale" which accepts a \meta{size cmd}.
+%
+% \begin{quote}
+%   \textbf{Note:}\\
+%   Do not mix \meta{kv opts} and \meta{size cmd},
+%   use either |\pgrad[\big]{f(x)}| or |\pgrad[arrownabla=true,scale=\big]{f(x)}|.
+% \end{quote}
+%
+% \medskip\noindent
+% An optional \meta{subscript} may be given between the optional argument,
+% and \meta{contents}. One use case for this subscript is to write formulae
+% using the so called Feynman-notation, where the gradient operator acts
+% only on one variable.
+%
+% The starred version of the commands automatically scale the delimiters
+% with its contents.
+% \end{function}
+%
+% \paragraph{Examples:}
+% \begin{enumerate}
+%     \item Gradient operator with non-scaled delimiters:
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \pgrad{1+\vec{x}}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[
+%               \pgrad{1+\vec{x}}
+%             \]
+%           \end{minipage}
+%
+%     \item Bold version:
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \pgrad[boldnabla=true]{1+\vec{x}}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[
+%               \pgrad[boldnabla=true]{1+\vec{x}}
+%             \]
+%           \end{minipage}
+%
+%     \item Gradient operator with automatically scaled delimiters:
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \pgrad*{\frac{1}{x}}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[
+%               \pgrad*{\frac{1}{x}}
+%             \]
+%           \end{minipage}
+%
+%     \item Manually scaled version:
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \begin{gather*}
+%   \pgrad[\Big]{\frac{1}{x}}\\[.5ex]
+%   \pgrad[scale=\Big]{\frac{1}{x}}
+% \end{gather*}
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \begin{gather*}
+%               \pgrad[\Big]{\frac{1}{x}}\\[.5ex]
+%               \pgrad[scale=\Big]{\frac{1}{x}}
+%             \end{gather*}
+%           \end{minipage}
+%
+%     \item Feynman-Notation:
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \pgrad_{x}{x+y+z}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[
+%               \pgrad\sb{x}{x+y+z}
+%             \]
+%           \end{minipage}
+% \end{enumerate}
+%
+% \subsection{Divergence Operator Commands}
+% \label{sec:div-op-cmds}
+%
+% \subsubsection{Standalone Operator Command}
+% \label{sec:div-op-standalone}
+%
+% \begin{function}{\divergence}
+%   \begin{syntax}
+%     \cs{divergence} \oarg{kv opts} \marg{contents}
+%     \cs{divergence} \oarg{kv opts} \_\marg{subscript} \marg{contents}
+%   \end{syntax}
+%   The \cs{divergence} command produces the divergence operator
+%   \enquote{\(\divergence\)},
+%   its usage is analogous to the use of the \cs{grad} command,
+%   which is described in section~\ref{sec:grad-op-standalone}.
+% \end{function}
+%
+% \paragraph{Examples}
+% \begin{enumerate}
+%   \item Standalone divergence operator
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \divergence f(x)
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[\divergence f\]
+%         \end{minipage}
+%
+%     \item Standalone divergence operator
+%           with an arrow over the gradient operator
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \divergence[arrownabla] f(x)
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[\divergence[arrownabla] f(x)\]
+%           \end{minipage}
+%
+%     \item Standalone divergence operator with subscript
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \divergence_{x} f(x)
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           ^^X We need to use \sb because of the subscript package
+%           \begin{minipage}{.49\linewidth}
+%             \[\divergence\sb{x} f(x)\]
+%           \end{minipage}
+% \end{enumerate}
+% \subsubsection{Operators with Delimiters}
+% \label{sec:div-op-delim}
+%
+% \begin{function}{
+%   \pdiv,
+%   \bdiv,
+%   \Bdiv,
+%   \vdiv,
+%   \Vdiv
+% }
+% \begin{syntax}
+%   \cs[no-index]{\meta{delim}div} \oarg{size cmd} \marg{content}
+%   \cs[no-index]{\meta{delim}div} \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}div} \oarg{size cmd} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}div} \oarg{kv opts} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}div}* \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}div}* \oarg{kv opts} \_\marg{subscript} \marg{content}
+% \end{syntax}
+% The \cs[no-index]{\meta{delim}div} family of commands produces the divergence
+% operator with its arguments placed inside delimiters.
+% The usage of these commands is analogous to the \cs[no-index]{\meta{delim}grad}
+% family of commands described in section~\ref{sec:grad-op-delim}.
+% \end{function}
+%
+% \paragraph{Examples}
+%
+% \begin{enumerate}
+%   \item Divergence operator with parenthesis and no scaling
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \pdiv{1+x}
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[\pdiv{1+x}\]
+%         \end{minipage}
+%     \item Bold version with manual scaling and subscript
+%
+%           \begin{verbatim}
+% \[
+%   \pdiv[boldnabla=true,scale=\Big]_{x}{1 + \frac{1}{x}}
+% \]
+%             \end{verbatim}
+%             \[\pdiv[boldnabla=true,scale=\Big]\sb{x}{1+\frac{1}{x}}\]
+%
+%     \item Automatic scaling
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \pdiv*{1 + \frac{1}{x}}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[\pdiv*{1 + \frac{1}{x}}\]
+%           \end{minipage}
+% \end{enumerate}
+%
+% \subsection{Curl Operator Commands}
+% \label{sec:curl-op-cmds}
+%
+% \subsubsection{Standalone Operator Command}
+% \label{sec:curl-op-standalone}
+%
+% \begin{function}{\curl}
+%   \begin{syntax}
+%     \cs{curl} \oarg{kv opts} \marg{contents}
+%     \cs{curl} \oarg{kv opts} \_\marg{subscript} \marg{contents}
+%   \end{syntax}
+%   The \cs{curl} command produces the curl operator \enquote{\(\curl\)},
+%   its usage is analogous to the use of the \cs{grad} command
+%   described in section~\ref{sec:grad-op-standalone}.
+% \end{function}
+%
+% \paragraph{Examples}
+% \begin{enumerate}
+%  \item Standalone curl operator
+%
+%       \begin{minipage}{.49\linewidth}
+%         \begin{verbatim}
+% \[
+%   \curl f(x)
+% \]
+%         \end{verbatim}
+%       \end{minipage}\hfill
+%       \begin{minipage}{.49\linewidth}
+%         \[\curl f(x)\]
+%       \end{minipage}
+%
+%     \item Standalone curl operator with an arrow over the gradient operator
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \curl[arrownabla] f(x)
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[\curl[arrownabla] f(x)\]
+%           \end{minipage}
+%
+%     \item Standalone curl operator with subscript
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \curl_{x} f(x,y)
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[\curl\sb{x} f(x,y)\]
+%           \end{minipage}
+% \end{enumerate}
+%
+% \subsubsection{Operators with Delimiters}
+% \label{sec:curl-op-delim}
+%
+% \begin{function}{
+%   \pcurl,
+%   \bcurl,
+%   \Bcurl,
+%   \vcurl,
+%   \Vcurl
+% }
+% \begin{syntax}
+%   \cs[no-index]{\meta{delim}curl} \oarg{size cmd} \marg{content}
+%   \cs[no-index]{\meta{delim}curl} \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}curl} \oarg{size cmd} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}curl} \oarg{kv opts} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}curl}* \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}curl}* \oarg{kv opts} \_\marg{subscript} \marg{content}
+% \end{syntax}
+% The \cs[no-index]{\meta{delim}curl} family of commands produce the curl operator
+% with its arguments placed inside delimiters.
+% The usage of these commands is analogous to the \cs[no-index]{\meta{delim}grad}
+% family of commmands described in section~\ref{sec:grad-op-delim}.
+% \end{function}
+%
+% \paragraph{Examples}
+% \begin{enumerate}
+%   \item Curl operator with parenthesis without scaling
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \pcurl{1+x}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[\pcurl{1+x}\]
+%           \end{minipage}
+%
+%   \item Bold version with manual scaling and subscript
+%
+%         \begin{verbatim}
+% \[
+%   \pcurl[boldnabla=true,scale=\Big]{1 + \frac{1}{x}}
+% \]
+%         \end{verbatim}
+%         \[
+%           \pcurl[boldnabla=true,scale=\Big]{1 + \frac{1}{x}}
+%         \]
+%
+%   \item Automatic scaling
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \pcurl*{1 + \frac{1}{x}}
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[\pcurl*{1 + \frac{1}{x}}\]
+%         \end{minipage}
+% \end{enumerate}
+%
+%
+% \subsection{Laplace Operator Commands}
+% \label{sec:laplace-op-cmds}
+%
+% This section describes commands which can be used to typeset a Laplace
+% operator.
+%
+%
+% Like the commands described in sections~\ref{sec:grad-op-cmds},
+% \ref{sec:div-op-cmds}, and~\ref{sec:curl-op-cmds}
+% the commands in this section accept key-value options via an optional
+% argument.
+% There is some deviation from the options compared to the above commands:
+% The "arrownabla" option is ignored,
+% instead the "arrowlaplace" option produces an arrow over the operator.
+% The "boldnabla" option on the other hand is not ignored.
+% Finally the "delta-laplace" option replaces the symbol used
+% for the operator from \(\laplacian\) to \(\laplacian[delta-laplace]\)
+%
+% \subsubsection{Standalone Operator Command}
+% \label{sec:laplace-op-standalone}
+%
+%
+% \begin{function}{\laplacian}
+%   \begin{syntax}
+%     \cs{laplacian} \oarg{kv opts} \marg{contents}
+%     \cs{laplacian} \oarg{kv opts} \_\marg{subscript} \marg{contents}
+%   \end{syntax}
+%   The \cs{laplacian} command produces a Laplace operator,
+%   which looks by default like this: \(\laplacian\).
+%
+%   Its interface is analogous to the \cs{grad}, \cs{divergence},
+%   and \cs{curl} commands described above,
+%   with the difference in key-value options described at the start of this
+%   subsection.
+% \end{function}
+%
+%
+% \subsubsection{Operators with Delimiters}
+% \label{sec:laplace-op-delim}
+%
+% \begin{function}{
+%   \plaplacian,
+%   \blaplacian,
+%   \Blaplacian,
+%   \vlaplacian,
+%   \Vlaplacian
+% }
+% \begin{syntax}
+%   \cs[no-index]{\meta{delim}laplacian} \oarg{size cmd} \marg{content}
+%   \cs[no-index]{\meta{delim}laplacian} \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}laplacian} \oarg{size cmd} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}laplacian} \oarg{kv opts} \_\marg{subscript} \marg{content}
+%   \cs[no-index]{\meta{delim}laplacian}* \oarg{kv opts} \marg{content}
+%   \cs[no-index]{\meta{delim}laplacian}* \oarg{kv opts} \_\marg{subscript} \marg{content}
+% \end{syntax}
+% \end{function}
+%
+% \paragraph{Examples}
+% \begin{enumerate}
+%   \item Laplace operator delimited by parenthesis without scaling
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \plaplacian{1+x}
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[\plaplacian{1+x}\]
+%         \end{minipage}
+%
+%   \item Version with arrow, manual scaling and subscript
+%
+%         \begin{verbatim}
+% \[
+%   \plaplacian[arrowlaplace=true,scale=\Big]_{x}{1 + \frac{1}{x}}
+% \]
+%         \end{verbatim}
+% \[
+%   \plaplacian[arrowlaplace=true,scale=\Big]\sb{x}{1 + \frac{1}{x}}
+% \]
+%
+%   \item Version with automatic scaling
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \plaplacian*{1 + \frac{1}{x}}
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[\plaplacian*{1 + \frac{1}{x}}\]
+%         \end{minipage}
+%
+%   \item Using a delta as symbol for the Laplacian
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \plaplacian[delta-laplace=true]{1+x}
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[\plaplacian[delta-laplace=true]{1+x}\]
+%         \end{minipage}
+% \end{enumerate}
+%
+%
 % \end{documentation}
 % \begin{implementation}
 % \section{Implementation}
