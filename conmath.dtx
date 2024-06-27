@@ -59,20 +59,20 @@
 \end{filecontents*}
 \begin{filecontents*}[overwrite]{\jobname-ams-op-table.tex}
 \begin{tabular}{rlrlrlrl}
-  \cs{arccos} &\(\arccos\)  &\cs{deg}    &\( \deg \)  &\cs{lg}      &\( \lg \)      &\cs{projlim} &\( \projlim \)\\
-  \cs{arcsin} &\(\arcsin\)  &\cs{det}    &\( \det \)  &\cs{lim}     &\( \lim \)     &\cs{sec}     &\( \sec \)\\
-  \cs{arctan} &\(\arctan\)  &\cs{dim}    &\( \dim \)  &\cs{liminf}  &\( \liminf \)  &\cs{sin}     &\( \sin \)\\
-  \cs{arg}    &\(\arg\)     &\cs{exp}    &\( \exp \)  &\cs{limsup}  &\( \limsup \)  &\cs{sinh}    &\( \sinh \)\\
-  \cs{cos}    &\(\cos\)     &\cs{gcd}    &\( \gcd \)  &\cs{ln}      &\( \ln \)      &\cs{sup}     &\( \sup \)\\
-  \cs{cosh}   &\(\cosh\)    &\cs{hom}    &\( \hom \)  &\cs{log}     &\( \log \)     &\cs{tan}     &\( \tan \)\\
-  \cs{cot}    &\(\cot\)     &\cs{inf}    &\( \inf \)  &\cs{max}     &\( \max \)     &\cs{tanh}    &\( \tanh \)\\
-  \cs{coth}   &\(\coth\)    &\cs{injlim} &\(\injlim\) &\cs{min}     &\( \min \)     &                       &\\
-  \cs{csc}    &\(\csc\)     &\cs{ker}    &\(\ker\)    &\cs{Pr}      &\( \Pr \)      &                       &\\
+  \cs[module=amsmath,replace=false]{arccos} &\(\arccos\)  &\cs[module=amsmath,replace=false]{deg}    &\( \deg \)  &\cs[module=amsmath,replace=false]{lg}      &\( \lg \)      &\cs[module=amsmath,replace=false]{projlim} &\( \projlim \)\\
+  \cs[module=amsmath,replace=false]{arcsin} &\(\arcsin\)  &\cs[module=amsmath,replace=false]{det}    &\( \det \)  &\cs[module=amsmath,replace=false]{lim}     &\( \lim \)     &\cs[module=amsmath,replace=false]{sec}     &\( \sec \)\\
+  \cs[module=amsmath,replace=false]{arctan} &\(\arctan\)  &\cs[module=amsmath,replace=false]{dim}    &\( \dim \)  &\cs[module=amsmath,replace=false]{liminf}  &\( \liminf \)  &\cs[module=amsmath,replace=false]{sin}     &\( \sin \)\\
+  \cs[module=amsmath,replace=false]{arg}    &\(\arg\)     &\cs[module=amsmath,replace=false]{exp}    &\( \exp \)  &\cs[module=amsmath,replace=false]{limsup}  &\( \limsup \)  &\cs[module=amsmath,replace=false]{sinh}    &\( \sinh \)\\
+  \cs[module=amsmath,replace=false]{cos}    &\(\cos\)     &\cs[module=amsmath,replace=false]{gcd}    &\( \gcd \)  &\cs[module=amsmath,replace=false]{ln}      &\( \ln \)      &\cs[module=amsmath,replace=false]{sup}     &\( \sup \)\\
+  \cs[module=amsmath,replace=false]{cosh}   &\(\cosh\)    &\cs[module=amsmath,replace=false]{hom}    &\( \hom \)  &\cs[module=amsmath,replace=false]{log}     &\( \log \)     &\cs[module=amsmath,replace=false]{tan}     &\( \tan \)\\
+  \cs[module=amsmath,replace=false]{cot}    &\(\cot\)     &\cs[module=amsmath,replace=false]{inf}    &\( \inf \)  &\cs[module=amsmath,replace=false]{max}     &\( \max \)     &\cs[module=amsmath,replace=false]{tanh}    &\( \tanh \)\\
+  \cs[module=amsmath,replace=false]{coth}   &\(\coth\)    &\cs[module=amsmath,replace=false]{injlim} &\(\injlim\) &\cs[module=amsmath,replace=false]{min}     &\( \min \)     &                       &\\
+  \cs[module=amsmath,replace=false]{csc}    &\(\csc\)     &\cs[module=amsmath,replace=false]{ker}    &\(\ker\)    &\cs[module=amsmath,replace=false]{Pr}      &\( \Pr \)      &                       &\\
 \end{tabular}
 \begin{center}
   \begin{tabular}{rlrl}
-    \cs{varinjlim}  &\(\varinjlim\)   &\cs{varliminf} &\(\varliminf\)\\
-    \cs{varprojlim} &\(\varprojlim\)  &\cs{varlimsup} &\(\varlimsup\)\\
+    \cs[module=amsmath,replace=false]{varinjlim}  &\(\varinjlim\)   &\cs[module=amsmath,replace=false]{varliminf} &\(\varliminf\)\\
+    \cs[module=amsmath,replace=false]{varprojlim} &\(\varprojlim\)  &\cs[module=amsmath,replace=false]{varlimsup} &\(\varlimsup\)\\
   \end{tabular}
 \end{center}
 \end{filecontents*}
@@ -488,10 +488,12 @@
 % Creates a new delimited operator,
 % the name of the new command will be \meta{new op}.
 % The \meta{op} is the command of the operator to use,
-% which is usually a command declared with \cs{DeclareMathOperator}.
+% which is usually a command declared with
+% \cs[module=amsmath,replace=false]{DeclareMathOperator}.
 % \meta{delim} is the command to use as paired delimiter,
 % it is expected to behave like a paired delimiter declared by
-% \pkg{mathtools}~\autocite{mathtools} \cs{DeclarePairedDelimiter}.
+% \pkg{mathtools}~\autocite{mathtools}
+% \cs[module=mathtools,replace=false]{DeclarePairedDelimiter}.
 % \end{function}
 %
 % \paragraph{Example: Creating a New Delimited Operator}
@@ -933,10 +935,13 @@
 %     \item The \meta{csname} of the operator to use.
 %
 %           Any operator declared with \pkg{amsmath}'s \cs{operatorname}
-%           and/or\linebreak[3] \cs{DeclareMathOperator} is valid for this.
+%           and/or\linebreak[3]
+%           \cs[module=amsmath,replace=false]{DeclareMathOperator}
+%           is valid for this.
 %
 %     \item The \meta{csname} of a paired delimiter declared by
-%           \pkg{mathtools}'~\autocite{mathtools} \cs{DeclarePairedDelimiter}.
+%     \pkg{mathtools}'~\autocite{mathtools}
+%     \cs[module=mathtools,replace=false]{DeclarePairedDelimiter}.
 %
 %     \item A \meta{tl} to use as the superscript of the operator.
 %
@@ -972,7 +977,7 @@
 %
 %     \item The \meta{csname} of the paired delimiter
 %     declared by \pkg{mathtools}'~\autocite{mathtools}\linebreak[3]
-%     \cs{DeclarePairedDelimiter}.
+%     \cs[module=mathtools,replace=false]{DeclarePairedDelimiter}.
 %
 %     \item A \meta{tl} containing the scaling macro i.e.\ \cs{big}, \cs{Big},
 %       \cs{Bigg},\dots
@@ -1030,10 +1035,14 @@
 % \cs{conmath_new_delim_op_command:NNN} takes three arguments:
 % \begin{arguments}
 %   \item The \meta{csname} to be defined.
+%
 %   \item The \meta{csname} of the operator to use,
-%     which should be an operator declared with \cs{DeclareMathOperator}.
+%   which should be an operator declared with
+%   \cs[module=amsmath,replace=false]{DeclareMathOperator}.
+%
 %   \item The \meta{csname} of the delimiter to use,
-%         which should have been declared with \cs{DeclarePairedDelimiter}.
+%   which should have been declared with
+%   \cs[module=mathtools,replace=false]{DeclarePairedDelimiter}.
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new_protected:Nn \conmath_new_delim_op_command:NNN
@@ -1609,7 +1618,7 @@
 %   \item The \meta{csname} of the \emph{paired delimiter} to use.
 %
 %         The paired delimiter has to be one declared using \pkg{mathtools}'
-%         \cs{DeclarePairedDelimiter} command.
+%         \cs[module=mathtools,replace=false]{DeclarePairedDelimiter} command.
 %
 %   \item A \meta{tl} with the subscript of the operator.
 %
@@ -1725,7 +1734,7 @@
 %     \item The \meta{csname} of the delimiter function to use.
 %
 %     This should be a macro/command created with \pkg{mathtools}
-%     \cs{DeclarePairedDelimiter} command.
+%     \cs[module=mathtools,replace=false]{DeclarePairedDelimiter} command.
 %   \end{arguments}
 %   Its purpose is to create a new document level command,
 %   for the delimited vector calculus operators.
