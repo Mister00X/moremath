@@ -181,6 +181,42 @@
 % \section{Introduction}
 % \label{sec:intro}
 %
+% When typesetting mathematics in \LaTeX{} it is very common to often encounter,
+% code patterns such as |\sin \left( \frac{x}{2} \right)|.
+% While this above code works as expected its not especially easy for human
+% readers of this code to immediately understand what that code is going to
+% do.
+%
+% This package tries to ease readability of such commonly used constructs
+% by providing commands that (hopefully) increase readability,
+% as well as speeding up writing math in \LaTeX{}.
+% Using \pkg{conmath} the above code can be simplified to |\psin*{\frac{x}{2}}|,
+% which is shorter and better \enquote{human readable}.
+% The package also provides the possibility for users to define such delimited operators,
+% on their own.
+%
+% There are also other things that can be improved when typesetting math.
+% One prominent example is the typsetting of row and column vectors,
+% which require the use of a \env{matrix} environment.
+% For this case \pkg{conmath} provides commands which accept a comma separated
+% list of vector entries,
+% obliterating the need for a \env{matrix} environment to typeset vectors.
+%
+% The same goes for (anti-)diagonal matrices,
+% only the elements of the diagonal are of importance here.
+% Therefore the production of those matrices may also be simplified into a single command,
+% which again improves readability of the code compared to a mostly empty \env{matrix} environment.
+%
+% Another feature of this package is the definition of several (delimited)
+% vector calculus operators such as gradient, divergence and curl operators,
+% this does not only improve the semantics of the math code
+% (|\mathop{\nabla} f| vs.\ |\grad f|),
+% but also tries to provide the correct spacing between the operator and its
+% arguments.
+%
+% The \pkg{conmath} package is written using \LaTeX{}3
+% and provides a small \LaTeX{}3 interface for class and package writers.
+%
 %
 % \section{Package Options}
 % \label{sec:pack-opts}
