@@ -1652,6 +1652,217 @@
 % \end{function}
 %
 %
+% \section{Documentation for Class and Package Authors}
+% \label{sec:package-auth-doc}
+%
+% \subsection{Setting of Options}
+% \label{sec:authors-options}
+%
+% \begin{function}{
+%   \conmath_setup:n
+% }
+%   \begin{syntax}
+%     \cs{conmath_setup:n} \marg{kv opts}
+%   \end{syntax}
+%   This functions sets the key-value options \meta{kv~opts} in the "conmath" namespace.
+% \end{function}
+%
+% \subsection{Delimited Operators}
+% \label{sec:authors-delim-op}
+%
+% \begin{function}{
+%   \conmath_delim_op_noscale:NNnnn,
+%   \conmath_delim_op_autoscale:NNnnn
+% }
+%   \begin{syntax}
+%     \cs{conmath_delim_op_noscale:NNnnn} \meta{math~op} \meta{delim}
+%     \hspace*{2ex} \marg{sup~tl} \marg{sub~tl} \marg{tl}
+%     \cs{conmath_delim_op_autoscale:NNnnn} \meta{math op} \meta{delim}
+%     \hspace*{2ex} \marg{sup~tl} \marg{sub~tl} \marg{tl}
+%   \end{syntax}
+%   The two functions \cs{conmath_delim_op_noscale:NNnnn} and \cs{conmath_delim_op_autoscale:NNnnn}
+%   provide a version of a delimited operator with no scaling or automatic scaling respectively.
+%   The token list arguments \meta{sup~tl} and \meta{sub~tl} take the super- and subscript
+%   of the operator respectively. Both of those token lists may be empty.
+%
+%   The first argument to the function is a control sequence \meta{math~op},
+%   which should be an operator declared with
+%   \cs[module=amsmath,replace=false]{DeclareMathOperator}.
+%   The second argument \meta{delim} has to be a control sequence of a paired delimiter,
+%   as defined by \pkg{mathtools}'s
+%   \cs[module=mathtools,replace=false]{DeclarePairedDelimiter}.
+%
+%   The final argument \meta{tl} is a list of arbitrary token to put inside the delimiters.
+% \end{function}
+%
+% \begin{function}{
+%   \conmath_delim_op_manuscale:NNnnnn,
+%   \conmath_delim_op_manuscale:NNVnnn
+% }
+%   \begin{syntax}
+%     \cs{conmath_delim_op_manuscale:NNnnnn} \meta{math op} \meta{delim} \marg{scale cmd}
+%      \hspace*{2ex}  \marg{sup} \marg{sub} \marg{tl}
+%   \end{syntax}
+%   The function \cs{conmath_delim_op_manuscale:NNnnnn} typesets a math operator with
+%   manual scaling of its delimiters.
+%   Its arguments are identical to \cs{conmath_delim_op_noscale:NNnnn}
+%   except for the argument \meta{scale~cmd} which has to be a token list containing
+%   a \meta{size~cmd} that can be understood by \pkg{mathtools},
+%   usually \cs{big}, \cs{Big}, \cs{bigg} and \cs{Bigg}.
+% \end{function}
+%
+% \begin{function}{
+%   \conmath_new_delim_op_command:NNN,
+%   \conmath_new_delim_op_command:cNN,
+% }
+% \begin{syntax}
+%   \cs{conmath_new_delim_op_command:NNN} \meta{new~csname} \meta{operator} \meta{delim}
+% \end{syntax}
+% The function \cs{conmath_new_delim_op_command:NNN} defines a new document level command
+% called \meta{new~csname}, utilizing the operator \meta{operator} and the delimiter \meta{delim}.
+%
+% \meta{operator} has to be a control sequence referring to an operator,
+% as declared by \cs{DeclareMathOperator}.
+%
+% \meta{delim} has to be a paired delimiter as defined by \pkg{mathtools}'
+% \cs{DeclarePairedDelimiter}.
+% \end{function}
+%
+% \subsection{Vector Calculus Typesetting}
+% \label{sec:authors-vec-calc}
+%
+% \subsubsection{Functions Producing Standalone Operators with Subscripts}
+% \label{sec:authors-vec-calc-operators}
+%
+% \begin{function}{
+%   \conmath_gradient_operator:n,
+%   \conmath_divergence_operator:n,
+%   \conmath_curl_operator:n,
+%   \conmath_laplace_operator:n
+% }
+%   \begin{syntax}
+%     \cs{conmath_gradient_operator:n} \marg{subscript}
+%     \cs{conmath_divergence_operator:n} \marg{subscript}
+%     \cs{conmath_curl_operator:n} \marg{subscript}
+%     \cs{conmath_laplace_operator:n} \marg{subscript}
+%   \end{syntax}
+%   Each of these functions return a vector calculus operator,
+%   with an (optional) subscript.
+%   The argument \meta{subscript}, a token list, may be empty,
+%   in which case no subscript is produced.
+%
+%   The actual operator produced depends on the current settings
+%   of the key-value options described in section~\ref{sec:pack-opts}
+%   inside the current group.
+% \end{function}
+%
+% \subsubsection{Functions Producing Operators with Delimiters}
+% \label{sec:authors-vec-calc-delim-ops}
+%
+% \begin{function}{
+%   \conmath_delim_nabla_op_noscale:NNnn,
+%   \conmath_delim_nabla_op_autoscale:NNnn,
+% }
+%   \begin{syntax}
+%     \cs{conmath_delim_nabla_op_noscale:NNnn} \meta{operator} \meta{delim}
+%     \hspace*{2ex} \marg{sub} \marg{contents}
+%
+%     \cs{conmath_delim_nabla_op_autoscale:NNnn} \meta{operator} \meta{delim}
+%     \hspace*{2ex} \marg{sub} \marg{contents}
+%   \end{syntax}
+%   The usage of these functions is similar to the functions
+%   \cs{conmath_delim_op_noscale:NNnnn} and \cs{conmath_delim_op_autoscale:NNnnn}
+%   except for the missing superscript.
+%
+%   The first argument \meta{operator} has to be a function which accepts one argument
+%   (the subscript).
+%   This is usually one of the \cs[no-index]{conmath_\meta{op}_operator:n} commands.
+%
+%   The argument \meta{sub}, which may be empty,
+%   is a token list to pass as the subscript to
+%   \cs[no-index]{conmath_\meta{op}_operator:n}.
+%
+%   The last argument \meta{contents} is a token list to put inside the delimiters.
+%
+% \end{function}
+%
+% \begin{function}{
+%   \conmath_delim_nabla_op_manuscale:NNnnn,
+%   \conmath_delim_nabla_op_manuscale:NNVnn,
+% }
+%   \begin{syntax}
+%     \cs{conmath_delim_nabla_op_manuscale:NNnnn} \meta{operator} \meta{delim}
+%     \hspace*{2ex} \marg{scale~cmd} \marg{sub} \marg{contents}
+%   \end{syntax}
+%   The usage of function is similar to the above functions
+%   except for the additional argument \meta{scale~cmd} which is a token list
+%   with a \meta{size~cmd} that should be understood by \pkg{mathtools}
+%   (e.g.\ \cs{big}, \cs{Big}, etc.).
+% \end{function}
+%
+% \subsection{Formatting Matrices and Vectors}
+% \label{sec:authors-matrix}
+%
+% \begin{function}{
+%   \conmath_column_vector:nn,
+%   \conmath_row_vector:nn,
+%   \conmath_column_smallvector:nn,
+%   \conmath_row_smallvector:nn
+% }
+% \begin{syntax}
+%   \cs{conmath_column_vector:nn} \marg{delim spec tl} \marg{clist}
+%   \cs{conmath_row_vector:nn} \marg{delim spec tl} \marg{clist}
+%   \cs{conmath_column_smallvector:nn} \marg{delim spec tl} \marg{clist}
+%   \cs{conmath_row_smallvector:nn} \marg{delim spec tl} \marg{clist}
+% \end{syntax}
+% These functions produce a column or row vector.
+% The "small"\meta{c~or~r}"vector" versions are intended for inline math mode.
+%
+% The first argument \meta{delim spec tl} should be the specification of
+% a delimiter, as used in the naming of the \env{matrix*} environments
+% by \pkg{mathtools}.
+%
+% The second argument \meta{clist}, is a comma-separated list of entries
+% of the vector.
+%
+% Of this commands the "c" versions produce column vectors, the "r" versions
+% produce row vectors.
+%
+% The alignment of the entries inside the vector depends on the current
+% value of the key "align".
+% \end{function}
+%
+% \begin{function}{
+%   \conmath_diagonal_matrix:nn,
+%   \conmath_diagonal_matrix:Vn,
+%   \conmath_antidiagonal_matrix:nn,
+%   \conmath_antidiagonal_matrix:Vn,
+%   \conmath_diagonal_smallmatrix:nn,
+%   \conmath_diagonal_smallmatrix:Vn,
+%   \conmath_antidiagonal_smallmatrix:nn,
+%   \conmath_antidiagonal_smallmatrix:Vn,
+% }
+% \begin{syntax}
+%   \cs{conmath_diagonal_matrix:nn} \marg{delim tl} \marg{clist}
+%   \cs{conmath_antidiagonal_matrix:nn} \marg{delim tl} \marg{clist}
+%   \cs{conmath_diagonal_smallmatrix:nn} \marg{delim tl} \marg{clist}
+%   \cs{conmath_antidiagonal_smallmatrix:nn} \marg{delim tl} \marg{clist}
+% \end{syntax}
+%  These functions produce (anti-)diagonal matrices.
+%  The argument \meta{delim~tl} is a token list,
+%  intended to specify the delimiter of the matrix or no delimiter if the
+%  <tl> is empty no delimiters are produced.
+%
+%  The argument <clist> is a list of comma separated values which specify the
+%  entries of the diagonal.
+%  Other properties of the matrix to produce like alignment ("align")
+%  and the tokens to insert for non-diagonal entries ("fill")
+%  depend on the current setting of the keys described in section~\ref{sec:options-matrix}.
+%
+%  The "smallmatrix" versions are intended for use in inline math mode.
+% \end{function}
+%
+%
 % \end{documentation}
 % \begin{implementation}
 % \section{Implementation}
