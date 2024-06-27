@@ -1085,6 +1085,233 @@
 % \end{enumerate}
 %
 %
+% \section{Row- and Column Vectors}
+% \label{sec:rc-vectors}
+%
+% \DescribeOption{no-crvector}
+% The command in this section are only declared if the option |no-crvector|
+% has not been given as a package option.
+%
+% ^^X \DescribeOption{delimiter}
+% ^^X \DescribeOption{fill}
+% ^^X \DescribeOption{align}
+% ^^X The commands in this section all accept key-value options as optional argument.
+% Valid keys are "delimiter", "fill", and "align",
+% their usage is described in section~\ref{sec:options-matrix}.
+%
+% \begin{function}{
+%   \cvector,
+%   \rvector
+% }
+% \begin{syntax}
+%   \cs{cvector} \oarg{kv opts} \marg{clist}
+%   \cs{rvector} \oarg{kv opts} \marg{clist}
+% \end{syntax}
+% The commands \cs{cvector} and \cs{rvector} produce row and column vectors
+% respectively. Both of them accept key-value options as optional argument
+% \meta{kv opts}. Valid keys and values are described in section~\ref{sec:options-matrix}.
+%
+% The mandatory argument \meta{clist} is a comma-separated-list,
+% whose elements are the entries of the column/row vector.
+% If a comma has to appear inside an entry the entire entry has to be wrapped
+% in braces.
+%
+% The delimiter of the row or column vectors depends on the current value of
+% the option |delimiter|, by default empty. The option |fill| has no effect
+% on the commands and is simply ignored.
+%
+% \begin{texnote}
+%   If you were to define your own \env{matrix*}-like environment
+%   called \env{mymatrix*},
+%   which has an interface compatible to \pkg{mathtools}'s \env{matrix*}
+%   family of environments,
+%   you could make use of it by setting the value of |delimiter| to |my|.
+% \end{texnote}
+% \end{function}
+%
+% \medbreak\noindent
+% \textbf{Examples:}
+% \begin{enumerate}
+%   \item Column \enquote{vector} without delimiters:
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \cvector{a_{1},a_{2},a_{3}}
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[
+%             \cvector{a_{1},a_{2},a_{3}}
+%           \]
+%         \end{minipage}
+%
+%     \item A column vectors delimited with parenthesis and different alignment:
+%
+%          \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \cvector[delimiter=p,align=c]{-1,2,3}
+% \]
+%             \end{verbatim}
+%          \end{minipage}\hfill
+%          \begin{minipage}{.49\linewidth}
+%            \[
+%               \cvector[delimiter=p,align=c]{-1,2,3}
+%            \]
+%          \end{minipage}\\[1ex]
+%          \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \cvector[delimiter=p,align=r]{-1,2,3}
+% \]
+%             \end{verbatim}
+%          \end{minipage}\hfill
+%          \begin{minipage}{.49\linewidth}
+%            \[
+%               \cvector[delimiter=p,align=r]{-1,2,3}
+%            \]
+%          \end{minipage}\\[1ex]
+%          \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \cvector[delimiter=p,align=l]{-1,2,3}
+% \]
+%             \end{verbatim}
+%          \end{minipage}\hfill
+%          \begin{minipage}{.49\linewidth}
+%            \[
+%               \cvector[delimiter=p,align=l]{-1,2,3}
+%            \]
+%          \end{minipage}
+% \end{enumerate}
+%
+% \paragraph{Row- and Column Vectors with Predefined Delimiters}
+%
+% As vectors are commonly delimited by parenthesis, brackets, braces, etc.\
+% several shorthands producing delimited vectors are also available.
+% \begin{function}{
+%   \pcvector,
+%   \bcvector,
+%   \Bcvector,
+%   \vcvector,
+%   \Vcvector,
+%   \prvector,
+%   \brvector,
+%   \Brvector,
+%   \vrvector,
+%   \Vrvector,
+%   \prvector,
+%   \brvector,
+%   \Brvector,
+%   \vrvector,
+%   \Vrvector
+% }
+%   \begin{syntax}
+%     \cs[no-index]{\meta{delim}cvector} \oarg{kv opts} \marg{clist}
+%     \cs[no-index]{\meta{delim}rvector} \oarg{kv opts} \marg{clist}
+%   \end{syntax}
+%   The \cs[no-index]{\meta{delim}\meta{c or r}vector} family of commands,
+%   accepts a list of key-value options as optional argument \meta{kv opts}.
+%   Valid keys are described in section~\ref{sec:options-matrix}.
+%
+%   The mandatory argument \meta{clist} is a comma-separated-list of
+%   the entries of the vector.
+%   If a comma needs to appear inside an entry of the vector,
+%   that entry has to be wrapped in braces.
+%
+%   \meta{delim} may have the value "p" for parenthesis,
+%   "b" for brackets, "B" for braces, "v" for a single vertical line,
+%   or "V" for a double vertical line.
+% \end{function}
+%
+% \subparagraph{Example}
+% \begin{quote}
+% \begin{minipage}{.49\linewidth}
+%   \begin{verbatim}
+% \[
+%   \pcvector{a_{1},a_{2},a_{3}}
+% \]
+%   \end{verbatim}
+% \end{minipage}\hfill
+% \begin{minipage}{.49\linewidth}
+%   \[
+%     \pcvector{a_{1},a_{2},a_{3}}
+%   \]
+% \end{minipage}
+% \end{quote}
+%
+% \subsection{Small Versions for Inline Math}
+% \label{sec:rc-vectors-small}
+%
+% As the \env{matrix} and \env{matrix*} family of environments is unsuitable,
+% for inline math,
+% \pkg{mathtools}~\autocite{mathtools} provides the \env{smallmatrix}
+% and \env{smallmatrix*} family of environments.
+% This package provides analogous commands for row and column vectors
+% to be typeset in inline math mode.
+%
+% \begin{function}{
+%   \smallcvector,
+%   \smallrvector
+% }
+% \begin{syntax}
+%   \cs{smallcvector} \oarg{kv opts} \marg{clist}
+%   \cs{smallrvector} \oarg{kv opts} \marg{clist}
+% \end{syntax}
+%   \cs{smallcvector} and \cs{smallrvector} produce column and row vectors
+%   suitable for inline math.
+%   Both commands accept the same optional key-value arguments as
+%   \cs{cvector} and \cs{rvector}.
+% \end{function}
+%
+%
+% \medbreak\noindent
+% \textbf{Example:}
+% \begin{quote}
+%   \begin{verbatim}
+% An inline version of \verb|\cvector| looks like this
+% \(\smallcvector{1,0}\).
+%   \end{verbatim}
+% An inline version of \verb|\cvector| looks like this
+% \(\smallcvector{1,0}\).
+% \end{quote}
+%
+% \begin{function}{
+%   \psmallcvector,
+%   \bsmallcvector,
+%   \Bsmallcvector,
+%   \vsmallcvector,
+%   \Vsmallcvector,
+%   \psmallrvector,
+%   \bsmallrvector,
+%   \Bsmallrvector,
+%   \vsmallrvector,
+%   \Vsmallrvector,
+% }
+% \begin{syntax}
+%   \cs{psmallcvector} \oarg{kv opts} \marg{clist}
+%   \cs[no-index]{psmallrvector} \oarg{kv opts} \marg{clist}
+%   \cs[no-index]{\meta{delim}small\meta{c or r}vector} \oarg{kv opts} \marg{clist}
+% \end{syntax}
+% The \cs[no-index]{\meta{delim}small\meta{c or r}vector} family of commands
+% like \cs{psmallcvector} produce small inline math version of row and column
+% vectors. Their interface is identical to the commands described above.
+% \end{function}
+%
+% \medbreak\noindent
+% \textbf{Example:}\nobreak
+% \begin{quote}
+%   \begin{verbatim}
+% An inline version of \verb|\pcvector| looks like this
+% \(\psmallcvector{1,0}\).
+%   \end{verbatim}
+% An inline version of \verb|\pcvector| looks like this
+% \(\psmallcvector{1,0}\).
+% \end{quote}
+%
+%
 % \end{documentation}
 % \begin{implementation}
 % \section{Implementation}
