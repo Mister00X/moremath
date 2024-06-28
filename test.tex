@@ -1,0 +1,150 @@
+% test.tex -*-latex-*-
+%
+% Test file to check functionality.
+%
+% Copyright (c) 2024 Marcel Ilg
+%
+% Permission is hereby granted, free of charge, to any person obtaining
+% a copy of this software and associated documentation files (the
+% "Software"), to deal in the Software without restriction, including
+% without limitation the rights to use, copy, modify, merge, publish,
+% distribute, sublicense, and/or sell copies of the Software, and to
+% permit persons to whom the Software is furnished to do so, subject to
+% the following conditions:
+%
+% The above copyright notice and this permission notice shall be
+% included in all copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+\documentclass[parskip=half]{scrartcl}
+\usepackage{scrhack} % hacks other packages
+
+\KOMAoptions{}
+
+% for identifying the compiler
+\usepackage{iftex}
+
+% check for the compiler and load fonts
+\iftutex%
+  \usepackage{fontspec}% Loads lmodern font
+\else%
+  \usepackage[T1]{fontenc}% Better encoding for european languages
+  \usepackage{lmodern}% Better looking font
+\fi%
+% recalculate typearea after loading fonts
+\recalctypearea%
+
+% (multi-)language support
+\usepackage[american]{babel}
+
+\usepackage{amssymb}
+\usepackage[bm]{conmath}
+
+\usepackage{fancyvrb-ex}
+\fvset{frame=single,numbers=left}
+
+
+% a rule spanning the entire line
+\NewDocumentCommand{\fulllinerule}{}{
+  \rule{\linewidth}{0.4pt}
+}
+
+\begin{document}
+
+\section{Test for Delimited Operators}
+
+
+\DeclarePairedDelimiter\inparent{\lparen}{\rparen}
+
+
+\begin{SideBySideExample}[xrightmargin=.4\textwidth]
+\begin{gather*}
+  \psin_{bljv}^{dkfjal}{a} \\
+   \psin*_{p}^{b}{\frac{1}{2}}\\[0.5ex]
+   \bsin*{\frac{1}{2}} \\[0.5ex]
+   \Bsin*{\frac{1}{2}} \\[0.5ex]
+   \vsin*{\frac{1}{2}} \\[0.5ex]
+   \Vsin*{\frac{1}{2}} \\
+   \psin[\Bigg]^{2}{a}\\
+   \plim_{x\to\infty}{1+\frac{1}{x}}^{2}
+   \qquad \lim_{0\to\infty}\\
+   \plog_{10}{a}
+\end{gather*}
+\end{SideBySideExample}
+
+\section{Tests for Delimited Vector Calculus Operators}
+
+Standalone operators:
+
+\begin{SideBySideExample}[xrightmargin=.3\textwidth,gobble=2]
+  \begin{gather*}
+    \grad_{x} f(x)\\
+    \pgrad_{x}{f\left(\frac{x}{2}\right)}\\
+    \pgrad*_{x}{f\left(\frac{x}{2}\right)}\\
+    \pgrad[scale=\Bigg,arrownabla=true]_{x}{f(x)} \\
+    \laplacian_{x} f(x)\\
+    \laplacian[delta-laplace]_{x} f(x)\\
+    \plaplacian*[arrowlaplace=true]_{x}{f(x)}\\
+    \plaplacian*[delta-laplace=true]_{x}{f(x)}\\
+    \pdiv[arrownabla=true]_{x}{f(x)}\\
+    \divergence_{x} f(x)
+  \end{gather*}
+\end{SideBySideExample}
+
+\section{Vectors and Matrices}
+
+\begin{Example}[gobble=2]
+  \[
+    \rvector[delimiter=p]{a_{1},a_{2},a_{3}}
+    \times \cvector[align=r,delimiter=p]{-1,2,3}
+  \]
+\end{Example}
+
+\fulllinerule
+
+\begin{SideBySideExample}[xrightmargin=.5\textwidth,gobble=2]
+  \[
+    \cvector{1,2,3}
+  \]
+\end{SideBySideExample}
+
+\fulllinerule
+
+\begin{SideBySideExample}[xrightmargin=.45\textwidth]
+\(\smallcvector[delimiter=p]{1,2,3}\)
+\end{SideBySideExample}
+
+\fulllinerule
+
+\begin{SideBySideExample}[gobble=2,xrightmargin=.5\textwidth]
+  \[
+    \pcvector{1,2,3}
+  \]
+
+  \(\psmallcvector{1,2,3}\)
+\end{SideBySideExample}
+
+\fulllinerule
+
+\begin{Example}[gobble=2]
+  \[
+    \diagmat[delimiter=p,fill=\blacktriangle]{1,2,3,4} \times
+    \antidiagmat[delimiter=p]{1,2,3,4}
+  \]
+\end{Example}
+
+\fulllinerule
+
+\begin{Example}[gobble=2]
+  \(\smalldiagmat{1,2,3,4}\),
+  \(\psmalldiagmat{1,2,3,4}\),
+  \(\psmallantidiagmat{1,2,3,4}\)
+\end{Example}
+
+\end{document}
