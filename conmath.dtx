@@ -109,7 +109,9 @@
 }
 \ExplSyntaxOff
 
-\documentclass[show-notes]{l3doc}
+\documentclass[%
+%show-notes,%
+]{l3doc}
 
 \SetupDoc{reportchangedates=true}
 \RecordChanges
@@ -144,15 +146,19 @@
 % \GetFileInfo{conmath.sty}
 %
 % ^^X Register changes here
-% \AddVersion{v0.1.0}{UNRELEASED}
+% \AddVersion{v0.1.0}{2024-06-28}
+%
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Initial development release}
 %
 % \title{The \pkg{conmath} package\thanks{This document coresponds to
 %   \textsf{conmath}~\fileversion, dated \filedate.}}
+%
 % \author{Marcel Ilg\thanks{\texttt{mister01x (at) web (dot) de}}}
+%
 % \date{Released \filedate}
 %
 % \maketitle
+%
 % \begin{abstract}
 %   The \pkg{conmath} package provides several document level commands
 %   to ease the typesetting
@@ -1965,8 +1971,7 @@
 % Then identify this package as \pkg{conmath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{conmath}
-  {UNRELEASED}{UNRELEASED}{Convenience Math Macros}
-
+  {2024-06-28}{0.1.0}{Convenient Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
