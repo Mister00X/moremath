@@ -1910,15 +1910,23 @@
 % value of the key "align".
 % \end{function}
 %
-% \begin{function}{
+% \begin{function}[updated = 0000-00-00]{
 %   \conmath_diagonal_matrix:nn,
+%   \conmath_diagonal_matrix:nV,
 %   \conmath_diagonal_matrix:Vn,
+%   \conmath_diagonal_matrix:VV,
 %   \conmath_antidiagonal_matrix:nn,
+%   \conmath_antidiagonal_matrix:nV,
 %   \conmath_antidiagonal_matrix:Vn,
+%   \conmath_antidiagonal_matrix:VV,
 %   \conmath_diagonal_smallmatrix:nn,
+%   \conmath_diagonal_smallmatrix:nV,
 %   \conmath_diagonal_smallmatrix:Vn,
+%   \conmath_diagonal_smallmatrix:VV,
 %   \conmath_antidiagonal_smallmatrix:nn,
+%   \conmath_antidiagonal_smallmatrix:nV,
 %   \conmath_antidiagonal_smallmatrix:Vn,
+%   \conmath_antidiagonal_smallmatrix:VV,
 % }
 % \begin{syntax}
 %   \cs{conmath_diagonal_matrix:nn} \marg{delim tl} \marg{clist}
@@ -3738,19 +3746,36 @@
 }
 %    \end{macrocode}
 % \begin{macro}{
+%   \conmath_diagonal_matrix:nV,
 %   \conmath_diagonal_matrix:Vn,
+%   \conmath_diagonal_matrix:VV,
+%   \conmath_antidiagonal_matrix:nV,
 %   \conmath_antidiagonal_matrix:Vn,
+%   \conmath_antidiagonal_matrix:VV,
+%   \conmath_diagonal_smallmatrix:nV,
 %   \conmath_diagonal_smallmatrix:Vn,
+%   \conmath_diagonal_smallmatrix:VV,
+%   \conmath_antidiagonal_smallmatrix:nV,
 %   \conmath_antidiagonal_smallmatrix:Vn,
+%   \conmath_antidiagonal_smallmatrix:VV,
 % }
 % For convenience we also define some variants of the above functions.
 %    \begin{macrocode}
+\cs_generate_variant:Nn \conmath_diagonal_matrix:nn { n V }
 \cs_generate_variant:Nn \conmath_diagonal_matrix:nn { V n }
+\cs_generate_variant:Nn \conmath_diagonal_matrix:nn { V V }
+\cs_generate_variant:Nn \conmath_antidiagonal_matrix:nn { n V }
 \cs_generate_variant:Nn \conmath_antidiagonal_matrix:nn { V n }
+\cs_generate_variant:Nn \conmath_antidiagonal_matrix:nn { V V }
+\cs_generate_variant:Nn \conmath_diagonal_smallmatrix:nn { n V }
 \cs_generate_variant:Nn \conmath_diagonal_smallmatrix:nn { V n }
+\cs_generate_variant:Nn \conmath_diagonal_smallmatrix:nn { V V }
+\cs_generate_variant:Nn \conmath_antidiagonal_smallmatrix:nn { n V }
 \cs_generate_variant:Nn \conmath_antidiagonal_smallmatrix:nn { V n }
+\cs_generate_variant:Nn \conmath_antidiagonal_smallmatrix:nn { V V }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Added variants.}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{Added "nV" and "VV" variants.}
 % \end{macro}
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 % Added functions producing (anti-)diagonal matrices.
