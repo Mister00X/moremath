@@ -3819,9 +3819,105 @@
 % \end{macro}
 %
 %
-% \begin{NOTE}{MI}
-% TODO: Missing: Functions for producing the identity matrix
-% \end{NOTE}
+% \paragraph{Identity Matrices}
+% As we already have functions available for producing diagonal matrices,
+% it makes only sense to also provide a shorthand for producing an identity matrix,
+% i.e.\ a diagonal matrix with \enquote{1} along the diagonal.
+%
+%
+% \begin{macro}{
+%   \@@_generate_one_filled_clist:Nn
+% }
+%   The function \cs{@@_generate_one_filled_clist:Nn} produces a \meta{clist},
+%   consisting only of \enquote{1} as entries.
+%   This function takes two arguments:
+%   \begin{arguments}
+%     \item The \emph{csname} of a \meta{clist~var} to store the \meta{clist}
+%     into.
+%
+%     \item An \meta{int} to represent the number of entries to produce.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \@@_generate_one_filled_clist:Nn
+{
+  \seq_clear:N \l_tmpa_seq
+  \int_step_inline:nn {#2}
+  {
+    \seq_put_right:NV \l_tmpa_seq \c_one_int
+  }
+  \clist_set_from_seq:NN #1 \l_tmpa_seq
+}
+%    \end{macrocode}
+% \begin{macro}{
+%   \@@_generate_one_filled_clist:NV
+% }
+% We also define a variant accepting an integer variable.
+%    \begin{macrocode}
+\cs_generate_variant:Nn \@@_generate_one_filled_clist:Nn { N V }
+%    \end{macrocode}
+% \end{macro}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%     Added function.
+%   }
+% \end{macro}
+%
+% \begin{variable}{
+%   \l_@@_id_entries_clist
+% }
+%   As we want to utilize the \cs{conmath_diagonal_matrix:VV} and
+%   \cs{conmath_diagonal_smallmatrix:VV} functions for creating the identity
+%   matrix we declare an internal \meta{clist~var} called
+%   \cs{l_@@_id_entries_clist} for passing the \meta{clist} around.
+%    \begin{macrocode}
+\clist_new:N \l_@@_id_entries_clist
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{Added variable.}
+% \end{variable}
+%
+% \begin{macro}{
+%   \conmath_id_matrix:n,
+%   \conmath_id_smallmatrix:n
+% }
+%   These functions are intended to produce an identity matrix from an integer
+%   expression.
+%   They take one argument.
+%   \begin{arguments}
+%     \item The number of diagonal entries.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \conmath_id_matrix:n
+{
+  \clist_clear:N \l_@@_id_entries_clist
+  \@@_generate_one_filled_clist:Nn \l_@@_id_entries_clist {#1}
+  \conmath_diagonal_matrix:VV \l_@@_matrix_delim_tl \l_@@_id_entries_clist
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \conmath_id_smallmatrix:n
+{
+  \clist_clear:N \l_@@_id_entries_clist
+  \@@_generate_one_filled_clist:Nn \l_@@_id_entries_clist {#1}
+  \conmath_diagonal_smallmatrix:VV \l_@@_matrix_delim_tl \l_@@_id_entries_clist
+}
+%    \end{macrocode}
+%
+% \begin{macro}{
+%   \conmath_id_matrix:V,
+%   \conmath_id_smallmatrix:V
+% }
+% We also provide variants, which accepts a "V"-type argument:
+%    \begin{macrocode}
+\cs_generate_variant:Nn \conmath_id_matrix:n { V }
+\cs_generate_variant:Nn \conmath_id_smallmatrix:n { V }
+%    \end{macrocode}
+% \end{macro}
+%
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   Added functions \cs{conmath_id_matrix:n} and \cs{conmath_id_smallmatrix:n}
+%   and variants.
+%   }
+% \end{macro}
 %
 % \subsubsection{Document Level Commands}
 % \label{sec:mat-doc-lvl-cmds}
