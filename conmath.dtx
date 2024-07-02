@@ -1704,6 +1704,147 @@
 % looks like this \(\psmallantidiagmat{1,1}\).
 % \end{quote}
 %
+% \subsection{Identity Matrices}
+% \label{sec:id-matrices}
+%
+% As identity matrices are always quadratic,
+% one can further simplify the typesetting of identity matrices to a command,
+% which constructs the identity matrix from the number of dimensions.
+% The commands in this subsection perform this.
+%
+% \begin{function}[added = 0000-00-00]{
+%   \idmat,
+%   \smallidmat,
+% }
+%   \begin{syntax}
+%     \cs{idmat} \oarg{kv~opts} \marg{dimension}
+%     \cs{smallidmat} \oarg{kv~opts} \marg{dimension}
+%   \end{syntax}
+%   The \cs{idmat} command produces an identity matrix.
+%   The optional argument <kv~opts> accepts any valid \emph{matrix} key-value
+%   arguments,
+%   which are described in section~\ref{sec:options-matrix}.
+%   The mandatory argument <dimension> expects a \emph{positive} integer,
+%   which specifies the dimensions of the identity matrix.
+%
+%   The \cs{smallidmat} command behaves like the \cs{idmat} command,
+%   except it produces a matrix suitable for inline math mode.
+%
+%   \begin{texnote}
+%     The maximum number of columns is determined by the \TeX{} counter
+%     "MaxMatrixCols",
+%     which has a default value of 10.
+%     See \textcite{amsmath} for more information.
+%   \end{texnote}
+% \end{function}
+%
+%
+% \begin{function}[added = 0000-00-00]{
+%   \pidmat,
+%   \bidmat,
+%   \Bidmat,
+%   \vidmat,
+%   \Vidmat
+% }
+% \begin{syntax}
+%   \cs{pidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{bidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{Bidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{vidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{Vidmat} \oarg{kv~opts} \marg{dimension}
+% \end{syntax}
+%   Like the \cs[no-index]{\meta{delim}diagmat} commands,
+%   the \cs[no-index]{\meta{delim}idmat} commands produce an identity matrix
+%   with a pre-set delimiter around the matrix,
+%   i.e.\ they behave like \cs{idmat}|[delimiter = |<delim>|]|\marg{dimension}.
+%   <delim> can be "p" for parenthesis,
+%   "b" for brackets,
+%   "B" for braces,
+%   "v" for a single vertical line (\enquote{\(\vert\)}),
+%   or "V" for a double vertical line (\enquote{\(\Vert\)}).
+%
+%   Furthermore these commands accept the same <kv~opts> as the \cs{idmat} command.
+% \end{function}
+%
+% \begin{function}[added = 0000-00-00]{
+%   \psmallidmat,
+%   \bsmallidmat,
+%   \Bsmallidmat,
+%   \vsmallidmat,
+%   \Vsmallidmat
+% }
+% \begin{syntax}
+%   \cs{psmallidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{bsmallidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{Bsmallidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{vsmallidmat} \oarg{kv~opts} \marg{dimension}
+%   \cs{Vsmallidmat} \oarg{kv~opts} \marg{dimension}
+% \end{syntax}
+% These commands are provide inline math suitable versions of the
+% \cs[no-index]{\meta{delim}idmat} commands described above.
+% See their description for more information.
+%
+% The commands accept any of the key-value options described in section~\ref{sec:options-matrix}
+% as optional argument <kv~opts>.
+% \end{function}
+%
+% \paragraph{Examples of Use}
+% \begin{enumerate}
+%     \item Identity matrix without delimiters:
+%
+%           \begin{minipage}{.49\linewidth}
+%             \begin{verbatim}
+% \[
+%   \idmat{3}
+% \]
+%             \end{verbatim}
+%           \end{minipage}\hfill
+%           \begin{minipage}{.49\linewidth}
+%             \[\idmat{3}\]
+%           \end{minipage}
+%
+%     \item Identity matrices with different delimiters:
+%
+%          \begin{verbatim}
+% \[
+%   \pidmat{3}\text{,}\quad \bidmat{3}\text{,}\quad
+%   \Bidmat{3}\text{,}\quad \vidmat{3}\text{,}\quad
+%   \Vidmat{3}
+% \]
+%          \end{verbatim}
+%          \[
+%            \pidmat{3}\text{,}\quad
+%            \bidmat{3}\text{,}\quad
+%            \Bidmat{3}\text{,}\quad
+%            \vidmat{3}\text{,}\quad
+%            \Vidmat{3}
+%          \]
+%
+%   \item Inline math versions of identity matrices with delimiters:
+%
+%         \begin{verbatim}
+% Inline math mode matrices look like this:
+% \(\psmallidmat{2}\), \(\bsmallidmat{2}\), \(\Bsmallidmat{2}\),
+% \(\vsmallidmat{2}\), \(\Vsmallidmat{2}\).
+%         \end{verbatim}
+%         Inline math mode matrices look like this:
+%         \(\psmallidmat{2}\), \(\bsmallidmat{2}\), \(\Bsmallidmat{2}\),
+%         \(\vsmallidmat{2}\), \(\Vsmallidmat{2}\).
+%
+%   \item Identity matrix using the "fill" option for the non-diagonal elements
+%
+%         \begin{minipage}{.49\linewidth}
+%           \begin{verbatim}
+% \[
+%   \pidmat[fill=\star]{3}
+% \]
+%           \end{verbatim}
+%         \end{minipage}\hfill
+%         \begin{minipage}{.49\linewidth}
+%           \[\pidmat[fill=\star]{3}\]
+%         \end{minipage}
+% \end{enumerate}
+%
 %
 % \section{Shorthands for Absolute Value and Norm}
 % \label{sec:shorthands}
@@ -4461,6 +4602,185 @@
 %     Added commands for delimited anti-diagonal matrices suitable for inline math.
 %   }
 % \end{macro}
+%
+% \paragraph{Identity Matrices}
+% We also provide document level commands for producing an identity matrix.
+% These commands are also guarded by the same variable as the other matrix commands
+% (\cs{l_@@_predef_matrix_bool}).
+%
+% \begin{macro}{
+%   \idmat,
+%   \smallidmat,
+% }
+%   We provide two document level commands for producing the identiy matrix,
+%   one for inline math mode and one for display math mode.
+%
+%   We start with the display math mode version.
+%    \begin{macrocode}
+\cs_if_free:NTF \idmat
+{
+  \NewDocumentCommand \idmat { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_id_matrix:n {#2}
+    \group_end:
+  }
+}{ % \cs_if_free:NTF \idmat FALSE BRANCH
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+    {\idmat}
+}
+%    \end{macrocode}
+%   Afterwards we continue with the inline math mode version.
+%    \begin{macrocode}
+\cs_if_free:NTF \smallidmat
+{
+  \NewDocumentCommand \smallidmat { o m }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath / matrix } {#1}
+    }
+    \conmath_id_smallmatrix:n {#2}
+    \group_end:
+  }
+}{ % \cs_if_free:NTF \smallidmat FALSE BRANCH
+  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+    {\smallidmat}
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%     Added \cs{idmat} and \cs{smallidmat} document level commands.
+%   }
+% \end{macro}
+%
+% We also define shorthands for the commonly used delimiters around matrices,
+% to avoid code duplication, we first declare a helper function for this.
+% \begin{macro}{
+%   \@@_new_id_matrix_doc_cmd:NNn
+% }
+%   This function creates a new document level command for an identity matrix like
+%   command.
+%   It allows pre-setting \meta{kv~opts}.
+%   The function takes three arguments.
+% \begin{arguments}
+%   \item The \meta{csname} of the document level command to define
+%
+%   \item The \meta{csname} of the function to use
+%
+%   This is indented to be one of \cs{conmath_id_matrix:n} or
+%   \cs{conmath_id_smallmatrix:n}
+%
+%   \item \meta{kv~opts} to preset in the "conmath / matrix" namespace
+%   for this command
+%
+%     This is meant to be used for pre-setting the key "delimiter".
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_new_id_matrix_doc_cmd:NNn
+{
+  \cs_if_free:NTF #1
+  {
+    \NewDocumentCommand #1 { o m }
+    {
+      \group_begin:
+      \tl_if_empty:nF {#3}
+      {
+        \keys_set:nn { conmath / matrix } {#3}
+      }
+      \tl_if_novalue:nF {##1}
+      {
+        \keys_set:nn { conmath / matrix } {##1}
+      }
+      #2 {##2}
+      \group_end:
+    }
+  }{ % \cs_if_free:NTF #1 FALSE BRANCH
+    \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+      {#1}
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{
+%   \pidmat,
+%   \bidmat,
+%   \Bidmat,
+%   \vidmat,
+%   \Vidmat
+% }
+%   We begin with the display math versions,
+%   starting with the version delimited by parenthesis,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \pidmat \conmath_id_matrix:n { delimiter = p }
+%    \end{macrocode}
+%   continue with the bracketed version,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \bidmat \conmath_id_matrix:n { delimiter = b }
+%    \end{macrocode}
+%   the version using braces,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \Bidmat \conmath_id_matrix:n { delimiter = B }
+%    \end{macrocode}
+%   single vertical lines,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \vidmat \conmath_id_matrix:n { delimiter = v }
+%    \end{macrocode}
+%    and finally double vertical lines.
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \Vidmat \conmath_id_matrix:n { delimiter = V }
+%    \end{macrocode}
+%
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added document level commands \cs{pidmat}, \cs{bidmat}, \cs{Bidmat},
+%     \cs{vidmat}, and \cs{Vidmat}.
+%   }
+% \end{macro}
+%
+% \begin{macro}{
+%   \psmallidmat,
+%   \bsmallidmat,
+%   \Bsmallidmat,
+%   \vsmallidmat,
+%   \Vsmallidmat,
+% }
+% Now we also define shorthands for inline math mode.
+% We start again defining the version using parenthesis,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \psmallidmat \conmath_id_smallmatrix:n
+  { delimiter = p }
+%    \end{macrocode}
+%   then brackets,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \bsmallidmat \conmath_id_smallmatrix:n
+  { delimiter = b }
+%    \end{macrocode}
+%   then braces,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \Bsmallidmat \conmath_id_smallmatrix:n
+  { delimiter = B }
+%    \end{macrocode}
+%   followed by single vertical lines,
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \vsmallidmat \conmath_id_smallmatrix:n
+  { delimiter = v }
+%    \end{macrocode}
+%   and finally double vertical lines.
+%    \begin{macrocode}
+\@@_new_id_matrix_doc_cmd:NNn \Vsmallidmat \conmath_id_smallmatrix:n
+  { delimiter = V }
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   Added document level commands \cs{psmallidmat}, \cs{bsmallidmat},
+%   \cs{Bsmallidmat}, \cs{vsmallidmat} and \cs{Vsmallidmat}.
+%   }
+% \end{macro}
+%
 %    \begin{macrocode}
 }{ % \bool_if:nTF \l_@@_predef_matrix_bool FALSE BRANCH
   \msg_info:nnnn {conmath} { load / disabling } { no-matrix }
