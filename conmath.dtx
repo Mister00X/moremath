@@ -2234,19 +2234,19 @@
 %
 % Then we define keys for the laplacian.
 %    \begin{macrocode}
-   % Symbol to use for the laplacian
-   laplacian-symb .tl_set:N = \l_@@_laplacian_symb_tl,
-   laplacian-symb .initial:n = {\l_@@_nabla_tl},
-   % shall the Laplace operator be a delta
-   delta-laplace .bool_set:N = \l_@@_laplacian_delta_bool,
-   delta-laplace .initial:n = {false},
-   % shall the laplace operator have an arrow over itself
-   arrowlaplace .bool_set:N = \l_@@_laplacian_arrow_bool,
-   arrowlaplace .default:n = {true},
-   arrowlaplace .initial:n = {false},
-   % overwrite the laplace operator
-   laplacian .tl_set:N = \l_@@_laplacian_tl,
-   laplacian .value_required:n = true,
+  % Symbol to use for the laplacian
+  laplacian-symb .tl_set:N = \l_@@_laplacian_symb_tl,
+  laplacian-symb .initial:n = {\l_@@_nabla_tl},
+  % shall the Laplace operator be a delta
+  delta-laplace .bool_set:N = \l_@@_laplacian_delta_bool,
+  delta-laplace .initial:n = {false},
+  % shall the laplace operator have an arrow over itself
+  arrowlaplace .bool_set:N = \l_@@_laplacian_arrow_bool,
+  arrowlaplace .default:n = {true},
+  arrowlaplace .initial:n = {false},
+  % overwrite the laplace operator
+  laplacian .tl_set:N = \l_@@_laplacian_tl,
+  laplacian .value_required:n = true,
 }
 %    \end{macrocode}
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
