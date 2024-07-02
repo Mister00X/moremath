@@ -1948,6 +1948,30 @@
 %  The "smallmatrix" versions are intended for use in inline math mode.
 % \end{function}
 %
+% \begin{function}[added = 0000-00-00]{
+%   \conmath_id_matrix:n,
+%   \conmath_id_matrix:V,
+%   \conmath_id_smallmatrix:n,
+%   \conmath_id_smallmatrix:V,
+% }
+%   \begin{syntax}
+%     \cs{conmath_id_matrix:n} \marg{dimensions}
+%     \cs{conmath_id_smallmatrix:n} \marg{dimensions}
+%   \end{syntax}
+%   These functions produce a identity matrix with <dimensions> rows and columns.
+%   <dimensions> is expected to be a \emph{positive} integer.
+%   The "smallmatrix" version utilizes \pkg{mathtools}' \env{smallmatrix*} environment,
+%   which makes it suitable for inline math mode.
+%
+%   The delimiter around the matrix is determined by the current value of the key
+%   "matrix / delimiter" inside the current group.
+%
+%   As these functions utilize \cs{conmath_diagonal_matrix:VV} or
+%   \cs{conmath_diagonal_smallmatrix:VV} and make use of temporary variables
+%   it is advised to put them into their own group,
+%   i.e.\ surround them by \cs{group_begin:} and \cs{group_end:}.
+% \end{function}
+%
 %
 % \end{documentation}
 %
