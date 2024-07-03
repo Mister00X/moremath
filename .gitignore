@@ -46,3 +46,7 @@
 
 # ignore potential build directory
 /build/
+
+# ignore archives
+*.tar.gz
+*.zip
