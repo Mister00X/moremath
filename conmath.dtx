@@ -3127,8 +3127,7 @@
 {
   \tl_if_empty:NTF \l_@@_grad_op_tl
   {
-    \tex_mathop:D
-    {
+    \mathop{
 %    \end{macrocode}
 % Otherwise we first need to check if the operator shall have an arrow over it.
 % Afterwards if the nabla shall be bold.
@@ -3149,8 +3148,7 @@
         }
         \l_@@_nabla_tl
       }
-    }% \tex_mathop:D
-    \tex_nolimits:D
+    }\nolimits % \mathop
   }{
 %    \end{macrocode}
 % If the user provided its own implementation of the operator,
@@ -3166,14 +3164,13 @@
 %   Then we define a function for returning the laplace operator symbol,
 %   depending on the currently set keys.
 %   The function wraps the symbol for the operator inside
-%   \cs{tex_mathop:D}\NB{MI}{Is there a non-kernel-internal version of \mathop?}
-%   to provide the right spacing.
+%   \tn{mathop} to provide the right spacing.
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_laplace_operator_get:
 {
   \tl_if_empty:NTF \l_@@_laplacian_tl
   {
-    \tex_mathop:D
+    \mathop
     {
       \bool_if:NTF \l_@@_laplacian_delta_bool
       {
@@ -3190,8 +3187,7 @@
           \l_@@_laplacian_symb_tl
         }
       }
-    } % \tex_mathop:D
-    \tex_nolimits:D
+    }\nolimits
     \bool_if:NF \l_@@_laplacian_delta_bool
     {
       \c_math_superscript_token
