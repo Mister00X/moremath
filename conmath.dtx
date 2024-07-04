@@ -158,7 +158,7 @@
 %
 % ^^X Register changes here
 % \AddVersion{v0.1.0}{2024-06-28}
-% \AddVersion{v0.2.0}{UNRELEASED}
+% \AddVersion{v0.2.0}{2024-07-04}
 %
 % ^^X Placeholder for unreleased versions
 % \AddVersion{vUNRELEASED}{UNRELEASED}
@@ -1100,7 +1100,7 @@
 %           \[\pcurl*{1 + \frac{1}{x}}\]
 %         \end{minipage}
 % \end{enumerate}
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+% \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 % Fixed example to match description.
 % }
 %
@@ -1224,7 +1224,7 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:dalembert-op-standalone}
 %
-% \begin{function}[added = 0000-00-00]{\quabla}
+% \begin{function}[added = 2024-07-04]{\quabla}
 %   \begin{syntax}
 %     \cs{quabla} \oarg{kv~opts}
 %     \cs{quabla} \oarg{kv~opts} \_\marg{subscript}
@@ -1260,7 +1260,7 @@
 % \subsubsection{Operators with Delimiters}
 % \label{sec:dalembert-op-delim}
 %
-% \begin{function}[added = 0000-00-00]{
+% \begin{function}[added = 2024-07-04]{
 %   \pquabla,
 %   \bquabla,
 %   \Bquabla,
@@ -1282,7 +1282,7 @@
 %   commands described in section~\ref{sec:grad-op-delim}.
 % \end{function}
 %
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+% \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %   Fixed syntax description of standalone operators not matching reality.
 % }
 %
@@ -1814,7 +1814,7 @@
 % which constructs the identity matrix from the number of dimensions.
 % The commands in this subsection perform this.
 %
-% \begin{function}[added = 0000-00-00]{
+% \begin{function}[added = 2024-07-04]{
 %   \idmat,
 %   \smallidmat,
 % }
@@ -1841,7 +1841,7 @@
 % \end{function}
 %
 %
-% \begin{function}[added = 0000-00-00]{
+% \begin{function}[added = 2024-07-04]{
 %   \pidmat,
 %   \bidmat,
 %   \Bidmat,
@@ -1868,7 +1868,7 @@
 %   Furthermore these commands accept the same <kv~opts> as the \cs{idmat} command.
 % \end{function}
 %
-% \begin{function}[added = 0000-00-00]{
+% \begin{function}[added = 2024-07-04]{
 %   \psmallidmat,
 %   \bsmallidmat,
 %   \Bsmallidmat,
@@ -2155,7 +2155,7 @@
 % value of the key "align".
 % \end{function}
 %
-% \begin{function}[updated = 0000-00-00]{
+% \begin{function}[updated = 2024-07-04]{
 %   \conmath_diagonal_matrix:nn,
 %   \conmath_diagonal_matrix:nV,
 %   \conmath_diagonal_matrix:Vn,
@@ -2193,7 +2193,7 @@
 %  The "smallmatrix" versions are intended for use in inline math mode.
 % \end{function}
 %
-% \begin{function}[added = 0000-00-00]{
+% \begin{function}[added = 2024-07-04]{
 %   \conmath_id_matrix:n,
 %   \conmath_id_matrix:V,
 %   \conmath_id_smallmatrix:n,
@@ -2256,7 +2256,7 @@
 % Then identify this package as \pkg{conmath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{conmath}
-  {UNRELEASED}{vUNRELEASED}{Convenient Math Macros}
+  {2024-07-04}{v0.2.0}{Convenient Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
@@ -2319,7 +2319,7 @@
 % and the shorthands for absolute value
 % and norm shall be defined.
 %
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+% \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
 %   Explicitly declared boolean variables used to store key-value options.
 % }
 % \end{variable}
@@ -2465,10 +2465,10 @@
 %    \begin{macrocode}
 \tl_new:N \l_@@_dalembert_symb_tl
 %    \end{macrocode}
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+% \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 % Explicitly declared variables before using them to set keys.
 % }
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+% \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %   Added: New variable \cs{l_@@_dalembert_symb_tl}
 % }
 % \end{variable}
@@ -2536,7 +2536,7 @@
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %   Added options controlling appearance.
 %  }
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+% \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %   Added: New option "dalembert-symb".
 % }
 % \end{optionenv}
@@ -2659,7 +2659,7 @@
   \RequirePackage{amssymb}
 }
 %    \end{macrocode}
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+% \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
 %   New: Load \pkg{amssymb} if the "no-vector" option has \emph{not} been given.
 % }
 %
@@ -3390,7 +3390,7 @@
   \nolimits
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %     Added function: \cs{@@_dalembert_operator_get:}
 %   }
 % \end{macro}
@@ -3493,7 +3493,7 @@
   }
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %     Added new function \cs{conmath_dalembert_operator:n}.
 %   }
 % \end{macro}
@@ -3846,7 +3846,7 @@
     {\quabla}
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
 %     Added \cs{quabla} command.
 %   }
 % \end{macro}^^X  \quabla
@@ -3937,7 +3937,7 @@
 %    \begin{macrocode}
 \@@_new_nabla_doc_cmds:nN {quabla} \conmath_dalembert_operator:n
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
 %     Added commands for a delimited \foreignlanguage{french}{d'Alembert}
 %     operator.
 %   }
@@ -4243,7 +4243,7 @@
 \cs_generate_variant:Nn \conmath_antidiagonal_smallmatrix:nn { V V }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Added variants.}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{Added "nV" and "VV" variants.}
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{Added "nV" and "VV" variants.}
 % \end{macro}
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 % Added functions producing (anti-)diagonal matrices.
@@ -4289,7 +4289,7 @@
 \cs_generate_variant:Nn \@@_generate_one_filled_clist:Nn { N V }
 %    \end{macrocode}
 % \end{macro}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %     Added function.
 %   }
 % \end{macro}
@@ -4304,7 +4304,7 @@
 %    \begin{macrocode}
 \clist_new:N \l_@@_id_entries_clist
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{Added variable.}
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{Added variable.}
 % \end{variable}
 %
 % \begin{macro}{
@@ -4346,7 +4346,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %   Added functions \cs{conmath_id_matrix:n} and \cs{conmath_id_smallmatrix:n}
 %   and variants.
 %   }
@@ -4921,7 +4921,7 @@
     {\smallidmat}
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %     Added \cs{idmat} and \cs{smallidmat} document level commands.
 %   }
 % \end{macro}
@@ -5004,7 +5004,7 @@
 \@@_new_id_matrix_doc_cmd:NNn \Vidmat \conmath_id_matrix:n { delimiter = V }
 %    \end{macrocode}
 %
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
 %     Added document level commands \cs{pidmat}, \cs{bidmat}, \cs{Bidmat},
 %     \cs{vidmat}, and \cs{Vidmat}.
 %   }
@@ -5043,7 +5043,7 @@
 \@@_new_id_matrix_doc_cmd:NNn \Vsmallidmat \conmath_id_smallmatrix:n
   { delimiter = V }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %   Added document level commands \cs{psmallidmat}, \cs{bsmallidmat},
 %   \cs{Bsmallidmat}, \cs{vsmallidmat} and \cs{Vsmallidmat}.
 %   }
