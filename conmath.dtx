@@ -1981,13 +1981,15 @@
 %   \conmath_gradient_operator:n,
 %   \conmath_divergence_operator:n,
 %   \conmath_curl_operator:n,
-%   \conmath_laplace_operator:n
+%   \conmath_laplace_operator:n,
+%   \conmath_dalembert_operator:n
 % }
 %   \begin{syntax}
 %     \cs{conmath_gradient_operator:n} \marg{subscript}
 %     \cs{conmath_divergence_operator:n} \marg{subscript}
 %     \cs{conmath_curl_operator:n} \marg{subscript}
 %     \cs{conmath_laplace_operator:n} \marg{subscript}
+%     \cs{conmath_dalembert_operator:n} \marg{subscript}
 %   \end{syntax}
 %   Each of these functions return a vector calculus operator,
 %   with an (optional) subscript.
@@ -3366,6 +3368,35 @@
 %     Added functions.
 %   }
 % \end{macro}
+%
+% \begin{macro}{
+%   \conmath_dalembert_operator:n
+% }
+%   This function produces the \foreignlanguage{french}{d'Alembert} operator,
+%   including an optional subscript.
+%   The function takes one argument:
+%   \begin{arguments}
+%     \item A \meta{tl} with the contents of the subscript of the operator.
+%
+%     This variable may be empty,
+%     in this case no subscript (not even an empty one) is produced.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \conmath_dalembert_operator:n
+{
+  \@@_dalembert_operator_get:
+  \tl_if_empty:nF {#1}
+  {
+    \c_math_subscript_token {#1}
+  }
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%     Added new function \cs{conmath_dalembert_operator:n}.
+%   }
+% \end{macro}
+%
+%
 % \subsubsection{Producing Delimited Vector Calculus Operators}
 % \label{sec:delim-vec-ops}
 %
