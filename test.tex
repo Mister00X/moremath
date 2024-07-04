@@ -135,6 +135,8 @@ Standalone operators:
 
 \section{Vectors and Matrices}
 
+\subsection{Row and Column Vectors}
+
 \begin{Example}[gobble=2]
   \[
     \rvector[delimiter=p]{a_{1},a_{2},a_{3}}
@@ -168,6 +170,7 @@ Standalone operators:
 
 \fulllinerule
 
+\subsection{(Anti-)diagonal Matrices}
 \begin{Example}[gobble=2]
   \[
     \diagmat[delimiter=p,fill=\blacktriangle]{1,2,3,4} \times
@@ -182,5 +185,37 @@ Standalone operators:
   \(\psmalldiagmat{1,2,3,4}\),
   \(\psmallantidiagmat{1,2,3,4}\)
 \end{Example}
+
+\nopagebreak\fulllinerule
+
+\subsection{Identity Matrices}
+\begin{SideBySideExample}[xrightmargin=.45\textwidth,gobble=2]
+  \[
+    \idmat[delimiter=p]{4}
+  \]
+
+  \(\smallidmat[delimiter=p,fill=0]{4}\)
+\end{SideBySideExample}
+
+\fulllinerule
+
+\begin{SideBySideExample}[xrightmargin=.45\textwidth,gobble=2]
+  \begin{gather*}
+    \pidmat{3}\\
+    \bidmat{2}\\
+    \Bidmat[fill=\star]{4}\\
+    \vidmat{3}\\
+    \Vidmat{3}
+  \end{gather*}
+\end{SideBySideExample}
+
+\nopagebreak\fulllinerule
+
+\begin{Example}[gobble=2]
+  Inline identity matrices look like this:
+  \(\psmallidmat{3}\), \(\bsmallidmat{2}\), \(\Bsmallidmat{2}\),
+  \(\vsmallidmat{3}\), \(\Vsmallidmat{2}\).
+\end{Example}
+
 
 \end{document}
