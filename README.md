@@ -5,7 +5,8 @@ The `conmath` package provides convenience shorthand math macros such as
 and some commands for quickly producing diagonal matrices, 
 column, and row vectors.
 
-It depends on [mathtools](https://ctan.org/pkg/mathtools)
+It depends on [mathtools](https://ctan.org/pkg/mathtools),
+[amssymb](https://ctan.org/pkg/amsfonts),
 and optionally on [bm](https://ctan.org/pkg/bm).
 
 _____
