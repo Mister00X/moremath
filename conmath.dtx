@@ -834,8 +834,8 @@
 %
 % \begin{function}{\divergence}
 %   \begin{syntax}
-%     \cs{divergence} \oarg{kv opts} \marg{contents}
-%     \cs{divergence} \oarg{kv opts} \_\marg{subscript} \marg{contents}
+%     \cs{divergence} \oarg{kv opts}
+%     \cs{divergence} \oarg{kv opts} \_\marg{subscript}
 %   \end{syntax}
 %   The \cs{divergence} command produces the divergence operator
 %   \enquote{\(\divergence\)},
@@ -956,8 +956,8 @@
 %
 % \begin{function}{\curl}
 %   \begin{syntax}
-%     \cs{curl} \oarg{kv opts} \marg{contents}
-%     \cs{curl} \oarg{kv opts} \_\marg{subscript} \marg{contents}
+%     \cs{curl} \oarg{kv opts}
+%     \cs{curl} \oarg{kv opts} \_\marg{subscript}
 %   \end{syntax}
 %   The \cs{curl} command produces the curl operator \enquote{\(\curl\)},
 %   its usage is analogous to the use of the \cs{grad} command
@@ -1098,8 +1098,8 @@
 %
 % \begin{function}{\laplacian}
 %   \begin{syntax}
-%     \cs{laplacian} \oarg{kv opts} \marg{contents}
-%     \cs{laplacian} \oarg{kv opts} \_\marg{subscript} \marg{contents}
+%     \cs{laplacian} \oarg{kv opts}
+%     \cs{laplacian} \oarg{kv opts} \_\marg{subscript}
 %   \end{syntax}
 %   The \cs{laplacian} command produces a Laplace operator,
 %   which looks by default like this: \(\laplacian\).
@@ -1183,6 +1183,11 @@
 %           \[\plaplacian[delta-laplace=true]{1+x}\]
 %         \end{minipage}
 % \end{enumerate}
+%
+%
+% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   Fixed syntax description of standalone operators not matching reality.
+% }
 %
 %
 % \section{Row- and Column Vectors}
