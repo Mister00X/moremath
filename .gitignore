@@ -30,6 +30,8 @@
 *.sty
 *.synctex
 *.synctex.gz
+# produced by fancyvrb-ex
+*.tmp
 *.toc
 *-SAVE-ERROR
 
