@@ -142,6 +142,52 @@ Standalone operators:
   \end{gather*}
 \end{Example}
 
+\subsection{Different formatting by \TeX{}}
+
+\begin{Example}[gobble=2]
+  \begin{align*}
+    &\mathop{\nabla} f &\qquad &\mathop{\vec{\nabla}} f\\
+    &{\mathop{\nabla}}\times f &\qquad &\mathop{\mathop{\nabla}\times}\nolimits f\\
+    &{\mathop{\nabla}\nolimits}\times (f+g)
+    &\qquad &\mathop{\mathop{\nabla}\nolimits\times}\nolimits (f+g)\\
+    &\mathop{\nabla}\nolimits\cdot f(x)
+    &\qquad &\mathop{\nabla}\nolimits\mathrel{\cdot} f(x)\\
+    &\mathop{\nabla}\nolimits\cdot (f+g)
+    &\qquad &\mathop{\nabla}\nolimits\mathrel{\cdot} (f+g)\\
+    &\mathop{\nabla}\nolimits\cdot (f+g)
+    &\qquad &\mathop{\mathop{\nabla}\mathrel{\cdot}}\nolimits (f+g)\\
+    &a \cdot (f+g)
+  \end{align*}
+\end{Example}
+
+\begin{Example}[gobble=2,label={Different Gradient Operators}]
+  \begin{gather*}
+    \mathop{\nabla}\nolimits f(x)
+    \qquad\mathop{\vec{\vcenter{\hbox{\nabla}}}}\nolimits f(x)\\
+    \mathop{\nabla}\nolimits^{2} f(x)
+    \qquad\mathop{\vec{\vcenter{\hbox{\nabla}}}}\nolimits^{2} f(x)\\
+    \mathop{\nabla}\nolimits (f+g)
+    \qquad\mathop{\vec{\vcenter{\hbox{\nabla}}}}\nolimits (f+g)\\
+    \mathop{\nabla}\nolimits (f+g)
+    \qquad \mathop{\vec{\nabla}}\nolimits (f+g)
+  \end{gather*}
+\end{Example}
+
+\begin{Example}[gobble=2,label={Ideas for Divergence Operators}]
+  \begin{align*}
+  &{\mathop{\nabla}\nolimits}\cdot f(x)
+  &
+  &\mathop{\mathop{\nabla}\nolimits\cdot} f(x)
+  &
+  &\mathop{\nabla}\nolimits{}\cdot f(x)\\
+  &{\mathop{\nabla}\nolimits}\cdot (f+g)
+  &
+  &\mathop{\mathop{\nabla}\nolimits\cdot} (f+g)
+  &
+  &\mathop{\nabla}\nolimits{}\cdot (f+g)
+  \end{align*}
+\end{Example}
+
 \section{Vectors and Matrices}
 
 \subsection{Row and Column Vectors}
