@@ -2344,6 +2344,7 @@
 %   \l_@@_laplacian_delta_bool,
 %   \l_@@_laplacian_arrow_bool,
 %   \l_@@_laplacian_tl,
+%   \l_@@_dalembert_symb_tl,
 % }
 %   We declare several variables to store the values of the keys affecting
 %   appearance.
@@ -2379,8 +2380,16 @@
 % the user provided list of tokens is stored in the variable
 % \cs{l_@@_laplacian_tl}.
 %
+% Finally we define a variable to hold the symbol to use for the
+% \foreignlanguage{french}{d'Alembert} operator.
+%    \begin{macrocode}
+\tl_new:N \l_@@_dalembert_symb_tl
+%    \end{macrocode}
 % \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
 % Explicitly declared variables before using them to set keys.
+% }
+% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   Added: New variable \cs{l_@@_dalembert_symb_tl}
 % }
 % \end{variable}
 %
@@ -2392,7 +2401,8 @@
 %   laplacian-symb,
 %   delta-laplace,
 %   arrowlaplace,
-%   laplacian
+%   laplacian,
+%   dalembert-symb,
 % }
 % First define keys for the vector calculus macros.
 %    \begin{macrocode}
@@ -2436,11 +2446,19 @@
   % overwrite the laplace operator
   laplacian .tl_set:N = \l_@@_laplacian_tl,
   laplacian .value_required:n = true,
+%    \end{macrocode}
+% And keys for the \foreignlanguage{french}{d'Alembert} operator.
+%    \begin{macrocode}
+  dalembert-symb .tl_set:N = \l_@@_dalembert_symb_tl,
+  dalembert-symb .initial:n = {\square},
 }
 %    \end{macrocode}
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %   Added options controlling appearance.
 %  }
+% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%   Added: New option "dalembert-symb".
+% }
 % \end{optionenv}
 %
 % \begin{optionenv}{
