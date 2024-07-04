@@ -84,18 +84,54 @@ Standalone operators:
 
 \begin{SideBySideExample}[xrightmargin=.3\textwidth,gobble=2]
   \begin{gather*}
+    \grad f(x)\\
     \grad_{x} f(x)\\
+    \grad[arrownabla=true] f(x)
+    \quad \mathop{\nabla} f(x)\\
     \pgrad_{x}{f\left(\frac{x}{2}\right)}\\
     \pgrad*_{x}{f\left(\frac{x}{2}\right)}\\
     \pgrad[scale=\Bigg,arrownabla=true]_{x}{f(x)} \\
-    \laplacian_{x} f(x)\\
-    \laplacian[delta-laplace]_{x} f(x)\\
-    \plaplacian*[arrowlaplace=true]_{x}{f(x)}\\
-    \plaplacian*[delta-laplace=true]_{x}{f(x)}\\
-    \pdiv[arrownabla=true]_{x}{f(x)}\\
-    \divergence_{x} f(x)
   \end{gather*}
 \end{SideBySideExample}
+
+\fulllinerule
+
+\begin{SideBySideExample}[xrightmargin=.3\textwidth,gobble=2]
+  \begin{gather*}
+    \laplacian f(x)\\
+    \laplacian_{x} f(x)\\
+    \laplacian[delta-laplace] f(x)\\
+    \laplacian[delta-laplace]_{x} f(x)\\
+    \plaplacian*[arrowlaplace=true]{f(x)}\\
+    \plaplacian*[arrowlaplace=true]_{x}{f(x)}\\
+    \plaplacian*[delta-laplace=true]{f(x)}\\
+    \plaplacian*[delta-laplace=true]_{x}{f(x)}\\
+  \end{gather*}
+\end{SideBySideExample}
+
+\fulllinerule
+
+\begin{SideBySideExample}[xrightmargin=.3\textwidth,gobble=2]
+  \begin{gather*}
+    \divergence f(x) \\
+    \divergence_{x} f(x) \\
+    \pdiv{f+g}\\
+    \pdiv[arrownabla=true]_{x}{f+g}\\
+  \end{gather*}
+\end{SideBySideExample}
+
+\fulllinerule
+
+\begin{SideBySideExample}[xrightmargin=.3\textwidth,gobble=2]
+  \begin{gather*}
+    \curl f(x)\\
+    \curl_{x} f(x)\\
+    \pcurl{f+g}\\
+    \pcurl[arrownabla=true]_{x}{f+g}
+  \end{gather*}
+\end{SideBySideExample}
+
+\fulllinerule
 
 \section{Vectors and Matrices}
 
