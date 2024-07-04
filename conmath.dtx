@@ -3269,6 +3269,28 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{
+%   \@@_dalembert_operator_get:
+% }
+%   This function returns the \foreignlanguage{french}{d'Alembert} operator
+%   depending on the currently set keys. The symbol for the
+%   \foreignlanguage{french}{d'Alembert} operator is wrapped inside \tn{mathop}
+%   to provide proper spacing.
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_dalembert_operator_get:
+{
+  \mathop
+  {
+    \l_@@_dalembert_symb_tl
+  }% \mathop
+  \nolimits
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
+%     Added function: \cs{@@_dalembert_operator_get:}
+%   }
+% \end{macro}
+%
 % \subsubsection{Macros Producing an Operator}
 % \label{sec:op-macros}
 %
