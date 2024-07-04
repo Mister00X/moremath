@@ -3260,6 +3260,29 @@
 % \subsubsection{Macros Providing Symbols of Operators}
 % \label{sec:op-symbols}
 %
+% \begin{NOTE}{MI}
+% What is the correct vertical alignment of the gradient operator if it
+% has an arrow over itself?
+% Centered around the math axis like the bare bones version
+% or how TeX does it automatically with \mathop{\vec{\nabla}}\nolimits?
+%
+% Possible implementation idea:
+% \mathop
+% {
+%   \vec
+%   {
+%     \vcenter
+%     {
+%       \hbox:n
+%       {
+%         \nabla
+%       }
+%     }
+%   }
+% }
+% \nolimits
+% \end{NOTE}
+%
 % \begin{macro}{\@@_gradient_operator_get:}
 %   This function returns the gradient operator depending on the current setting
 %   of the keys.
