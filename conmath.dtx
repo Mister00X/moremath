@@ -389,6 +389,12 @@
 % overwrite the built-in version of the Laplace operator.
 % Use at your own responsibility.
 %
+% \DescribeOption{dalembert-symb}
+% Like the option "nabla" this sets the symbol to use by the document level
+% commands described in section~\ref{sec:dalembert-op-cmds} to use as symbol
+% for the \foreignlanguage{french}{d'Alembert} operator. It accepts a list of
+% \meta{tokens}. It's default value is \cs[module=amssymb,replace=false]{square}.
+%
 % \subsubsection{Options Affecting Matrices and Vectors}
 % \label{sec:options-matrix}
 %
@@ -1203,6 +1209,72 @@
 %         \end{minipage}
 % \end{enumerate}
 %
+%
+% \subsection{^^X
+%   Commands Producing a \foreignlanguage{french}{d'Alembert} operator
+% }
+% \label{sec:dalembert-op-cmds}
+%
+% \subsubsection{Standalone Operator Command}
+% \label{sec:dalembert-op-standalone}
+%
+% \begin{function}[added = 0000-00-00]{\quabla}
+%   \begin{syntax}
+%     \cs{quabla} \oarg{kv~opts}
+%     \cs{quabla} \oarg{kv~opts} \_\marg{subscript}
+%   \end{syntax}
+%   The \cs{quabla} command produces
+%   the \foreignlanguage{french}{d'Alembert} operator \enquote{\(\quabla\)}.
+%   This command accepts an optional subscript.
+% \end{function}
+%
+% The command is called \cs{quabla} because thats shorter and easier to type than
+% \cs[no-index]{dalembertian}.
+% If you want to have a command called \cs[no-index]{dalembertian},
+% put the following in your documents preamble.
+% \begin{verbatim}
+% \NewCommandCopy\quabla\dalembertian
+% \end{verbatim}
+%
+% \paragraph{Example of Use:}
+% \begin{quote}
+%   \begin{minipage}{.49\linewidth}
+%     \begin{verbatim}
+% \[
+%   \quabla f(x)
+% \]
+%     \end{verbatim}
+%   \end{minipage}\hfill
+%   \begin{minipage}{.49\linewidth}
+%     \[\quabla f(x)\]
+%   \end{minipage}
+% \end{quote}
+%
+%
+% \subsubsection{Operators with Delimiters}
+% \label{sec:dalembert-op-delim}
+%
+% \begin{function}[added = 0000-00-00]{
+%   \pquabla,
+%   \bquabla,
+%   \Bquabla,
+%   \vquabla,
+%   \Vquabla,
+% }
+%   \begin{syntax}
+%     \cs[no-index]{\meta{delim}quabla} \oarg{size~cmd} \marg{contents}
+%     \cs[no-index]{\meta{delim}quabla} \oarg{kv~opts} \marg{contents}
+%     \cs[no-index]{\meta{delim}quabla} \oarg{size~cmd} \_\marg{subscript} \marg{contents}
+%     \cs[no-index]{\meta{delim}quabla} \oarg{kv~opts} \_\marg{subscript} \marg{contents}
+%     \cs[no-index]{\meta{delim}quabla}* \oarg{kv~opts} \marg{contents}
+%     \cs[no-index]{\meta{delim}quabla}* \oarg{kv~opts} \_\marg{subscript} \marg{contents}
+%   \end{syntax}
+%   The \cs[no-index]{\meta{delim}quabla} family of commands produce a
+%   \foreignlanguage{french}{d'Alembert} operator with <contents> placed inside
+%   delimiters.
+%   Their usage is analogous to the \cs[no-index]{\meta{delim}grad} family of
+%   commands described in section~\ref{sec:grad-op-delim}.
+% \end{function}
 %
 % \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{%
 %   Fixed syntax description of standalone operators not matching reality.
@@ -3720,7 +3792,35 @@
   {\laplacian}
 }
 %    \end{macrocode}
-%   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
+% \begin{macro}{\quabla}
+%   We now also define a command to use as a standalone
+%   \foreignlanguage{french}{d'Alembert} operator.
+%   As the name \cs[no-index]{dalembertian} is a bit cumbersome to type out,
+%   I've decided to use one of its alternate names \cs{quabla}
+%    \begin{macrocode}
+\cs_if_free:NTF \quabla
+{
+  \exp_args:NNe \NewDocumentCommand \quabla
+    { o E{ \char_generate:nn {`_} { 8 } }{{}} }
+  {
+    \group_begin:
+    \tl_if_novalue:nF {#1}
+    {
+      \keys_set:nn { conmath } {#1}
+    }
+    \conmath_dalembert_operator:n {#2}
+    \group_end:
+  }
+}{ % \cs_if_free:NTF \quabla FALSE BRANCH
+  \msg_warning:nnn { conmath } { vector-calc / already-defined-skip }
+    {\quabla}
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added \cs{quabla} command.
+%   }
+% \end{macro}^^X  \quabla
+%   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added \cs{grad}, \cs{divergence}, \cs{curl} and \cs{laplacian}
 %     commands.
 %   }
@@ -3792,6 +3892,24 @@
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added commands for delimited Laplace operators.
+%   }
+% \end{macro}
+%
+% \begin{macro}{
+%   \pquabla,
+%   \bquabla,
+%   \Bquabla,
+%   \vquabla,
+%   \Vquabla
+% }
+%   Finally we define delimited commands for the
+%   \foreignlanguage{french}{d'Alembert} operator.
+%    \begin{macrocode}
+\@@_new_nabla_doc_cmds:nN {quabla} \conmath_dalembert_operator:n
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added commands for a delimited \foreignlanguage{french}{d'Alembert}
+%     operator.
 %   }
 % \end{macro}
 %
