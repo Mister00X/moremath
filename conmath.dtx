@@ -2265,6 +2265,33 @@
 %   i.e.\ surround them by \cs{group_begin:} and \cs{group_end:}.
 % \end{function}
 %
+% \subsection{Vertically Centering Math Along the Math Axis}
+% \label{sec:autors-vcenter}
+%
+% As already said in section~\ref{sec:vcenter} sometimes it is needed to
+% explicitly center some math code.
+%
+% \begin{function}[added=0000-00-00]{
+%   \conmath_vcenter:n,
+% }
+%   \begin{syntax}
+%     \cs{conmath_vcenter:n} \marg{contents}
+%   \end{syntax}
+%   The function \cs{conmath_vcenter:n} places <contents> inside a "hbox",
+%   which is centered along the math axis by \tn{vcenter}.
+%   The contents inside the "hbox" are set in math mode.
+%   The function also applies the \enquote{outer} math style
+%   to the contents of the "hbox".
+%
+%   This function is not \tn[no-index]{long},
+%   as it sets its contents inside a "hbox".
+%
+%   \begin{texnote}
+%     This function is a wrapper around \tn{vcenter}, \cs{hbox:n},
+%     and \tn{mathpalette}.
+%     Inside the "hbox" math mode is reentered.
+%   \end{texnote}
+% \end{function}
 %
 % \end{documentation}
 %
