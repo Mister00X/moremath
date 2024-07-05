@@ -2761,6 +2761,59 @@
 % \end{macro}
 %
 %
+% \subsubsection*{Document Level Command}
+%
+% Although unlikely there might arise the need for a document author to center
+% some math along the math axis.
+% For this purpose we are going to define a new document level command.
+%
+% But first we are going to declare some messages to use by the command.
+% The first message informs the user that the command is not available,
+% because its \meta{csname} is already taken.
+%    \begin{macrocode}
+\msg_new:nnn { conmath } { csname-already-defined }
+{
+  Control~sequence~' #1 '~is~already~ defined.\\
+  Skipping~definition~\msg_line_context:
+}
+%    \end{macrocode}
+% The second message should be issued if a command that only works in math mode
+% was given outside of it.
+%    \begin{macrocode}
+\msg_new:nnnn { conmath } { vcenter / only-in-math-mode }
+{
+  Command~#1~used~outside~math~mode~\msg_line_context:.
+}
+{
+  The~command~#1~may~only~be~used~inside~math~mode.
+}
+%    \end{macrocode}
+% \begin{macro}{
+%   \VCenterMath,
+% }
+% Now to the document level command for centering math along the math axis.
+%    \begin{macrocode}
+\cs_if_free:NTF \VCenterMath
+{
+  \NewDocumentCommand \VCenterMath { m }
+  {
+    \mode_if_math:TF
+    {
+      \conmath_vcenter:n {#1}
+    }{% \mode_if_math:TF FALSE BRANCH
+      \msg_error:nnn { conmath } { vcenter / only-in-math-mode } {\VCenterMath}
+    }
+  }
+}{% \cs_if_free:NTF \VCenterMath FALSE BRANCH
+  \msg_warning:nnn { conmath } { csname-already-defined } {\VCenterMath}
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added new document level command.
+%   }
+% \end{macro}
+%
+%
 % ^^X SUBSECTION: Paired Delimiters
 % \subsection{Declaring Paired Delimiters for Internal Use}
 % \label{sec:impl-paired-delim}
