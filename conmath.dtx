@@ -2256,7 +2256,7 @@
 % Then identify this package as \pkg{conmath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{conmath}
-  {2024-07-04}{v0.2.0}{Convenient Math Macros}
+  {UNRELEASED}{vUNRELEASED}{Convenient Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
@@ -2667,6 +2667,99 @@
 %    \begin{macrocode}
 \RequirePackage{mathtools}[2004/06/05]
 %    \end{macrocode}
+%
+%
+% \subsection{Centering Math Symbols Along the Math-Axis}
+% \label{sec:impl-vcenter}
+%
+% Certain math constructs such cause \TeX{}
+% to not center the operator along the math axis,
+% like case of |\mathop{\nabla}\nolimits| vs.\
+% |\mathop{\boldsymbol\nabla}\nolimits|,
+% as can be seen below.
+% \[
+%   \mathop{\nabla}\nolimits f(x)
+%   \quad \text{vs.} \quad
+%   \mathop{\boldsymbol\nabla}\nolimits f(x)
+% \]
+% As can be seen the bold nabla symbol is slightly higher up than the non-bold
+% version.
+% Because of this it is sometimes useful to manually center some math symbols,
+% along the math axis.\footnote{%
+%   The code in this section is inspired by
+%   \url{http://www.tug.org/TUGboat/Articles/tb22-4/tb72perlS.pdf}
+% }
+%
+% \begin{macro}[added = 0000-00-00]{
+%   \conmath_vcenter:n
+% }
+%   The function \cs{conmath_vcenter:n} is a wrapper around the \tn{vcenter}
+%   \TeX{} primitive.
+%   It takes a single argument.
+%   \begin{arguments}
+%     \item A \meta{tl} containing math mode material to center along the math axis.
+%
+%          This argument is typeset in math mode.
+%   \end{arguments}
+%   The function uses the \tn{mathpalette} primitive to switch to the right
+%   math style.
+%   The function is not in a \TeX{}-sense long,
+%   i.e.\ it does not take \tn{par} tokens.
+%
+%   As this function might be useful not only for internal use by \pkg{conmath},
+%   we declare it as a public function here.
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \conmath_vcenter:n
+{
+  \mathpalette \@@_vcenter:Nn {#1}
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added new function.
+%   }
+% \end{macro}
+%
+% \begin{macro}[added=0000-00-00]{
+%   \@@_vcenter:Nn,
+% }
+%   As \tn{mathpalette} needs as its first argument a macro which takes two
+%   arguments
+%   (the first is a math style switch and the second the contents).\footnote{%
+%     See \TeX{}SE answer \url{https://tex.stackexchange.com/a/34412}
+%   }
+%   We define an internal helper function for \cs{conmath_vcenter:n} for
+%   \cs{mathpalette} to call.
+%
+%   The function \cs{@@_vcenter:Nn} takes two arguments:
+%   \begin{arguments}
+%     \item The math style macro, which is passed to this function by
+%           \tn{mathpalette}.
+%
+%     \item The \meta{tl} to typeset inside the \tn{vcenter}.
+%   \end{arguments}
+%
+%   Because of the properties of \tn{vcenter}, it switches to vertical mode,
+%   we need to put the contents to typeset inside a horizontal box.
+%   Because of this we also need to reenter math mode, and because of this
+%   we need to remove the spacing inserted by entering math mode
+%   by setting \tn{mathsurround} to zero.
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \@@_vcenter:Nn
+{
+  \vcenter
+  {
+    \hbox:n
+    {
+      $
+      \mathsurround=0pt
+      #1 {#2}
+      $
+    }
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
 %
 % ^^X SUBSECTION: Paired Delimiters
 % \subsection{Declaring Paired Delimiters for Internal Use}
