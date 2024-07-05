@@ -1973,6 +1973,54 @@
 % \end{function}
 %
 %
+% \section{Vertically Centering Math Along the Math Axis}
+% \label{sec:vcenter}
+%
+% Sometimes it is useful to explicitly center a math symbol along the math axis.
+% A prominent example is the case of |\mathop{\boldsymbol\nabla}\nolimits|
+% vs.\ |\mathop{\nabla}\nolimits|,
+% as displayed below.
+% \[
+%   \mathop{\boldsymbol\nabla}\nolimits f(x)
+%   \quad \mathop{\nabla}\nolimits f(x)
+% \]
+% Here the bold nabla is slightly higher up than the non-bold version.
+%
+% \begin{function}[added=0000-00-00]{\VCenterMath}
+%   \begin{syntax}
+%     \cs{VCenterMath} \marg{contents}
+%   \end{syntax}
+% \begin{danger}
+%   The command \cs{VCenterMath} centers <contents> along the current math axis,
+%   while adhering to the current math style.
+%   This command is not in a \TeX{}-sense
+%   \tn[no-index]{long}, i.e.\ it does not take \tn[no-index]{par} tokens.
+%
+%   This command is somewhat dangerous as it utilizes the \tn{vcenter} primitive,
+%   which leaves math mode and requires to reenter it.
+%   \emph{Use at your own responsibility.}
+% \end{danger}
+% \begin{texnote}
+%   This command is a wrapper around \tn{vcenter}, \cs{hbox:n}
+%   and \tn{mathpalette}, it reenters math mode inside the hbox.
+% \end{texnote}
+% \end{function}
+%
+% With \cs{VCenterMath} it is possible to fix the above example to:
+% \begin{quote}
+%   \begin{verbatim}
+% \[
+%   \mathop{\VCenterMath{\boldsymbol\nabla}}\nolimits f(x)
+%   \quad \mathop{\nabla}\nolimits f(x)
+% \]
+%   \end{verbatim}
+% \[
+%   \mathop{\VCenterMath{\boldsymbol\nabla}}\nolimits f(x)
+%   \quad \mathop{\nabla}\nolimits f(x)
+% \]
+% \end{quote}
+%
+%
 % \section{Documentation for Class and Package Authors}
 % \label{sec:package-auth-doc}
 %
