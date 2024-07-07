@@ -2548,6 +2548,18 @@
 % }
 % \end{variable}
 %
+% \begin{variable}{
+%   \l_@@_vcenter_bool,
+% }
+%   Additionally we declare a variable to decide if certain math symbols
+%   shall be centered explicitly along the math axis.
+%    \begin{macrocode}
+\bool_new:N \l_@@_vcenter_bool
+%    \end{macrocode}
+%   If \cs{l_@@_vcenter_bool} is true, the symbols of certain math operators,
+%   should be centered explicitly.
+% \end{variable}
+%
 % \begin{optionenv}{
 %   nabla,
 %   arrownabla,
@@ -2606,8 +2618,22 @@
 %    \begin{macrocode}
   dalembert-symb .tl_set:N = \l_@@_dalembert_symb_tl,
   dalembert-symb .initial:n = {\square},
-}
 %    \end{macrocode}
+% \begin{optionenv}{
+%   vcenter,
+% }
+%   The "vcenter" option will control the manual centering of certain math
+%   operators.
+%    \begin{macrocode}
+  vcenter .bool_set:N = \l_@@_vcenter_bool,
+  vcenter .initial:n = true,
+  vcenter .value_required:n = true,
+}% \keys_define:nn
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added new option.
+%   }
+% \end{optionenv} ^^X vcenter
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %   Added options controlling appearance.
 %  }
