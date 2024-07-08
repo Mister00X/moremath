@@ -3536,6 +3536,31 @@
 % \nolimits
 % \end{NOTE}
 %
+% \begin{macro}{
+%   \@@_maybe_vcenter:n,
+% }
+%   Sometimes a symbol should be centered explicitly,
+%   as this will depend on the current setting of "vcenter",
+%   i.e.\ the current value of \cs{l_@@_vcenter_bool},
+%   we provide a helper function which puts its argument
+%   \begin{arguments}
+%     \item A list of \meta{tokens}
+%   \end{arguments}
+%   inside a \tn{vcenter} by means of \cs{conmath_vcenter:n}
+%   or not depending on the current value of \cs{l_@@_vcenter_bool}.
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \@@_maybe_vcenter:n
+{
+  \bool_if:NTF \l_@@_vcenter_bool
+  {
+    \conmath_vcenter:n {#1}
+  }{
+    #1
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
 % \begin{macro}{\@@_gradient_operator_get:}
 %   This function returns the gradient operator depending on the current setting
 %   of the keys.
