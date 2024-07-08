@@ -401,6 +401,14 @@
 % for the \foreignlanguage{french}{d'Alembert} operator. It accepts a list of
 % \meta{tokens}. It's default value is \cs[module=amssymb,replace=false]{square}.
 %
+% \DescribeOption{vcenter}
+% The option "vcenter" controls if certain mathematical symbols
+% of the operators described in section~\ref{sec:vector-calculus} should be
+% vertically centered along the math-axis.
+% The default value of this option is "true".
+%
+%
+%
 % \subsubsection{Options Affecting Matrices and Vectors}
 % \label{sec:options-matrix}
 %
@@ -652,6 +660,30 @@
 % \DescribeOption{no-vector}
 % The commands in this section are only declared if the option |no-vector|
 % has not been given to the package as a load time option.
+%
+% \DescribeOption{vcenter}
+% The option "vcenter" controls if the symbols for the operators described below
+% should be vertically centered along the math axis. Its default value is "true".
+%
+% This option only shows its effects if other options like "arrownabla",
+% "arrowlaplace", or "boldnabla" are set to "true".
+% Like in the example below:
+% \begin{quote}
+%   \begin{verbatim}
+% \begin{gather*}
+%   \grad f(x) \quad \grad[arrownabla,vcenter=false] f(x)
+%   \quad \grad[arrownabla,vcenter=true] f(x)\\
+%   \laplacian f(x) \quad \laplacian[arrowlaplace,vcenter=false] f(x)
+%   \quad \laplacian[arrowlaplace,vcenter=true] f(x)
+% \end{gather*}
+%   \end{verbatim}
+%   \begin{gather*}
+%     \grad f(x) \quad \grad[arrownabla,vcenter=false] f(x)
+%     \quad \grad[arrownabla,vcenter=true] f(x)\\
+%     \laplacian f(x) \quad \laplacian[arrowlaplace,vcenter=false] f(x)
+%     \quad \laplacian[arrowlaplace,vcenter=true] f(x)
+%   \end{gather*}
+% \end{quote}
 %
 % All of the commands described in this section take key-value options
 % as optional argument, which are described in section~\ref{sec:options-vec-calc}
