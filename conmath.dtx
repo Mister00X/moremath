@@ -3513,29 +3513,6 @@
 % \subsubsection{Macros Providing Symbols of Operators}
 % \label{sec:op-symbols}
 %
-% \begin{NOTE}{MI}
-% What is the correct vertical alignment of the gradient operator if it
-% has an arrow over itself?
-% Centered around the math axis like the bare bones version
-% or how TeX does it automatically with \mathop{\vec{\nabla}}\nolimits?
-%
-% Possible implementation idea:
-% \mathop
-% {
-%   \vec
-%   {
-%     \vcenter
-%     {
-%       \hbox:n
-%       {
-%         \nabla
-%       }
-%     }
-%   }
-% }
-% \nolimits
-% \end{NOTE}
-%
 % \begin{macro}{
 %   \@@_maybe_vcenter:n,
 % }
@@ -3569,26 +3546,44 @@
 {
   \tl_if_empty:NTF \l_@@_grad_op_tl
   {
-    \mathop{
+    \mathop
+    {
 %    \end{macrocode}
 % Otherwise we first need to check if the operator shall have an arrow over it.
 % Afterwards if the nabla shall be bold.
 %    \begin{macrocode}
       \bool_if:NTF \l_@@_nabla_arrow_bool
       {
-        \vec{
-          \bool_if:NT \l_@@_nabla_bold_bool
+        \vec
+        {
+%    \end{macrocode}
+% In case \cs{l_@@_nabla_arrow_bool} is true we should \emph{maybe}
+% center the symbol.
+%    \begin{macrocode}
+         \@@_maybe_vcenter:n
           {
-            \boldsymbol
+            \bool_if:NT \l_@@_nabla_bold_bool
+            {
+              \boldsymbol
+            }
+            \l_@@_nabla_tl
           }
-          \l_@@_nabla_tl
         }
       }{
-        \bool_if:NT \l_@@_nabla_bold_bool
+%    \end{macrocode}
+% Like in the case above we should \emph{maybe} center the symbol
+% if \cs{l_@@_nabla_bold_bool} is true.
+%    \begin{macrocode}
+        \bool_if:NTF \l_@@_nabla_bold_bool
         {
-          \boldsymbol
+          \@@_maybe_vcenter:n
+          {
+            \boldsymbol
+            \l_@@_nabla_tl
+          }
+        }{
+          \l_@@_nabla_tl
         }
-        \l_@@_nabla_tl
       }
     }% \mathop
     \nolimits
@@ -3622,12 +3617,23 @@
         \bool_if:NTF \l_@@_laplacian_arrow_bool
         {
           \vec{
-            \bool_if:NT \l_@@_nabla_bold_bool {\boldsymbol}
-            \l_@@_laplacian_symb_tl
+            \@@_maybe_vcenter:n
+            {
+              \bool_if:NT \l_@@_nabla_bold_bool {\boldsymbol}
+              \l_@@_laplacian_symb_tl
+            }
           }
         }{
-          \bool_if:NT \l_@@_nabla_bold_bool {\boldsymbol}
-          \l_@@_laplacian_symb_tl
+          \bool_if:NTF \l_@@_nabla_bold_bool
+          {
+            \@@_maybe_vcenter:n
+            {
+              \boldsymbol
+              \l_@@_laplacian_symb_tl
+            }
+          }{
+            \l_@@_laplacian_symb_tl
+          }
         }
       }
     }\nolimits
