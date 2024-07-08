@@ -159,7 +159,7 @@
 % ^^X Register changes here
 % \AddVersion{v0.1.0}{2024-06-28}
 % \AddVersion{v0.2.0}{2024-07-04}
-% \AddVersion{v0.3.0}{UNRELEASED}
+% \AddVersion{v0.3.0}{2024-07-08}
 %
 % ^^X Placeholder for unreleased versions
 % \AddVersion{vUNRELEASED}{UNRELEASED}
@@ -167,7 +167,7 @@
 % \begin{documentation}
 %
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Initial development release}
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+% \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
 %   Split the documentation into several parts.
 % }
 %
@@ -701,7 +701,7 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:grad-op-standalone}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-07-08]{
 %   \grad,
 % }
 %   \begin{syntax}
@@ -904,7 +904,7 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:div-op-standalone}
 %
-% \begin{function}[updated=0000-00-00]{\divergence}
+% \begin{function}[updated=2024-07-08]{\divergence}
 %   \begin{syntax}
 %     \cs{divergence} \oarg{kv opts}
 %     \cs{divergence} \oarg{kv opts} \_\marg{subscript}
@@ -1026,7 +1026,7 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:curl-op-standalone}
 %
-% \begin{function}[updated=0000-00-00]{\curl}
+% \begin{function}[updated=2024-07-08]{\curl}
 %   \begin{syntax}
 %     \cs{curl} \oarg{kv opts}
 %     \cs{curl} \oarg{kv opts} \_\marg{subscript}
@@ -1168,7 +1168,7 @@
 % \label{sec:laplace-op-standalone}
 %
 %
-% \begin{function}[updated=0000-00-00]{\laplacian}
+% \begin{function}[updated=2024-07-08]{\laplacian}
 %   \begin{syntax}
 %     \cs{laplacian} \oarg{kv opts}
 %     \cs{laplacian} \oarg{kv opts} \_\marg{subscript}
@@ -1267,7 +1267,7 @@
 %
 % \begin{function}[
 %   added = 2024-07-04,
-%   updated=0000-00-00,
+%   updated=2024-07-08,
 % ]{\quabla}
 %   \begin{syntax}
 %     \cs{quabla} \oarg{kv~opts}
@@ -2030,7 +2030,7 @@
 % \]
 % Here the bold nabla is slightly higher up than the non-bold version.
 %
-% \begin{function}[added=0000-00-00]{\VCenterMath}
+% \begin{function}[added=2024-07-08]{\VCenterMath}
 %   \begin{syntax}
 %     \cs{VCenterMath} \marg{contents}
 %   \end{syntax}
@@ -2315,7 +2315,7 @@
 % As already said in section~\ref{sec:vcenter} sometimes it is needed to
 % explicitly center some math code.
 %
-% \begin{function}[added=0000-00-00]{
+% \begin{function}[added=2024-07-08]{
 %   \conmath_vcenter:n,
 % }
 %   \begin{syntax}
@@ -2376,7 +2376,7 @@
 % Then identify this package as \pkg{conmath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{conmath}
-  {UNRELEASED}{vUNRELEASED}{Convenient Math Macros}
+  {2024-08-07}{v0.3.0}{Convenient Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
@@ -2675,7 +2675,7 @@
   vcenter .value_required:n = true,
 }% \keys_define:nn
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
 %     Added new option.
 %   }
 % \end{optionenv} ^^X vcenter
@@ -2836,7 +2836,7 @@
 %   \url{http://www.tug.org/TUGboat/Articles/tb22-4/tb72perlS.pdf}
 % }
 %
-% \begin{macro}[added = 0000-00-00]{
+% \begin{macro}[added = 2024-07-08]{
 %   \conmath_vcenter:n
 % }
 %   The function \cs{conmath_vcenter:n} is a wrapper around the \tn{vcenter}
@@ -2860,12 +2860,12 @@
   \mathpalette \@@_vcenter:Nn {#1}
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
 %     Added new function.
 %   }
 % \end{macro}
 %
-% \begin{macro}[added=0000-00-00]{
+% \begin{macro}[added=2024-07-08]{
 %   \@@_vcenter:Nn,
 % }
 %   As \tn{mathpalette} needs as its first argument a macro which takes two
@@ -2954,7 +2954,7 @@
   \msg_warning:nnn { conmath } { csname-already-defined } {\VCenterMath}
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
 %     Added new document level command.
 %   }
 % \end{macro}
