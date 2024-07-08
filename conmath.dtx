@@ -166,6 +166,9 @@
 % \begin{documentation}
 %
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Initial development release}
+% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Split the documentation into several parts.
+% }
 %
 % \title{The \pkg{conmath} package\thanks{This document coresponds to
 %   \textsf{conmath}~\fileversion, dated \filedate.}}
@@ -206,6 +209,9 @@
 % I am unable to promise this.
 %
 % \tableofcontents
+%
+% \part{Document Author Documentation}
+% \label{pt:doc-auth}
 %
 % \section{Introduction}
 % \label{sec:intro}
@@ -2053,10 +2059,10 @@
 % \end{quote}
 %
 %
-% \section{Documentation for Class and Package Authors}
+% \part{Documentation for Class and Package Authors}
 % \label{sec:package-auth-doc}
 %
-% \subsection{Setting of Options}
+% \section{Setting of Options}
 % \label{sec:authors-options}
 %
 % \begin{function}{
@@ -2068,7 +2074,7 @@
 %   This functions sets the key-value options \meta{kv~opts} in the "conmath" namespace.
 % \end{function}
 %
-% \subsection{Delimited Operators}
+% \section{Delimited Operators}
 % \label{sec:authors-delim-op}
 %
 % \begin{function}{
@@ -2129,10 +2135,10 @@
 % \cs{DeclarePairedDelimiter}.
 % \end{function}
 %
-% \subsection{Vector Calculus Typesetting}
+% \section{Vector Calculus Typesetting}
 % \label{sec:authors-vec-calc}
 %
-% \subsubsection{Functions Producing Standalone Operators with Subscripts}
+% \subsection{Functions Producing Standalone Operators with Subscripts}
 % \label{sec:authors-vec-calc-operators}
 %
 % \begin{function}{
@@ -2159,7 +2165,7 @@
 %   inside the current group.
 % \end{function}
 %
-% \subsubsection{Functions Producing Operators with Delimiters}
+% \subsection{Functions Producing Operators with Delimiters}
 % \label{sec:authors-vec-calc-delim-ops}
 %
 % \begin{function}{
@@ -2203,7 +2209,7 @@
 %   (e.g.\ \cs{big}, \cs{Big}, etc.).
 % \end{function}
 %
-% \subsection{Formatting Matrices and Vectors}
+% \section{Formatting Matrices and Vectors}
 % \label{sec:authors-matrix}
 %
 % \begin{function}{
@@ -2297,7 +2303,7 @@
 %   i.e.\ surround them by \cs{group_begin:} and \cs{group_end:}.
 % \end{function}
 %
-% \subsection{Vertically Centering Math Along the Math Axis}
+% \section{Vertically Centering Math Along the Math Axis}
 % \label{sec:autors-vcenter}
 %
 % As already said in section~\ref{sec:vcenter} sometimes it is needed to
@@ -2337,7 +2343,8 @@
 %
 %
 % \begin{implementation}
-% \section{Implementation}
+% \part{Implementation}
+% \label{pt:implementation}
 % Start the \pkg{DocStrip} guards.
 %    \begin{macrocode}
 %<*package>
@@ -2349,7 +2356,7 @@
 %<@@=conmath>
 %    \end{macrocode}
 %
-% \subsection{Initial Setup}
+% \section{Initial Setup}
 %
 % First set the required version of \LaTeX{},
 % we need at least
@@ -2370,11 +2377,11 @@
 % \iffalse
 % \debug_on:n {}
 % \fi
-% \subsection{Key-value interfaces}
+% \section{Key-value interfaces}
 % \label{sec:key-val}
 % To make use of key-value interfaces we need to define a few keys.
 %
-% \subsubsection{Package load time options}
+% \subsection{Package load time options}
 % \label{sec:load-time-options}
 %
 % To allow for the conditional definition of macros at load time
@@ -2519,7 +2526,7 @@
 % \end{optionenv}
 %
 %
-% \subsubsection{Keys controlling appearance}
+% \subsection{Keys controlling appearance}
 % \label{sec:keys-appearance}
 %
 % \begin{variable}{
@@ -2718,7 +2725,7 @@
 % }
 % \end{optionenv}
 %
-% \subsubsection{Functions for Setting Options}
+% \subsection{Functions for Setting Options}
 % \label{sec:option-setters}
 %
 %
@@ -2760,7 +2767,7 @@
 % \end{macro}
 %
 % ^^X SUBSECTION: Package Initialization
-% \subsection{Package Initialization}
+% \section{Package Initialization}
 % \label{sec:init}
 %
 % We now \enquote{initialize} the package by processing the package options,
@@ -2802,7 +2809,7 @@
 %    \end{macrocode}
 %
 %
-% \subsection{Centering Math Symbols Along the Math-Axis}
+% \section{Centering Math Symbols Along the Math-Axis}
 % \label{sec:impl-vcenter}
 %
 % Certain math constructs such cause \TeX{}
@@ -2894,7 +2901,7 @@
 % \end{macro}
 %
 %
-% \subsubsection*{Document Level Command}
+% \subsection*{Document Level Command}
 %
 % Although unlikely there might arise the need for a document author to center
 % some math along the math axis.
@@ -2947,8 +2954,8 @@
 % \end{macro}
 %
 %
-% ^^X SUBSECTION: Paired Delimiters
-% \subsection{Declaring Paired Delimiters for Internal Use}
+% ^^X SECTION: Paired Delimiters
+% \section{Declaring Paired Delimiters for Internal Use}
 % \label{sec:impl-paired-delim}
 %
 % \begin{macro}{
@@ -2971,8 +2978,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% ^^X SUBSECTION: Delimited Operators
-% \subsection{Delimited Operators}
+% ^^X SECTION: Delimited Operators
+% \section{Delimited Operators}
 % \label{sec:impl-delim-op}
 %
 % We need three different functions for providing the delimited operators.
@@ -3181,7 +3188,7 @@
 %   }
 % \end{macro}
 %
-% \subsubsection{Document Level Commands}
+% \subsection{Document Level Commands}
 % \label{sec:impl-delim-op-doc-cmds}
 %
 % \begin{macro}{\DeclareDelimitedOperator}
@@ -3535,14 +3542,14 @@
 } % End of the conditional
 %    \end{macrocode}
 %
-% ^^X SUBSECTION: Vector Calculus Macros
-% \subsection{Vector Calculus Macros}
+% ^^X SECTION: Vector Calculus Macros
+% \section{Vector Calculus Macros}
 % \label{sec:vector-calc}
 %
 % For providing macros which help with vector differentials,
 % we first need some setup functions.
 %
-% \subsubsection{Macros Providing Symbols of Operators}
+% \subsection{Macros Providing Symbols of Operators}
 % \label{sec:op-symbols}
 %
 % \begin{macro}{
@@ -3705,7 +3712,7 @@
 %   }
 % \end{macro}
 %
-% \subsubsection{Macros Producing an Operator}
+% \subsection{Macros Producing an Operator}
 % \label{sec:op-macros}
 %
 % After we have defined the symbols it is now time to provide a function which
@@ -3809,7 +3816,7 @@
 % \end{macro}
 %
 %
-% \subsubsection{Producing Delimited Vector Calculus Operators}
+% \subsection{Producing Delimited Vector Calculus Operators}
 % \label{sec:delim-vec-ops}
 %
 % \begin{macro}{
@@ -4030,7 +4037,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsubsection{Document Level Commands}
+% \subsection{Document Level Commands}
 % \label{sec:vec-doc-lvl-commands}
 %
 % The predefined macros for vector calculus are also guarded by a package
@@ -4039,7 +4046,7 @@
 \bool_if:NTF \l_@@_predef_vector_op_bool
 {
 %    \end{macrocode}
-% \paragraph{Standalone Operators}
+% \subsubsection{Standalone Operators}
 % \label{par:impl-vector-calc-standalone}
 % The user might want to use also a non-delimited version
 % of the vector calculus operators,
@@ -4166,7 +4173,7 @@
 %   }
 % \end{macro}
 %
-% \paragraph{Operators with Delimiters}
+% \subsubsection{Operators with Delimiters}
 % \label{par:impl-vec-calc-op-delim}
 %
 % \begin{macro}{
@@ -4264,10 +4271,10 @@
 } % END \l_@@_predef_vector_op_bool
 %    \end{macrocode}
 %
-% \subsection{Macros Producing Matrices and Vectors}
+% \section{Macros Producing Matrices and Vectors}
 % \label{sec:impl-matr-vec}
 %
-% \subsubsection{Producing Row and Column Vectors}
+% \subsection{Producing Row and Column Vectors}
 %
 % The functions in this section are used to generate row and column vectors
 % utilizing \pkg{mathtools}~\autocite{mathtools} \env{matrix*} and
@@ -4379,8 +4386,8 @@
 %   }
 % \end{macro}
 %
-% ^^X SUBSUBSECTION: Shorthands for simple matrices
-% \subsubsection{Shorthands for Simple Matrices}
+% ^^X SUBSECTION: Shorthands for simple matrices
+% \subsection{Shorthands for Simple Matrices}
 % \label{sec:impl-matr-shorth}
 %
 % The construction of several simple matrices like diagonal matrices,
@@ -4405,7 +4412,7 @@
 %    \end{macrocode}
 % \end{variable}
 %
-% \paragraph{(Anti-)diagonal matrices}
+% \subsubsection{(Anti-)diagonal matrices}
 % We split the construction of the matrix into multiple parts,
 % utilizing internal helper functions.
 % \begin{macro}{
@@ -4562,7 +4569,7 @@
 % \end{macro}
 %
 %
-% \paragraph{Identity Matrices}
+% \subsubsection{Identity Matrices}
 % As we already have functions available for producing diagonal matrices,
 % it makes only sense to also provide a shorthand for producing an identity matrix,
 % i.e.\ a diagonal matrix with \enquote{1} along the diagonal.
@@ -4662,7 +4669,7 @@
 %   }
 % \end{macro}
 %
-% \subsubsection{Document Level Commands}
+% \subsection{Document Level Commands}
 % \label{sec:mat-doc-lvl-cmds}
 %
 % Now we define document level commands for the previously defined
@@ -4684,7 +4691,7 @@
 }
 %    \end{macrocode}
 %
-% \paragraph{Row and Column Vectors}
+% \subsubsection{Row and Column Vectors}
 % We begin with the row and column vector functions.
 % As with the other document level commands, we guard the definitions
 % with a key value option, so that the user can disable them.
@@ -4790,6 +4797,7 @@
 %   }
 % \end{macro}
 %
+% \paragraph{Commands with Pre-defined Delimiters}
 % Next we define several shorthands to for the commonly used delimiters,
 % to avoid code duplication, we first create some helper functions which
 % define those functions.
@@ -4942,7 +4950,7 @@
 % \end{macro}
 %
 %
-% \paragraph{(Anti-)diagonal Matrices}
+% \subsubsection{(Anti-)diagonal Matrices}
 % Now to the (anti-)diagonal matrix shorthands,
 % these are also guarded by a key value option.
 %    \begin{macrocode}
@@ -5042,6 +5050,9 @@
 %   }
 % \end{macro}
 %
+% \paragraph{(Anti-)diagonal Matrices with Pre-defined Delimiters}
+% As it is sort of cumbersome to always specify the delimiter key,
+% we also provide commands with pre-defined delimiters.
 % \begin{macro}{
 %   \@@_new_matrix_shorth_doc_cmd:NNn
 % }
@@ -5181,7 +5192,7 @@
 %   }
 % \end{macro}
 %
-% \paragraph{Identity Matrices}
+% \subsubsection{Identity Matrices}
 % We also provide document level commands for producing an identity matrix.
 % These commands are also guarded by the same variable as the other matrix commands
 % (\cs{l_@@_predef_matrix_bool}).
@@ -5236,6 +5247,7 @@
 %   }
 % \end{macro}
 %
+% \paragraph{Identity Matrices with Pre-defined Delimiters}
 % We also define shorthands for the commonly used delimiters around matrices,
 % to avoid code duplication, we first declare a helper function for this.
 % \begin{macro}{
@@ -5369,7 +5381,7 @@
 %    \end{macrocode}
 %
 %
-% \subsection{Shorthand Macros for Absolute Value and Norm}
+% \section{Shorthand Macros for Absolute Value and Norm}
 % \label{sec:impl-abs-shorthands}
 %
 % We first declare another warning message to inform the user of the case that,
