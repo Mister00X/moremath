@@ -159,6 +159,7 @@
 % ^^X Register changes here
 % \AddVersion{v0.1.0}{2024-06-28}
 % \AddVersion{v0.2.0}{2024-07-04}
+% \AddVersion{v0.3.0}{UNRELEASED}
 %
 % ^^X Placeholder for unreleased versions
 % \AddVersion{vUNRELEASED}{UNRELEASED}
@@ -700,7 +701,7 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:grad-op-standalone}
 %
-% \begin{function}{
+% \begin{function}[updated=0000-00-00]{
 %   \grad,
 % }
 %   \begin{syntax}
@@ -710,7 +711,9 @@
 %   The \cs{grad} command produces a gradient operator
 %   looking like this \enquote{\(\grad\)} by default.
 %   The optional argument \meta{kv opts} accepts the key-value options
-%   described in section~\ref{sec:options-vec-calc}.
+%   described in section~\ref{sec:options-vec-calc},
+%   whitespace between the command name
+%   and \oarg{kv~opts} is \emph{not allowed}.
 %   An optional subscript using "_" may be given after the optional argument.
 % \end{function}
 %
@@ -901,7 +904,7 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:div-op-standalone}
 %
-% \begin{function}{\divergence}
+% \begin{function}[updated=0000-00-00]{\divergence}
 %   \begin{syntax}
 %     \cs{divergence} \oarg{kv opts}
 %     \cs{divergence} \oarg{kv opts} \_\marg{subscript}
@@ -1023,7 +1026,7 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:curl-op-standalone}
 %
-% \begin{function}{\curl}
+% \begin{function}[updated=0000-00-00]{\curl}
 %   \begin{syntax}
 %     \cs{curl} \oarg{kv opts}
 %     \cs{curl} \oarg{kv opts} \_\marg{subscript}
@@ -1165,7 +1168,7 @@
 % \label{sec:laplace-op-standalone}
 %
 %
-% \begin{function}{\laplacian}
+% \begin{function}[updated=0000-00-00]{\laplacian}
 %   \begin{syntax}
 %     \cs{laplacian} \oarg{kv opts}
 %     \cs{laplacian} \oarg{kv opts} \_\marg{subscript}
@@ -1262,7 +1265,10 @@
 % \subsubsection{Standalone Operator Command}
 % \label{sec:dalembert-op-standalone}
 %
-% \begin{function}[added = 2024-07-04]{\quabla}
+% \begin{function}[
+%   added = 2024-07-04,
+%   updated=0000-00-00,
+% ]{\quabla}
 %   \begin{syntax}
 %     \cs{quabla} \oarg{kv~opts}
 %     \cs{quabla} \oarg{kv~opts} \_\marg{subscript}
@@ -4074,7 +4080,7 @@
 %    \begin{macrocode}
 \cs_if_free:NTF \grad
 {
-  \exp_args:NNe \NewDocumentCommand \grad { o E{ \char_generate:nn {`_}{8} }{{}} }
+  \exp_args:NNe \NewDocumentCommand \grad { !o E{ \char_generate:nn {`_}{8} }{{}} }
   {
     \group_begin:
     \tl_if_novalue:nF {#1}
@@ -4091,7 +4097,7 @@
 \cs_if_free:NTF \divergence
 {
   \exp_args:NNe \NewDocumentCommand \divergence
-  { o E{ \char_generate:nn {`_} {8} }{{}} }
+  { !o E{ \char_generate:nn {`_} {8} }{{}} }
   {
     \group_begin:
     \tl_if_novalue:nF {#1}
@@ -4107,7 +4113,8 @@
 
 \cs_if_free:NTF \curl
 {
-  \exp_args:NNe \NewDocumentCommand \curl { o E{ \char_generate:nn {`_}{8} }{{}} }
+  \exp_args:NNe \NewDocumentCommand \curl
+    { !o E{ \char_generate:nn {`_}{8} }{{}} }
   {
     \group_begin:
     \tl_if_novalue:nF {#1}
@@ -4124,7 +4131,7 @@
 \cs_if_free:NTF \laplacian
 {
   \exp_args:NNe \NewDocumentCommand \laplacian
-  { o E{ \char_generate:nn {`_}{8} }{{}} }
+  { !o E{ \char_generate:nn {`_}{8} }{{}} }
   {
     \group_begin:
     \tl_if_novalue:nF {#1}
@@ -4148,7 +4155,7 @@
 \cs_if_free:NTF \quabla
 {
   \exp_args:NNe \NewDocumentCommand \quabla
-    { o E{ \char_generate:nn {`_} { 8 } }{{}} }
+    { !o E{ \char_generate:nn {`_} { 8 } }{{}} }
   {
     \group_begin:
     \tl_if_novalue:nF {#1}
@@ -4166,10 +4173,19 @@
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
 %     Added \cs{quabla} command.
 %   }
+%   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
+%     Changed: Spaces between the \meta{csname}
+%     and the optional argument are now disallowed.
+%   }
 % \end{macro}^^X  \quabla
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added \cs{grad}, \cs{divergence}, \cs{curl} and \cs{laplacian}
 %     commands.
+%   }
+%   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
+%     Changed: Spaces between the \meta{csname}
+%     and the optional argument are now disallowed
+%     for \cs{grad}, \cs{divergence}, \cs{curl} and \cs{laplacian}.
 %   }
 % \end{macro}
 %
