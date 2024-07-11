@@ -47,7 +47,7 @@ sub generate_docs($filename, @latexmk_options)
 
 my $help= '';
 my @latexmk_opts = ();
-my $basename = "conmath";
+my $basename = "moremath";
 
 my $error = 0;
 
@@ -115,7 +115,7 @@ S<B<./build.pl> B<-h>|B<--help>>
 
 This script builds a latex package and its accompanying documentation.
 It produces the package code file using a C<.ins> file.
-By default it tries to built F<conmath.sty> from F<conmath.dtx>.
+By default it tries to built F<moremath.sty> from F<moremath.dtx>.
 The produced documentation file will be named I<file_basename>-doc.pdf.
 
 =head1 OPTIONS

@@ -21,12 +21,12 @@ _____
 To unpack the source code use
 
 ``` shell
-TEX conmath.ins
+TEX moremath.ins
 ```
 
 ## Generating the Documentation
 
-To produce the documentation run `conmath.dtx` through `*latex`.
+To produce the documentation run `moremath.dtx` through `*latex`.
 
 
 ## License
