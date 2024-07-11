@@ -92,17 +92,17 @@
 % custom commands for use inside the documentation
 \ExplSyntaxOn
 % Property list storing version date information
-\prop_new:N \l__conmathdoc_version_date_prop
+\prop_new:N \l__moremathdoc_version_date_prop
 
-\cs_new_protected:Nn \conmathdoc_add_version:nn
+\cs_new_protected:Nn \moremathdoc_add_version:nn
 {
-  \prop_put_if_new:Nnn \l__conmathdoc_version_date_prop {#1} {#2}
+  \prop_put_if_new:Nnn \l__moremathdoc_version_date_prop {#1} {#2}
 }
 
-\cs_new_protected:Nn \conmathdoc_get_version:n
+\cs_new_protected:Nn \moremathdoc_get_version:n
 {
   \group_begin:
-  \prop_get:NnNT \l__conmathdoc_version_date_prop {#1} \l_tmpa_tl
+  \prop_get:NnNT \l__moremathdoc_version_date_prop {#1} \l_tmpa_tl
   {
     \tl_use:N \l_tmpa_tl
   }
@@ -111,12 +111,12 @@
 
 \NewDocumentCommand \AddVersion { m m }
 {
-  \conmathdoc_add_version:nn {#1} {#2}
+  \moremathdoc_add_version:nn {#1} {#2}
 }
 
 \NewDocumentCommand \GetVersionDate { m }
 {
-  \conmathdoc_get_version:n {#1}
+  \moremathdoc_get_version:n {#1}
 }
 \ExplSyntaxOff
 
@@ -137,7 +137,7 @@
 \SetCiteCommand{\autocite}
 
 \usepackage{amssymb}
-\usepackage[bm]{conmath}
+\usepackage[bm]{moremath}
 
 % renew the ctanbibpkgname command
 \NewDocumentCommand\ctanbibpkgname{m}{\pkg{#1}}
@@ -154,7 +154,7 @@
 % \fi
 %
 % ^^X Get the package version name etc.
-% \GetFileInfo{conmath.sty}
+% \GetFileInfo{moremath.sty}
 %
 % ^^X Register changes here
 % \AddVersion{v0.1.0}{2024-06-28}
@@ -171,8 +171,8 @@
 %   Split the documentation into several parts.
 % }
 %
-% \title{The \pkg{conmath} package\thanks{This document coresponds to
-%   \textsf{conmath}~\fileversion, dated \filedate.}}
+% \title{The \pkg{moremath} package\thanks{This document coresponds to
+%   \textsf{moremath}~\fileversion, dated \filedate.}}
 %
 % \author{Marcel Ilg\thanks{\texttt{mister01x (at) web (dot) de}}}
 %
@@ -181,7 +181,7 @@
 % \maketitle
 %
 % \begin{abstract}
-%   The \pkg{conmath} package provides several document level commands
+%   The \pkg{moremath} package provides several document level commands
 %   to ease the typesetting
 %   and \LaTeX{} code readability of certain mathematical constructs.
 %   It provides complementary commands to all operators defined by \pkg{amsmath},
@@ -226,7 +226,7 @@
 % This package tries to ease readability of such commonly used constructs
 % by providing commands that (hopefully) increase readability,
 % as well as speeding up writing math in \LaTeX{}.
-% Using \pkg{conmath} the above code can be simplified to |\psin*{\frac{x}{2}}|,
+% Using \pkg{moremath} the above code can be simplified to |\psin*{\frac{x}{2}}|,
 % which is shorter and better \enquote{human readable}.
 % The package also provides the possibility for users to define such delimited operators,
 % on their own.
@@ -234,7 +234,7 @@
 % There are also other things that can be improved when typesetting math.
 % One prominent example is the typsetting of row and column vectors,
 % which require the use of a \env{matrix} environment.
-% For this case \pkg{conmath} provides commands which accept a comma separated
+% For this case \pkg{moremath} provides commands which accept a comma separated
 % list of vector entries,
 % obliterating the need for a \env{matrix} environment to typeset vectors.
 %
@@ -250,10 +250,10 @@
 % but also tries to provide the correct spacing between the operator and its
 % arguments.
 %
-% The \pkg{conmath} package is written using \LaTeX{}3
+% The \pkg{moremath} package is written using \LaTeX{}3
 % and provides a small \LaTeX{}3 interface for class and package writers.
 %
-% The source code for \pkg{conmath} is hosted on GitHub at
+% The source code for \pkg{moremath} is hosted on GitHub at
 % \begin{center}
 %   \url{https://github.com/Mister00X/conmath}
 % \end{center}
@@ -326,15 +326,15 @@
 % The option accepts multiple values which can be given as a comma separated
 % list, or as multiple key-value options, like in the examples below:
 % \begin{verbatim}
-% \usepackage[nopredef={vector,abs,operators}]{conmath}
+% \usepackage[nopredef={vector,abs,operators}]{moremath}
 % \end{verbatim}
 %   This is equivalent to
 % \begin{verbatim}
-% \usepackage[nopredef=all]{conmath}
+% \usepackage[nopredef=all]{moremath}
 % \end{verbatim}
 %   and to:
 % \begin{verbatim}
-% \usepackage[nopredef=vector,nopredef=abs,nopredef=operators]{conmath}
+% \usepackage[nopredef=vector,nopredef=abs,nopredef=operators]{moremath}
 % \end{verbatim}
 %
 % The command \cs{NewDelimitedOperator} is not affected by any of the above
@@ -346,16 +346,16 @@
 %
 % The options described in this section
 % \emph{must not} be given as package options,
-% instead they should be set using \cs{conmathsetup}
+% instead they should be set using \cs{moremathsetup}
 % or given as optional argument to the commands described later.
-% \begin{function}{\conmathsetup}
+% \begin{function}[updated = 0000-00-00]{\moremathsetup}
 % \begin{syntax}
-%   \cs{conmathsetup}\marg{kv~list}
+%   \cs{moremathsetup}\marg{kv~list}
 % \end{syntax}
 % Sets the options specified in the \meta{key-value list},
 % the assignment is local to the current group.
 % If a \meta{value} contains a comma it needs to be wrapped in braces.
-% This command may be used anywhere in the document after \pkg{conmath}
+% This command may be used anywhere in the document after \pkg{moremath}
 % has been loaded.
 % \end{function}
 %
@@ -420,9 +420,9 @@
 % \label{sec:options-matrix}
 %
 % The options in this section only affect the commands described in sections~\ref{sec:rc-vectors}
-% and~\ref{sec:matrices}. To set them with \cs{conmathsetup} it is necessary
+% and~\ref{sec:matrices}. To set them with \cs{moremathsetup} it is necessary
 % to add the prefix |matrix / | to these options,
-% so that the resulting command looks like \cs{conmathsetup}\texttt{\{matrix / \meta{option}\}}.
+% so that the resulting command looks like \cs{moremathsetup}\texttt{\{matrix / \meta{option}\}}.
 % When using these options inside the optional argument of the commands described
 % in sections~\ref{sec:rc-vectors} and~\ref{sec:matrices}, the prefix "matrix /"
 % must be omitted.
@@ -455,7 +455,7 @@
 % \section{Delimited Operators}
 % \label{sec:delim-ops}
 %
-% \subsection{Delimited Operators Predefined by \pkg{conmath}}
+% \subsection{Delimited Operators Predefined by \pkg{moremath}}
 % \label{sec:delim-op-predef}
 %
 % \DescribeOption{no-operators}
@@ -502,7 +502,7 @@
 % \end{syntax}
 % For all of the operators predefined by \pkg{amsmath}~\autocite{amsmath},
 % which are shown in table~\ref{tab:amsmath-operators},
-% \pkg{conmath} declares delimited versions.
+% \pkg{moremath} declares delimited versions.
 % The name of those commands follows the scheme \cs[no-index]{\meta{prefix}\meta{op}},
 % where \meta{prefix} is one of |p|, |b|, |B|, |v|, or |V|
 % and \meta{op} is the name of one of the operators shown in table~\ref{tab:amsmath-operators}.
@@ -1677,7 +1677,7 @@
 % \paragraph{Shorthands for (Anti-)diagonal Matrices with Delimiters}
 %
 % As matrices are more often than not written inside of delimiters,
-% \pkg{conmath} provides several shorthands for producing those matrices
+% \pkg{moremath} provides several shorthands for producing those matrices
 % without having to set the "delimiter" key explicitly.
 % \begin{function}{
 %   \pdiagmat,
@@ -1763,7 +1763,7 @@
 % \pkg{mathtools} defines special matrix environments for use in
 % inline math mode,
 % the \env{smallmatrix} and \env{smallmatrix*} family of environments.
-% \pkg{conmath} provides for the case of typesetting an (anti-)diagonal
+% \pkg{moremath} provides for the case of typesetting an (anti-)diagonal
 % matrix several commands which utilize these inline math versions.
 %
 % \begin{function}{
@@ -2071,29 +2071,29 @@
 % \section{Setting of Options}
 % \label{sec:authors-options}
 %
-% \begin{function}{
-%   \conmath_setup:n
+% \begin{function}[updated = 0000-00-00]{
+%   \moremath_setup:n
 % }
 %   \begin{syntax}
-%     \cs{conmath_setup:n} \marg{kv opts}
+%     \cs{moremath_setup:n} \marg{kv opts}
 %   \end{syntax}
-%   This functions sets the key-value options \meta{kv~opts} in the "conmath" namespace.
+%   This functions sets the key-value options \meta{kv~opts} in the "moremath" namespace.
 % \end{function}
 %
 % \section{Delimited Operators}
 % \label{sec:authors-delim-op}
 %
-% \begin{function}{
-%   \conmath_delim_op_noscale:NNnnn,
-%   \conmath_delim_op_autoscale:NNnnn
+% \begin{function}[updated = 0000-00-00]{
+%   \moremath_delim_op_noscale:NNnnn,
+%   \moremath_delim_op_autoscale:NNnnn
 % }
 %   \begin{syntax}
-%     \cs{conmath_delim_op_noscale:NNnnn} \meta{math~op} \meta{delim}
+%     \cs{moremath_delim_op_noscale:NNnnn} \meta{math~op} \meta{delim}
 %     \hspace*{2ex} \marg{sup~tl} \marg{sub~tl} \marg{tl}
-%     \cs{conmath_delim_op_autoscale:NNnnn} \meta{math op} \meta{delim}
+%     \cs{moremath_delim_op_autoscale:NNnnn} \meta{math op} \meta{delim}
 %     \hspace*{2ex} \marg{sup~tl} \marg{sub~tl} \marg{tl}
 %   \end{syntax}
-%   The two functions \cs{conmath_delim_op_noscale:NNnnn} and \cs{conmath_delim_op_autoscale:NNnnn}
+%   The two functions \cs{moremath_delim_op_noscale:NNnnn} and \cs{moremath_delim_op_autoscale:NNnnn}
 %   provide a version of a delimited operator with no scaling or automatic scaling respectively.
 %   The token list arguments \meta{sup~tl} and \meta{sub~tl} take the super- and subscript
 %   of the operator respectively. Both of those token lists may be empty.
@@ -2108,30 +2108,30 @@
 %   The final argument \meta{tl} is a list of arbitrary token to put inside the delimiters.
 % \end{function}
 %
-% \begin{function}{
-%   \conmath_delim_op_manuscale:NNnnnn,
-%   \conmath_delim_op_manuscale:NNVnnn
+% \begin{function}[updated=0000-00-00]{
+%   \moremath_delim_op_manuscale:NNnnnn,
+%   \moremath_delim_op_manuscale:NNVnnn
 % }
 %   \begin{syntax}
-%     \cs{conmath_delim_op_manuscale:NNnnnn} \meta{math op} \meta{delim} \marg{scale cmd}
+%     \cs{moremath_delim_op_manuscale:NNnnnn} \meta{math op} \meta{delim} \marg{scale cmd}
 %      \hspace*{2ex}  \marg{sup} \marg{sub} \marg{tl}
 %   \end{syntax}
-%   The function \cs{conmath_delim_op_manuscale:NNnnnn} typesets a math operator with
+%   The function \cs{moremath_delim_op_manuscale:NNnnnn} typesets a math operator with
 %   manual scaling of its delimiters.
-%   Its arguments are identical to \cs{conmath_delim_op_noscale:NNnnn}
+%   Its arguments are identical to \cs{moremath_delim_op_noscale:NNnnn}
 %   except for the argument \meta{scale~cmd} which has to be a token list containing
 %   a \meta{size~cmd} that can be understood by \pkg{mathtools},
 %   usually \cs{big}, \cs{Big}, \cs{bigg} and \cs{Bigg}.
 % \end{function}
 %
-% \begin{function}{
-%   \conmath_new_delim_op_command:NNN,
-%   \conmath_new_delim_op_command:cNN,
+% \begin{function}[updated=0000-00-00]{
+%   \moremath_new_delim_op_command:NNN,
+%   \moremath_new_delim_op_command:cNN,
 % }
 % \begin{syntax}
-%   \cs{conmath_new_delim_op_command:NNN} \meta{new~csname} \meta{operator} \meta{delim}
+%   \cs{moremath_new_delim_op_command:NNN} \meta{new~csname} \meta{operator} \meta{delim}
 % \end{syntax}
-% The function \cs{conmath_new_delim_op_command:NNN} defines a new document level command
+% The function \cs{moremath_new_delim_op_command:NNN} defines a new document level command
 % called \meta{new~csname}, utilizing the operator \meta{operator} and the delimiter \meta{delim}.
 %
 % \meta{operator} has to be a control sequence referring to an operator,
@@ -2147,19 +2147,19 @@
 % \subsection{Functions Producing Standalone Operators with Subscripts}
 % \label{sec:authors-vec-calc-operators}
 %
-% \begin{function}{
-%   \conmath_gradient_operator:n,
-%   \conmath_divergence_operator:n,
-%   \conmath_curl_operator:n,
-%   \conmath_laplace_operator:n,
-%   \conmath_dalembert_operator:n
+% \begin{function}[updated=0000-00-00]{
+%   \moremath_gradient_operator:n,
+%   \moremath_divergence_operator:n,
+%   \moremath_curl_operator:n,
+%   \moremath_laplace_operator:n,
+%   \moremath_dalembert_operator:n
 % }
 %   \begin{syntax}
-%     \cs{conmath_gradient_operator:n} \marg{subscript}
-%     \cs{conmath_divergence_operator:n} \marg{subscript}
-%     \cs{conmath_curl_operator:n} \marg{subscript}
-%     \cs{conmath_laplace_operator:n} \marg{subscript}
-%     \cs{conmath_dalembert_operator:n} \marg{subscript}
+%     \cs{moremath_gradient_operator:n} \marg{subscript}
+%     \cs{moremath_divergence_operator:n} \marg{subscript}
+%     \cs{moremath_curl_operator:n} \marg{subscript}
+%     \cs{moremath_laplace_operator:n} \marg{subscript}
+%     \cs{moremath_dalembert_operator:n} \marg{subscript}
 %   \end{syntax}
 %   Each of these functions return a vector calculus operator,
 %   with an (optional) subscript.
@@ -2174,39 +2174,39 @@
 % \subsection{Functions Producing Operators with Delimiters}
 % \label{sec:authors-vec-calc-delim-ops}
 %
-% \begin{function}{
-%   \conmath_delim_nabla_op_noscale:NNnn,
-%   \conmath_delim_nabla_op_autoscale:NNnn,
+% \begin{function}[updated=0000-00-00]{
+%   \moremath_delim_nabla_op_noscale:NNnn,
+%   \moremath_delim_nabla_op_autoscale:NNnn,
 % }
 %   \begin{syntax}
-%     \cs{conmath_delim_nabla_op_noscale:NNnn} \meta{operator} \meta{delim}
+%     \cs{moremath_delim_nabla_op_noscale:NNnn} \meta{operator} \meta{delim}
 %     \hspace*{2ex} \marg{sub} \marg{contents}
 %
-%     \cs{conmath_delim_nabla_op_autoscale:NNnn} \meta{operator} \meta{delim}
+%     \cs{moremath_delim_nabla_op_autoscale:NNnn} \meta{operator} \meta{delim}
 %     \hspace*{2ex} \marg{sub} \marg{contents}
 %   \end{syntax}
 %   The usage of these functions is similar to the functions
-%   \cs{conmath_delim_op_noscale:NNnnn} and \cs{conmath_delim_op_autoscale:NNnnn}
+%   \cs{moremath_delim_op_noscale:NNnnn} and \cs{moremath_delim_op_autoscale:NNnnn}
 %   except for the missing superscript.
 %
 %   The first argument \meta{operator} has to be a function which accepts one argument
 %   (the subscript).
-%   This is usually one of the \cs[no-index]{conmath_\meta{op}_operator:n} commands.
+%   This is usually one of the \cs[no-index]{moremath_\meta{op}_operator:n} commands.
 %
 %   The argument \meta{sub}, which may be empty,
 %   is a token list to pass as the subscript to
-%   \cs[no-index]{conmath_\meta{op}_operator:n}.
+%   \cs[no-index]{moremath_\meta{op}_operator:n}.
 %
 %   The last argument \meta{contents} is a token list to put inside the delimiters.
 %
 % \end{function}
 %
-% \begin{function}{
-%   \conmath_delim_nabla_op_manuscale:NNnnn,
-%   \conmath_delim_nabla_op_manuscale:NNVnn,
+% \begin{function}[updated=0000-00-00]{
+%   \moremath_delim_nabla_op_manuscale:NNnnn,
+%   \moremath_delim_nabla_op_manuscale:NNVnn,
 % }
 %   \begin{syntax}
-%     \cs{conmath_delim_nabla_op_manuscale:NNnnn} \meta{operator} \meta{delim}
+%     \cs{moremath_delim_nabla_op_manuscale:NNnnn} \meta{operator} \meta{delim}
 %     \hspace*{2ex} \marg{scale~cmd} \marg{sub} \marg{contents}
 %   \end{syntax}
 %   The usage of function is similar to the above functions
@@ -2218,17 +2218,17 @@
 % \section{Formatting Matrices and Vectors}
 % \label{sec:authors-matrix}
 %
-% \begin{function}{
-%   \conmath_column_vector:nn,
-%   \conmath_row_vector:nn,
-%   \conmath_column_smallvector:nn,
-%   \conmath_row_smallvector:nn
+% \begin{function}[updated=0000-00-00]{
+%   \moremath_column_vector:nn,
+%   \moremath_row_vector:nn,
+%   \moremath_column_smallvector:nn,
+%   \moremath_row_smallvector:nn
 % }
 % \begin{syntax}
-%   \cs{conmath_column_vector:nn} \marg{delim spec tl} \marg{clist}
-%   \cs{conmath_row_vector:nn} \marg{delim spec tl} \marg{clist}
-%   \cs{conmath_column_smallvector:nn} \marg{delim spec tl} \marg{clist}
-%   \cs{conmath_row_smallvector:nn} \marg{delim spec tl} \marg{clist}
+%   \cs{moremath_column_vector:nn} \marg{delim spec tl} \marg{clist}
+%   \cs{moremath_row_vector:nn} \marg{delim spec tl} \marg{clist}
+%   \cs{moremath_column_smallvector:nn} \marg{delim spec tl} \marg{clist}
+%   \cs{moremath_row_smallvector:nn} \marg{delim spec tl} \marg{clist}
 % \end{syntax}
 % These functions produce a column or row vector.
 % The "small"\meta{c~or~r}"vector" versions are intended for inline math mode.
@@ -2247,29 +2247,32 @@
 % value of the key "align".
 % \end{function}
 %
-% \begin{function}[updated = 2024-07-04]{
-%   \conmath_diagonal_matrix:nn,
-%   \conmath_diagonal_matrix:nV,
-%   \conmath_diagonal_matrix:Vn,
-%   \conmath_diagonal_matrix:VV,
-%   \conmath_antidiagonal_matrix:nn,
-%   \conmath_antidiagonal_matrix:nV,
-%   \conmath_antidiagonal_matrix:Vn,
-%   \conmath_antidiagonal_matrix:VV,
-%   \conmath_diagonal_smallmatrix:nn,
-%   \conmath_diagonal_smallmatrix:nV,
-%   \conmath_diagonal_smallmatrix:Vn,
-%   \conmath_diagonal_smallmatrix:VV,
-%   \conmath_antidiagonal_smallmatrix:nn,
-%   \conmath_antidiagonal_smallmatrix:nV,
-%   \conmath_antidiagonal_smallmatrix:Vn,
-%   \conmath_antidiagonal_smallmatrix:VV,
+% \begin{function}[
+%   updated = 2024-07-04,
+%   updated=0000-00-00,
+% ]{
+%   \moremath_diagonal_matrix:nn,
+%   \moremath_diagonal_matrix:nV,
+%   \moremath_diagonal_matrix:Vn,
+%   \moremath_diagonal_matrix:VV,
+%   \moremath_antidiagonal_matrix:nn,
+%   \moremath_antidiagonal_matrix:nV,
+%   \moremath_antidiagonal_matrix:Vn,
+%   \moremath_antidiagonal_matrix:VV,
+%   \moremath_diagonal_smallmatrix:nn,
+%   \moremath_diagonal_smallmatrix:nV,
+%   \moremath_diagonal_smallmatrix:Vn,
+%   \moremath_diagonal_smallmatrix:VV,
+%   \moremath_antidiagonal_smallmatrix:nn,
+%   \moremath_antidiagonal_smallmatrix:nV,
+%   \moremath_antidiagonal_smallmatrix:Vn,
+%   \moremath_antidiagonal_smallmatrix:VV,
 % }
 % \begin{syntax}
-%   \cs{conmath_diagonal_matrix:nn} \marg{delim tl} \marg{clist}
-%   \cs{conmath_antidiagonal_matrix:nn} \marg{delim tl} \marg{clist}
-%   \cs{conmath_diagonal_smallmatrix:nn} \marg{delim tl} \marg{clist}
-%   \cs{conmath_antidiagonal_smallmatrix:nn} \marg{delim tl} \marg{clist}
+%   \cs{moremath_diagonal_matrix:nn} \marg{delim tl} \marg{clist}
+%   \cs{moremath_antidiagonal_matrix:nn} \marg{delim tl} \marg{clist}
+%   \cs{moremath_diagonal_smallmatrix:nn} \marg{delim tl} \marg{clist}
+%   \cs{moremath_antidiagonal_smallmatrix:nn} \marg{delim tl} \marg{clist}
 % \end{syntax}
 %  These functions produce (anti-)diagonal matrices.
 %  The argument \meta{delim~tl} is a token list,
@@ -2285,15 +2288,18 @@
 %  The "smallmatrix" versions are intended for use in inline math mode.
 % \end{function}
 %
-% \begin{function}[added = 2024-07-04]{
-%   \conmath_id_matrix:n,
-%   \conmath_id_matrix:V,
-%   \conmath_id_smallmatrix:n,
-%   \conmath_id_smallmatrix:V,
+% \begin{function}[
+%   added = 2024-07-04,
+%   updated=0000-00-00,
+% ]{
+%   \moremath_id_matrix:n,
+%   \moremath_id_matrix:V,
+%   \moremath_id_smallmatrix:n,
+%   \moremath_id_smallmatrix:V,
 % }
 %   \begin{syntax}
-%     \cs{conmath_id_matrix:n} \marg{dimensions}
-%     \cs{conmath_id_smallmatrix:n} \marg{dimensions}
+%     \cs{moremath_id_matrix:n} \marg{dimensions}
+%     \cs{moremath_id_smallmatrix:n} \marg{dimensions}
 %   \end{syntax}
 %   These functions produce a identity matrix with <dimensions> rows and columns.
 %   <dimensions> is expected to be a \emph{positive} integer.
@@ -2303,8 +2309,8 @@
 %   The delimiter around the matrix is determined by the current value of the key
 %   "matrix / delimiter" inside the current group.
 %
-%   As these functions utilize \cs{conmath_diagonal_matrix:VV} or
-%   \cs{conmath_diagonal_smallmatrix:VV} and make use of temporary variables
+%   As these functions utilize \cs{moremath_diagonal_matrix:VV} or
+%   \cs{moremath_diagonal_smallmatrix:VV} and make use of temporary variables
 %   it is advised to put them into their own group,
 %   i.e.\ surround them by \cs{group_begin:} and \cs{group_end:}.
 % \end{function}
@@ -2315,13 +2321,16 @@
 % As already said in section~\ref{sec:vcenter} sometimes it is needed to
 % explicitly center some math code.
 %
-% \begin{function}[added=2024-07-08]{
-%   \conmath_vcenter:n,
+% \begin{function}[
+%   added=2024-07-08,
+%   updated=0000-00-00,
+% ]{
+%   \moremath_vcenter:n,
 % }
 %   \begin{syntax}
-%     \cs{conmath_vcenter:n} \marg{contents}
+%     \cs{moremath_vcenter:n} \marg{contents}
 %   \end{syntax}
-%   The function \cs{conmath_vcenter:n} places <contents> inside a "hbox",
+%   The function \cs{moremath_vcenter:n} places <contents> inside a "hbox",
 %   which is centered along the math axis by \tn{vcenter}.
 %   The contents inside the "hbox" are set in math mode.
 %   The function also applies the \enquote{outer} math style
@@ -2359,7 +2368,7 @@
 % Set the internal prefix for this package so that \pkg{DocStrip} knows what to
 % do.
 %    \begin{macrocode}
-%<@@=conmath>
+%<@@=moremath>
 %    \end{macrocode}
 %
 % \section{Initial Setup}
@@ -2373,10 +2382,10 @@
 % (especially for using the "=" option specification)
 % and hooks.
 %
-% Then identify this package as \pkg{conmath}.
+% Then identify this package as \pkg{moremath}.
 %    \begin{macrocode}
-\ProvidesExplPackage{conmath}
-  {2024-08-07}{v0.3.0}{Convenient Math Macros}
+\ProvidesExplPackage{moremath}
+  {UNRELEASED}{vUNRELEASED}{More Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
@@ -2397,7 +2406,7 @@
 % the log file.
 % One message to issue if the \texttt{bm} option has been given:
 %    \begin{macrocode}
-\msg_new:nnn { conmath } {load / bm}
+\msg_new:nnn { moremath } {load / bm}
 {
   Option~'bm'~given.\\
   Loading~the~bm~package~\msg_line_context:.
@@ -2406,7 +2415,7 @@
 % And a more generic message to issue for the other options,
 % which all disable certain parts of the library.
 %    \begin{macrocode}
-\msg_new:nnn {conmath} { load / disabling }
+\msg_new:nnn {moremath} { load / disabling }
 {
   Option~'#1'~given.\\
   Disabling~#2~\msg_line_context:.
@@ -2455,14 +2464,14 @@
 % }
 % Now we define package load time keys:
 %    \begin{macrocode}
-\keys_define:nn { conmath / load }
+\keys_define:nn { moremath / load }
 {
 %    \end{macrocode}
 % We provide an option to conditionally load the \pkg{bm}-package~\autocite{bm}
 % to provide better looking bold symbols.
 %    \begin{macrocode}
   bm .code:n = {
-    \msg_info:nn {conmath} {load / bm}
+    \msg_info:nn {moremath} {load / bm}
     \RequirePackage{bm}
   },
   bm .value_forbidden:n = true,
@@ -2492,27 +2501,27 @@
   no-crvector .initial:n = false,
   no-crvector .usage:n = load,
   nopredef .multichoice:,
-  nopredef / operators .meta:nn = { conmath / load }
+  nopredef / operators .meta:nn = { moremath / load }
   {
     no-operators = true
   },
-  nopredef / vector .meta:nn = { conmath / load }
+  nopredef / vector .meta:nn = { moremath / load }
   {
     no-vector = true
   },
-  nopredef / abs .meta:nn = { conmath / load }
+  nopredef / abs .meta:nn = { moremath / load }
   {
     no-abs-shorthands = true,
   },
-  noperdef / matrix .meta:nn = { conmath / load }
+  noperdef / matrix .meta:nn = { moremath / load }
   {
     no-matrix = true,
   },
-  nopredef / crvector .meta:nn = {conmath / load}
+  nopredef / crvector .meta:nn = {moremath / load}
   {
     no-crvector = true,
   },
-  nopredef / all .meta:nn = { conmath / load }
+  nopredef / all .meta:nn = { moremath / load }
   {
     no-operators = true,
     no-vector = true,
@@ -2618,7 +2627,7 @@
 % }
 % First define keys for the vector calculus macros.
 %    \begin{macrocode}
-\keys_define:nn { conmath }
+\keys_define:nn { moremath }
 {
 %    \end{macrocode}
 % First we define keys for use with the gradient and gradient based operators.
@@ -2694,7 +2703,7 @@
 % }
 % Then we define some keys for the matrix based environments:
 %    \begin{macrocode}
-\keys_define:nn { conmath / matrix }
+\keys_define:nn { moremath / matrix }
 {
 %    \end{macrocode}
 % \begin{variable}{
@@ -2736,11 +2745,11 @@
 %
 %
 % Now we define a function for setting the options within the document
-% \begin{macro}{\conmath_setup:n}
+% \begin{macro}{\moremath_setup:n}
 %    \begin{macrocode}
-\cs_new_protected:Nn \conmath_setup:n
+\cs_new_protected:Nn \moremath_setup:n
 {
-  \keys_set:nn {conmath} {#1}
+  \keys_set:nn {moremath} {#1}
 }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
@@ -2749,11 +2758,11 @@
 % \end{macro}
 %
 % Additionally we provide the user with a version of this command.
-% \begin{macro}{\conmathsetup}
+% \begin{macro}{\moremathsetup}
 %    \begin{macrocode}
-\NewDocumentCommand \conmathsetup {m}
+\NewDocumentCommand \moremathsetup {m}
 {
-  \conmath_setup:n {#1}
+  \moremath_setup:n {#1}
 }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
@@ -2767,7 +2776,7 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_load_time_setup:
 {
-  \ProcessKeyOptions[ conmath / load ]
+  \ProcessKeyOptions[ moremath / load ]
 }
 %    \end{macrocode}
 % \end{macro}
@@ -2791,7 +2800,7 @@
 % \cs[module=amssymb,replace=false]{square} command.
 % We first define a message to inform the user about this.
 %    \begin{macrocode}
-\msg_new:nnn { conmath } { load / loading-amssymb }
+\msg_new:nnn { moremath } { load / loading-amssymb }
 {
   Vector~calculus~commands~enabled.\\
   Loading~amssymb~package~\msg_line_context:.
@@ -2801,7 +2810,7 @@
 %    \begin{macrocode}
 \bool_if:NT \l_@@_predef_vector_op_bool
 {
-  \msg_info:nn { conmath } { load / loading-amssymb }
+  \msg_info:nn { moremath } { load / loading-amssymb }
   \RequirePackage{amssymb}
 }
 %    \end{macrocode}
@@ -2837,9 +2846,9 @@
 % }
 %
 % \begin{macro}[added = 2024-07-08]{
-%   \conmath_vcenter:n
+%   \moremath_vcenter:n
 % }
-%   The function \cs{conmath_vcenter:n} is a wrapper around the \tn{vcenter}
+%   The function \cs{moremath_vcenter:n} is a wrapper around the \tn{vcenter}
 %   \TeX{} primitive.
 %   It takes a single argument.
 %   \begin{arguments}
@@ -2852,10 +2861,10 @@
 %   The function is not in a \TeX{}-sense long,
 %   i.e.\ it does not take \tn{par} tokens.
 %
-%   As this function might be useful not only for internal use by \pkg{conmath},
+%   As this function might be useful not only for internal use by \pkg{moremath},
 %   we declare it as a public function here.
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_vcenter:n
+\cs_new_protected_nopar:Nn \moremath_vcenter:n
 {
   \mathpalette \@@_vcenter:Nn {#1}
 }
@@ -2873,7 +2882,7 @@
 %   (the first is a math style switch and the second the contents).\footnote{%
 %     See \TeX{}SE answer \url{https://tex.stackexchange.com/a/34412}
 %   }
-%   We define an internal helper function for \cs{conmath_vcenter:n} for
+%   We define an internal helper function for \cs{moremath_vcenter:n} for
 %   \cs{mathpalette} to call.
 %
 %   The function \cs{@@_vcenter:Nn} takes two arguments:
@@ -2917,7 +2926,7 @@
 % The first message informs the user that the command is not available,
 % because its \meta{csname} is already taken.
 %    \begin{macrocode}
-\msg_new:nnn { conmath } { csname-already-defined }
+\msg_new:nnn { moremath } { csname-already-defined }
 {
   Control~sequence~' #1 '~is~already~ defined.\\
   Skipping~definition~\msg_line_context:
@@ -2926,7 +2935,7 @@
 % The second message should be issued if a command that only works in math mode
 % was given outside of it.
 %    \begin{macrocode}
-\msg_new:nnnn { conmath } { vcenter / only-in-math-mode }
+\msg_new:nnnn { moremath } { vcenter / only-in-math-mode }
 {
   Command~#1~used~outside~math~mode~\msg_line_context:.
 }
@@ -2945,13 +2954,13 @@
   {
     \mode_if_math:TF
     {
-      \conmath_vcenter:n {#1}
+      \moremath_vcenter:n {#1}
     }{% \mode_if_math:TF FALSE BRANCH
-      \msg_error:nnn { conmath } { vcenter / only-in-math-mode } {\VCenterMath}
+      \msg_error:nnn { moremath } { vcenter / only-in-math-mode } {\VCenterMath}
     }
   }
 }{% \cs_if_free:NTF \VCenterMath FALSE BRANCH
-  \msg_warning:nnn { conmath } { csname-already-defined } {\VCenterMath}
+  \msg_warning:nnn { moremath } { csname-already-defined } {\VCenterMath}
 }
 %    \end{macrocode}
 %   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
@@ -3021,12 +3030,12 @@
 %
 % We now define three version of the delimited operators.
 % \begin{macro}{
-%   \conmath_delim_op_noscale:NNnnn,
-%   \conmath_delim_op_autoscale:NNnnn,
+%   \moremath_delim_op_noscale:NNnnn,
+%   \moremath_delim_op_autoscale:NNnnn,
 % }
-%   \cs{conmath_delim_op_noscale:NNnnn} is provides a delimited operator without
+%   \cs{moremath_delim_op_noscale:NNnnn} is provides a delimited operator without
 %   any scaling of the delimiters
-%   and \cs{conmath_delim_op_autoscale:NNnnn} provides a version with
+%   and \cs{moremath_delim_op_autoscale:NNnnn} provides a version with
 %   automatic scaling of the delimiters.
 %   Both of them take five arguments:
 %   \begin{arguments}
@@ -3048,14 +3057,14 @@
 %     \item A \meta{tl} to insert inside the delimiters.
 %   \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_delim_op_noscale:NNnnn
+\cs_new_protected_nopar:Nn \moremath_delim_op_noscale:NNnnn
 {
   \@@_operator:Nnn #1 {#3} {#4}
   % #2 is the paired delimiter
   #2 {#5}
 }
 
-\cs_new_protected_nopar:Nn \conmath_delim_op_autoscale:NNnnn
+\cs_new_protected_nopar:Nn \moremath_delim_op_autoscale:NNnnn
 {
   \@@_operator:Nnn #1 {#3} {#4}
   % #2 is the paired delimiter
@@ -3067,10 +3076,10 @@
 %   }
 % \end{macro}
 % \begin{macro}{
-%   \conmath_delim_op_manuscale:NNnnnn,
-%   \conmath_delim_op_manuscale:NNVnnn
+%   \moremath_delim_op_manuscale:NNnnnn,
+%   \moremath_delim_op_manuscale:NNVnnn
 % }
-%   \cs{conmath_delim_op_manuscale:NNnnnn} provides a delimited operator with
+%   \cs{moremath_delim_op_manuscale:NNnnnn} provides a delimited operator with
 %   manual scaling.
 %   This version takes six arguments:
 %   \begin{arguments}
@@ -3094,7 +3103,7 @@
 %     \item A \meta{tl} to insert inside the delimiters
 %   \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_delim_op_manuscale:NNnnnn
+\cs_new_protected_nopar:Nn \moremath_delim_op_manuscale:NNnnnn
 {
   \@@_operator:Nnn #1 {#4} {#5}
   % #2 is the paired delimiter
@@ -3103,7 +3112,7 @@
 %    \end{macrocode}
 % We also provide a variant for the scaling macro.
 %    \begin{macrocode}
-\cs_generate_variant:Nn \conmath_delim_op_manuscale:NNnnnn {NNVnnn}
+\cs_generate_variant:Nn \moremath_delim_op_manuscale:NNnnnn {NNVnnn}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Function added.
@@ -3115,7 +3124,7 @@
 % But before we do so we create a message to inform the user if a
 % \meta{csname} was already taken.
 %    \begin{macrocode}
-\msg_new:nnn { conmath } { delimop / already-defined-skip }
+\msg_new:nnn { moremath } { delimop / already-defined-skip }
 {
   Control~sequence~'#1'~is~already~defined.\\
   Skipping~definition~of~delimited~operator~'#1'~\msg_line_context:.
@@ -3125,7 +3134,7 @@
 % We also create a message to inform the user about conflicting options
 % given to the command.
 %    \begin{macrocode}
-\msg_new:nnn { conmath } { delimop / auto-manu-scale-conflict }
+\msg_new:nnn { moremath } { delimop / auto-manu-scale-conflict }
 {
   Both~star~and~scale~cmd~given~to~'#1'.\\
   Automatic~scaling~will~be~preferred,~the~size~command~will~be~
@@ -3133,10 +3142,10 @@
 }
 %    \end{macrocode}
 % \begin{macro}{
-%   \conmath_new_delim_op_command:NNN,
-%   \conmath_new_delim_op_command:cNN,
+%   \moremath_new_delim_op_command:NNN,
+%   \moremath_new_delim_op_command:cNN,
 %}
-% \cs{conmath_new_delim_op_command:NNN} takes three arguments:
+% \cs{moremath_new_delim_op_command:NNN} takes three arguments:
 % \begin{arguments}
 %   \item The \meta{csname} to be defined.
 %
@@ -3149,7 +3158,7 @@
 %   \cs[module=mathtools,replace=false]{DeclarePairedDelimiter}.
 % \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected:Nn \conmath_new_delim_op_command:NNN
+\cs_new_protected:Nn \moremath_new_delim_op_command:NNN
 {
   \cs_if_free:NTF #1
   {
@@ -3162,10 +3171,10 @@
         \bool_if:nTF {##1}
         {
           % star given
-          \conmath_delim_op_autoscale:NNnnn #2 #3 {##3} {##4} {##5}
+          \moremath_delim_op_autoscale:NNnnn #2 #3 {##3} {##4} {##5}
         }{
           % star not given
-          \conmath_delim_op_noscale:NNnnn #2 #3 {##3} {##4} {##5}
+          \moremath_delim_op_noscale:NNnnn #2 #3 {##3} {##4} {##5}
         }
       }{
         % second argument present
@@ -3173,21 +3182,21 @@
         \bool_if:nTF {##1}
         {
           % Warn if both star and scaling factor are present
-          \msg_warning:nnn { conmath } { delimop / auto-manu-scale-conflict }
+          \msg_warning:nnn { moremath } { delimop / auto-manu-scale-conflict }
             {#1}
-          \conmath_delim_op_autoscale:NNnnn #2 #3 {##3} {##4} {##5}
+          \moremath_delim_op_autoscale:NNnnn #2 #3 {##3} {##4} {##5}
         }{ % FALSE BRANCH
-        \conmath_delim_op_manuscale:NNnnnn #2 #3 {##2} {##3} {##4} {##5}
+        \moremath_delim_op_manuscale:NNnnnn #2 #3 {##2} {##3} {##4} {##5}
         }
       }
     }
   }{ % \cs_if_free:nTF #1 FALSE BRANCH
-    \msg_warning:nnn { conmath } { delimop / already-defined-skip }
+    \msg_warning:nnn { moremath } { delimop / already-defined-skip }
       {#1}
   }
 }
 
-\cs_generate_variant:Nn \conmath_new_delim_op_command:NNN {cNN}
+\cs_generate_variant:Nn \moremath_new_delim_op_command:NNN {cNN}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added function and variant.
@@ -3203,9 +3212,9 @@
 %    \begin{macrocode}
 \NewDocumentCommand\DeclareDelimitedOperator { m m m }
 {
-  \msg_redirect_name:nnn { conmath } { delimop / already-defined-skip } { error }
-  \conmath_new_delim_op_command:NNN #1 #2 #3
-  \msg_redirect_name:nnn { conmath } { delimop / already-defined-skip } {}
+  \msg_redirect_name:nnn { moremath } { delimop / already-defined-skip } { error }
+  \moremath_new_delim_op_command:NNN #1 #2 #3
+  \msg_redirect_name:nnn { moremath } { delimop / already-defined-skip } {}
 }
 %    \end{macrocode}
 %    \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Added document level command.}
@@ -3231,11 +3240,11 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_new_delim_op_cmds:nN
 {
-  \conmath_new_delim_op_command:cNN {p #1} #2 \@@_inparent:w
-  \conmath_new_delim_op_command:cNN {b #1} #2 \@@_inbrack:w
-  \conmath_new_delim_op_command:cNN {B #1} #2 \@@_inbrace:w
-  \conmath_new_delim_op_command:cNN {v #1} #2 \@@_in_vert:w
-  \conmath_new_delim_op_command:cNN {V #1} #2 \@@_in_Vert:w
+  \moremath_new_delim_op_command:cNN {p #1} #2 \@@_inparent:w
+  \moremath_new_delim_op_command:cNN {b #1} #2 \@@_inbrack:w
+  \moremath_new_delim_op_command:cNN {B #1} #2 \@@_inbrace:w
+  \moremath_new_delim_op_command:cNN {v #1} #2 \@@_in_vert:w
+  \moremath_new_delim_op_command:cNN {V #1} #2 \@@_in_Vert:w
 }
 %    \end{macrocode}
 % \end{macro}
@@ -3541,7 +3550,7 @@
 % \end{macro}
 %    \begin{macrocode}
 }{
-  \msg_info:nnnn {conmath} {load /disabling} {no-operators}
+  \msg_info:nnnn {moremath} {load /disabling} {no-operators}
   {
     predefined~delimited~operator~macros
   }
@@ -3568,14 +3577,14 @@
 %   \begin{arguments}
 %     \item A list of \meta{tokens}
 %   \end{arguments}
-%   inside a \tn{vcenter} by means of \cs{conmath_vcenter:n}
+%   inside a \tn{vcenter} by means of \cs{moremath_vcenter:n}
 %   or not depending on the current value of \cs{l_@@_vcenter_bool}.
 %    \begin{macrocode}
 \cs_new_protected_nopar:Nn \@@_maybe_vcenter:n
 {
   \bool_if:NTF \l_@@_vcenter_bool
   {
-    \conmath_vcenter:n {#1}
+    \moremath_vcenter:n {#1}
   }{
     #1
   }
@@ -3724,12 +3733,12 @@
 % After we have defined the symbols it is now time to provide a function which
 % produces the entire gradient operator
 % \begin{macro}{
-%   \conmath_gradient_operator:n,
-%   \conmath_laplace_operator:n
+%   \moremath_gradient_operator:n,
+%   \moremath_laplace_operator:n
 %  }
 % This function takes one arguments, the subscript to use with the operator.
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_gradient_operator:n
+\cs_new_protected_nopar:Nn \moremath_gradient_operator:n
 {
   \@@_gradient_operator_get:
   \tl_if_empty:nF {#1} {\c_math_subscript_token {#1}}
@@ -3738,7 +3747,7 @@
 %
 % Like for the gradient operator we do the same for the laplacian
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_laplace_operator:n
+\cs_new_protected_nopar:Nn \moremath_laplace_operator:n
 {
   \@@_laplace_operator_get:
   \tl_if_empty:nF {#1} {\c_math_subscript_token {#1}}
@@ -3750,8 +3759,8 @@
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_divergence_operator:n,
-%   \conmath_curl_operator:n
+%   \moremath_divergence_operator:n,
+%   \moremath_curl_operator:n
 % }
 %   Using the already defined gradient operator it is possible to define a
 %   function which acts as an operator suitable for representing the divergence
@@ -3761,10 +3770,10 @@
 %     \item the subscript of the gradient operator.
 %   \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_divergence_operator:n
+\cs_new_protected_nopar:Nn \moremath_divergence_operator:n
 {
 %    \end{macrocode}
-%   The braces around \cs{conmath_gradient_operator:n} are necessary to avoid
+%   The braces around \cs{moremath_gradient_operator:n} are necessary to avoid
 %   issues with the spacing between \tn{cdot} and the following \tn{mathopen}
 %   from any braces.\footnote{%
 %   See: \url{https://tex.stackexchange.com/a/223914}
@@ -3776,15 +3785,15 @@
 %   \]
 %    \begin{macrocode}
   {
-    \conmath_gradient_operator:n {#1}
+    \moremath_gradient_operator:n {#1}
   }
   \cdot
 }
 
-\cs_new_protected_nopar:Nn \conmath_curl_operator:n
+\cs_new_protected_nopar:Nn \moremath_curl_operator:n
 {
   {
-    \conmath_gradient_operator:n {#1}
+    \moremath_gradient_operator:n {#1}
   }
   \times
 }
@@ -3795,7 +3804,7 @@
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_dalembert_operator:n
+%   \moremath_dalembert_operator:n
 % }
 %   This function produces the \foreignlanguage{french}{d'Alembert} operator,
 %   including an optional subscript.
@@ -3807,7 +3816,7 @@
 %     in this case no subscript (not even an empty one) is produced.
 %   \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected:Nn \conmath_dalembert_operator:n
+\cs_new_protected:Nn \moremath_dalembert_operator:n
 {
   \@@_dalembert_operator_get:
   \tl_if_empty:nF {#1}
@@ -3817,7 +3826,7 @@
 }
 %    \end{macrocode}
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
-%     Added new function \cs{conmath_dalembert_operator:n}.
+%     Added new function \cs{moremath_dalembert_operator:n}.
 %   }
 % \end{macro}
 %
@@ -3826,8 +3835,8 @@
 % \label{sec:delim-vec-ops}
 %
 % \begin{macro}{
-%   \conmath_delim_nabla_op_noscale:NNnn,
-%   \conmath_delim_nabla_op_autoscale:NNnn
+%   \moremath_delim_nabla_op_noscale:NNnn,
+%   \moremath_delim_nabla_op_autoscale:NNnn
 % }
 %   These functions produce a vector calculus operator with \meta{contents}
 %   inside delimiters.
@@ -3836,7 +3845,7 @@
 % \begin{arguments}
 %   \item The \meta{csname} of the operator to use.
 %
-%         This should have the same form as \cs{conmath_gradient_operator:n},
+%         This should have the same form as \cs{moremath_gradient_operator:n},
 %         i.e.\ the function passed as \meta{csname} should accept one argument
 %         to typeset as subscript.
 %
@@ -3851,14 +3860,14 @@
 % \end{arguments}
 % We begin with the "noscale" version.
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_delim_nabla_op_noscale:NNnn
+\cs_new_protected_nopar:Nn \moremath_delim_nabla_op_noscale:NNnn
 {
   #1 {#3} #2{#4}
 }
 %    \end{macrocode}
 % Then we create the version with automatic scaling.
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_delim_nabla_op_autoscale:NNnn
+\cs_new_protected_nopar:Nn \moremath_delim_nabla_op_autoscale:NNnn
 {
   #1 {#3} #2 * {#4}
 }
@@ -3869,11 +3878,11 @@
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_delim_nabla_op_manuscale:NNnnn
+%   \moremath_delim_nabla_op_manuscale:NNnnn
 % }
 %   This function produces a vector calculus operator like
-%   \cs{conmath_delim_nabla_op_noscale:NNnn}
-%   and \cs{conmath_delim_nabla_op_autoscale:NNnn},
+%   \cs{moremath_delim_nabla_op_noscale:NNnn}
+%   and \cs{moremath_delim_nabla_op_autoscale:NNnn},
 %   but with manual scaling.
 %   It takes five arguments:
 %   \begin{arguments}
@@ -3889,18 +3898,18 @@
 %     \item A \meta{tl} with the contents to typeset inside the delimiters.
 %   \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_delim_nabla_op_manuscale:NNnnn
+\cs_new_protected_nopar:Nn \moremath_delim_nabla_op_manuscale:NNnnn
 {
   #1 {#4} #2 [#3] {#5}
 }
 %    \end{macrocode}
 % \begin{macro}{
-%   \conmath_delim_nabla_op_manuscale:NNVnn
+%   \moremath_delim_nabla_op_manuscale:NNVnn
 % }
 %   We also declare a variant for passing a variable with the \meta{scale~cmd}
 %   instead of a \meta{token~list}.
 %    \begin{macrocode}
-\cs_generate_variant:Nn \conmath_delim_nabla_op_manuscale:NNnnn {NNVnn}
+\cs_generate_variant:Nn \moremath_delim_nabla_op_manuscale:NNnnn {NNVnn}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Add variant.
@@ -3939,7 +3948,7 @@
 
   \prop_pop:NnNT \l_tmpa_prop {scale} #2 {}
 
-  \keys_set:ne {conmath} {\prop_to_keyval:N \l_tmpa_prop}
+  \keys_set:ne {moremath} {\prop_to_keyval:N \l_tmpa_prop}
 }
 %    \end{macrocode}
 % \end{macro}
@@ -3947,7 +3956,7 @@
 % We also need a warning message for conflicting arguments,
 % to inform the user that one of his options is going to be ignored.
 %    \begin{macrocode}
-\msg_new:nnn { conmath } { vector-calc / scale-star-conflict }
+\msg_new:nnn { moremath } { vector-calc / scale-star-conflict }
 {
   Both~star~and~scaling~factor~given~to~'#1'.\\
   Automatic~scaling~will~be~preferred,~the~size~command~'#2'~will~be~
@@ -3964,7 +3973,7 @@
 %     \item The \meta{csname} of the to be defined command
 %     \item The \meta{csname} of the operator to use.
 %
-%           This should be a function like \cs{conmath_gradient_operator:n}.
+%           This should be a function like \cs{moremath_gradient_operator:n}.
 %     \item The \meta{csname} of the delimiter function to use.
 %
 %     This should be a macro/command created with \pkg{mathtools}
@@ -3994,23 +4003,23 @@
         % scale factor given?
         \tl_if_empty:NF \l_tmpa_tl
         {
-          \msg_warning:nnnV { conmath } { vector-calc / scale-star-conflict }
+          \msg_warning:nnnV { moremath } { vector-calc / scale-star-conflict }
             {#1} \l_tmpa_tl
         }
-        \conmath_delim_nabla_op_autoscale:NNnn #2 #3 {##3} {##4}
+        \moremath_delim_nabla_op_autoscale:NNnn #2 #3 {##3} {##4}
       }{ % \bool_if:nTF {##1} FALSE BRANCH
         % scale factor given?
         \tl_if_empty:NTF \l_tmpa_tl
         {
-          \conmath_delim_nabla_op_noscale:NNnn #2 #3 {##3} {##4}
+          \moremath_delim_nabla_op_noscale:NNnn #2 #3 {##3} {##4}
         }{ % FALSE BRANCH
-          \conmath_delim_nabla_op_manuscale:NNVnn #2 #3 \l_tmpa_tl {##3} {##4}
+          \moremath_delim_nabla_op_manuscale:NNVnn #2 #3 \l_tmpa_tl {##3} {##4}
         }
       } % \bool_if:nTF {##1}
       \group_end:
     }
   }{ % \cs_if_free:NTF #1 FALSE BRANCH
-    \msg_warning:nnn { conmath } { vector-calc / already-defined-skip } {#1}
+    \msg_warning:nnn { moremath } { vector-calc / already-defined-skip } {#1}
   } % \cs_if_free:NTF #1
 }
 %
@@ -4062,7 +4071,7 @@
 % clashes with some already defined macro,
 % we define an error message to use when defining document level commands.
 %    \begin{macrocode}
-\msg_new:nnn { conmath } { vector-calc / already-defined-skip }
+\msg_new:nnn { moremath } { vector-calc / already-defined-skip }
 {
   Control~sequence~'#1'~is~already~defined.\\
   Skipping~definition~\msg_line_context:.
@@ -4076,7 +4085,7 @@
 %   \laplacian
 % }
 % Now we provide the user with document level commands for
-% \cs[no-index]{conmath_\meta{op}_operator:n}.
+% \cs[no-index]{moremath_\meta{op}_operator:n}.
 %    \begin{macrocode}
 \cs_if_free:NTF \grad
 {
@@ -4085,13 +4094,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn {conmath} {#1}
+      \keys_set:nn {moremath} {#1}
     }
-    \conmath_gradient_operator:n {#2}
+    \moremath_gradient_operator:n {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn {conmath} { vector-calc / already-defined-skip } {\grad}
+  \msg_warning:nnn {moremath} { vector-calc / already-defined-skip } {\grad}
 }
 
 \cs_if_free:NTF \divergence
@@ -4102,13 +4111,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn {conmath} {#1}
+      \keys_set:nn {moremath} {#1}
     }
-    \conmath_divergence_operator:n {#2}
+    \moremath_divergence_operator:n {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn {conmath} { vector-calc / already-defined-skip } {\divergence}
+  \msg_warning:nnn {moremath} { vector-calc / already-defined-skip } {\divergence}
 }
 
 \cs_if_free:NTF \curl
@@ -4119,13 +4128,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn {conmath} {#1}
+      \keys_set:nn {moremath} {#1}
     }
-    \conmath_curl_operator:n {#2}
+    \moremath_curl_operator:n {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn {conmath} {vector-calc / already-defined-skip} {\curl}
+  \msg_warning:nnn {moremath} {vector-calc / already-defined-skip} {\curl}
 }
 
 \cs_if_free:NTF \laplacian
@@ -4136,13 +4145,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn {conmath} {#1}
+      \keys_set:nn {moremath} {#1}
     }
-    \conmath_laplace_operator:n {#2}
+    \moremath_laplace_operator:n {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn {conmath} { vector-calc / already-defined-skip }
+  \msg_warning:nnn {moremath} { vector-calc / already-defined-skip }
   {\laplacian}
 }
 %    \end{macrocode}
@@ -4160,13 +4169,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath } {#1}
+      \keys_set:nn { moremath } {#1}
     }
-    \conmath_dalembert_operator:n {#2}
+    \moremath_dalembert_operator:n {#2}
     \group_end:
   }
 }{ % \cs_if_free:NTF \quabla FALSE BRANCH
-  \msg_warning:nnn { conmath } { vector-calc / already-defined-skip }
+  \msg_warning:nnn { moremath } { vector-calc / already-defined-skip }
     {\quabla}
 }
 %    \end{macrocode}
@@ -4203,7 +4212,7 @@
 %   We provide five versions using parenthesis, brackets, braces, single \tn{vert},
 %   and double \tn{Vert}.
 %    \begin{macrocode}
-\@@_new_nabla_doc_cmds:nN {grad} \conmath_gradient_operator:n
+\@@_new_nabla_doc_cmds:nN {grad} \moremath_gradient_operator:n
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added commands for delimited gradient operators.
@@ -4219,7 +4228,7 @@
 % }
 % Now we do the same for the divergence operator.
 %    \begin{macrocode}
-\@@_new_nabla_doc_cmds:nN {div} \conmath_divergence_operator:n
+\@@_new_nabla_doc_cmds:nN {div} \moremath_divergence_operator:n
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added commands for delimited divergence operators.
@@ -4235,7 +4244,7 @@
 % }
 % Now to the curl macros.
 %    \begin{macrocode}
-\@@_new_nabla_doc_cmds:nN {curl} \conmath_curl_operator:n
+\@@_new_nabla_doc_cmds:nN {curl} \moremath_curl_operator:n
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added commands for delimited curl operators.
@@ -4251,7 +4260,7 @@
 % }
 % Next we take care of the laplacian
 %    \begin{macrocode}
-\@@_new_nabla_doc_cmds:nN {laplacian} \conmath_laplace_operator:n
+\@@_new_nabla_doc_cmds:nN {laplacian} \moremath_laplace_operator:n
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added commands for delimited Laplace operators.
@@ -4268,7 +4277,7 @@
 %   Finally we define delimited commands for the
 %   \foreignlanguage{french}{d'Alembert} operator.
 %    \begin{macrocode}
-\@@_new_nabla_doc_cmds:nN {quabla} \conmath_dalembert_operator:n
+\@@_new_nabla_doc_cmds:nN {quabla} \moremath_dalembert_operator:n
 %    \end{macrocode}
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
 %     Added commands for a delimited \foreignlanguage{french}{d'Alembert}
@@ -4280,7 +4289,7 @@
 % write this to the log file.
 %    \begin{macrocode}
 }{ % IF NOT \l_@@_predef_vector_op_bool
-  \msg_info:nnnn {conmath} { load /disabling } {no-vector}
+  \msg_info:nnnn {moremath} { load /disabling } {no-vector}
   {
     predefined~vector~calculus~macros
   }
@@ -4336,10 +4345,10 @@
 % In the next step we construct the single row/column matrix from the user
 % provided input.
 % \begin{macro}{
-%   \conmath_column_vector:nn,
-%   \conmath_row_vector:nn,
+%   \moremath_column_vector:nn,
+%   \moremath_row_vector:nn,
 % }
-%   The two commands \cs{conmath_column_vector:n} and \cs{conmath_row_vector:n}
+%   The two commands \cs{moremath_column_vector:n} and \cs{moremath_row_vector:n}
 %   construct the matrix, they both take two arguments.
 %   \begin{arguments}
 %     \item The delimiter specifier.
@@ -4353,7 +4362,7 @@
 %     \item The comma separated contents of the matrix.
 %   \end{arguments}
 %     \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_column_vector:nn
+\cs_new_protected_nopar:Nn \moremath_column_vector:nn
 {
   \seq_clear:N \l_@@_vector_entries_seq
   \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
@@ -4363,7 +4372,7 @@
   \end{#1 matrix*}
 }
 
-\cs_new_protected_nopar:Nn \conmath_row_vector:nn
+\cs_new_protected_nopar:Nn \moremath_row_vector:nn
 {
   \seq_clear:N \l_@@_vector_entries_seq
   \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
@@ -4379,22 +4388,22 @@
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_column_smallvector:nn,
-%   \conmath_row_smallvector:nn
+%   \moremath_column_smallvector:nn,
+%   \moremath_row_smallvector:nn
 % }
 %   To make the code more readable, we define functions specifically for
 %   creating row and column vectors using the \env{smallmatrix*} family of
 %   environments. These functions take the same arguments as the non-small
 %   versions above.
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_column_smallvector:nn
+\cs_new_protected_nopar:Nn \moremath_column_smallvector:nn
 {
-  \conmath_column_vector:nn {#1 small} {#2}
+  \moremath_column_vector:nn {#1 small} {#2}
 }
 
-\cs_new_protected_nopar:Nn \conmath_row_smallvector:nn
+\cs_new_protected_nopar:Nn \moremath_row_smallvector:nn
 {
-  \conmath_row_vector:nn {#1 small} {#2}
+  \moremath_row_vector:nn {#1 small} {#2}
 }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
@@ -4494,13 +4503,13 @@
 % \end{macro}
 %
 % \begin{macro}{
-%   \conmath_diagonal_matrix:nn,
-%   \conmath_antidiagonal_matrix:nn,
-%   \conmath_diagonal_smallmatrix:nn,
-%   \conmath_antidiagonal_smallmatrix:nn,
+%   \moremath_diagonal_matrix:nn,
+%   \moremath_antidiagonal_matrix:nn,
+%   \moremath_diagonal_smallmatrix:nn,
+%   \moremath_antidiagonal_smallmatrix:nn,
 % }
-%   The \cs[no-index]{conmath_\meta{a or d}_matrix:nn} and
-%   \cs[no-index]{conmath_\meta{a or d}_smallmatrix:nn} family of functions
+%   The \cs[no-index]{moremath_\meta{a or d}_matrix:nn} and
+%   \cs[no-index]{moremath_\meta{a or d}_smallmatrix:nn} family of functions
 %   produce a matrix based on \pkg{mathtools}~\autocite{mathtools}
 %   \env{matrix*} environment.
 %   The functions take two arguments.
@@ -4516,7 +4525,7 @@
 %   \cs{l_@@_matrix_fill_tl} and \cs{l_@@_matrix_align_tl}.
 %   And modifies the variable \cs{l_@@_mat_diag_entries_seq}.
 %    \begin{macrocode}
-\cs_new_protected:Nn \conmath_diagonal_matrix:nn
+\cs_new_protected:Nn \moremath_diagonal_matrix:nn
 {
   \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
   \exp_args:NnNV \begin{#1 matrix*} [ \l_@@_matrix_align_tl ]
@@ -4526,7 +4535,7 @@
 }
 
 % Anti-diagonal matrix
-\cs_new_protected:Nn \conmath_antidiagonal_matrix:nn
+\cs_new_protected:Nn \moremath_antidiagonal_matrix:nn
 {
   \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
   \exp_args:NnNV \begin{ #1 matrix* } [ \l_@@_matrix_align_tl ]
@@ -4536,44 +4545,44 @@
 }
 
 % Small versions
-\cs_new_protected:Nn \conmath_diagonal_smallmatrix:nn
+\cs_new_protected:Nn \moremath_diagonal_smallmatrix:nn
 {
-  \conmath_diagonal_matrix:nn {#1 small} {#2}
+  \moremath_diagonal_matrix:nn {#1 small} {#2}
 }
 
-\cs_new_protected:Nn \conmath_antidiagonal_smallmatrix:nn
+\cs_new_protected:Nn \moremath_antidiagonal_smallmatrix:nn
 {
-  \conmath_antidiagonal_matrix:nn {#1 small} {#2}
+  \moremath_antidiagonal_matrix:nn {#1 small} {#2}
 }
 %    \end{macrocode}
 % \begin{macro}{
-%   \conmath_diagonal_matrix:nV,
-%   \conmath_diagonal_matrix:Vn,
-%   \conmath_diagonal_matrix:VV,
-%   \conmath_antidiagonal_matrix:nV,
-%   \conmath_antidiagonal_matrix:Vn,
-%   \conmath_antidiagonal_matrix:VV,
-%   \conmath_diagonal_smallmatrix:nV,
-%   \conmath_diagonal_smallmatrix:Vn,
-%   \conmath_diagonal_smallmatrix:VV,
-%   \conmath_antidiagonal_smallmatrix:nV,
-%   \conmath_antidiagonal_smallmatrix:Vn,
-%   \conmath_antidiagonal_smallmatrix:VV,
+%   \moremath_diagonal_matrix:nV,
+%   \moremath_diagonal_matrix:Vn,
+%   \moremath_diagonal_matrix:VV,
+%   \moremath_antidiagonal_matrix:nV,
+%   \moremath_antidiagonal_matrix:Vn,
+%   \moremath_antidiagonal_matrix:VV,
+%   \moremath_diagonal_smallmatrix:nV,
+%   \moremath_diagonal_smallmatrix:Vn,
+%   \moremath_diagonal_smallmatrix:VV,
+%   \moremath_antidiagonal_smallmatrix:nV,
+%   \moremath_antidiagonal_smallmatrix:Vn,
+%   \moremath_antidiagonal_smallmatrix:VV,
 % }
 % For convenience we also define some variants of the above functions.
 %    \begin{macrocode}
-\cs_generate_variant:Nn \conmath_diagonal_matrix:nn { n V }
-\cs_generate_variant:Nn \conmath_diagonal_matrix:nn { V n }
-\cs_generate_variant:Nn \conmath_diagonal_matrix:nn { V V }
-\cs_generate_variant:Nn \conmath_antidiagonal_matrix:nn { n V }
-\cs_generate_variant:Nn \conmath_antidiagonal_matrix:nn { V n }
-\cs_generate_variant:Nn \conmath_antidiagonal_matrix:nn { V V }
-\cs_generate_variant:Nn \conmath_diagonal_smallmatrix:nn { n V }
-\cs_generate_variant:Nn \conmath_diagonal_smallmatrix:nn { V n }
-\cs_generate_variant:Nn \conmath_diagonal_smallmatrix:nn { V V }
-\cs_generate_variant:Nn \conmath_antidiagonal_smallmatrix:nn { n V }
-\cs_generate_variant:Nn \conmath_antidiagonal_smallmatrix:nn { V n }
-\cs_generate_variant:Nn \conmath_antidiagonal_smallmatrix:nn { V V }
+\cs_generate_variant:Nn \moremath_diagonal_matrix:nn { n V }
+\cs_generate_variant:Nn \moremath_diagonal_matrix:nn { V n }
+\cs_generate_variant:Nn \moremath_diagonal_matrix:nn { V V }
+\cs_generate_variant:Nn \moremath_antidiagonal_matrix:nn { n V }
+\cs_generate_variant:Nn \moremath_antidiagonal_matrix:nn { V n }
+\cs_generate_variant:Nn \moremath_antidiagonal_matrix:nn { V V }
+\cs_generate_variant:Nn \moremath_diagonal_smallmatrix:nn { n V }
+\cs_generate_variant:Nn \moremath_diagonal_smallmatrix:nn { V n }
+\cs_generate_variant:Nn \moremath_diagonal_smallmatrix:nn { V V }
+\cs_generate_variant:Nn \moremath_antidiagonal_smallmatrix:nn { n V }
+\cs_generate_variant:Nn \moremath_antidiagonal_smallmatrix:nn { V n }
+\cs_generate_variant:Nn \moremath_antidiagonal_smallmatrix:nn { V V }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Added variants.}
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{Added "nV" and "VV" variants.}
@@ -4630,8 +4639,8 @@
 % \begin{variable}{
 %   \l_@@_id_entries_clist
 % }
-%   As we want to utilize the \cs{conmath_diagonal_matrix:VV} and
-%   \cs{conmath_diagonal_smallmatrix:VV} functions for creating the identity
+%   As we want to utilize the \cs{moremath_diagonal_matrix:VV} and
+%   \cs{moremath_diagonal_smallmatrix:VV} functions for creating the identity
 %   matrix we declare an internal \meta{clist~var} called
 %   \cs{l_@@_id_entries_clist} for passing the \meta{clist} around.
 %    \begin{macrocode}
@@ -4641,8 +4650,8 @@
 % \end{variable}
 %
 % \begin{macro}{
-%   \conmath_id_matrix:n,
-%   \conmath_id_smallmatrix:n
+%   \moremath_id_matrix:n,
+%   \moremath_id_smallmatrix:n
 % }
 %   These functions are intended to produce an identity matrix from an integer
 %   expression.
@@ -4651,36 +4660,36 @@
 %     \item The number of diagonal entries.
 %   \end{arguments}
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_id_matrix:n
+\cs_new_protected_nopar:Nn \moremath_id_matrix:n
 {
   \clist_clear:N \l_@@_id_entries_clist
   \@@_generate_one_filled_clist:Nn \l_@@_id_entries_clist {#1}
-  \conmath_diagonal_matrix:VV \l_@@_matrix_delim_tl \l_@@_id_entries_clist
+  \moremath_diagonal_matrix:VV \l_@@_matrix_delim_tl \l_@@_id_entries_clist
 }
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\cs_new_protected_nopar:Nn \conmath_id_smallmatrix:n
+\cs_new_protected_nopar:Nn \moremath_id_smallmatrix:n
 {
   \clist_clear:N \l_@@_id_entries_clist
   \@@_generate_one_filled_clist:Nn \l_@@_id_entries_clist {#1}
-  \conmath_diagonal_smallmatrix:VV \l_@@_matrix_delim_tl \l_@@_id_entries_clist
+  \moremath_diagonal_smallmatrix:VV \l_@@_matrix_delim_tl \l_@@_id_entries_clist
 }
 %    \end{macrocode}
 %
 % \begin{macro}{
-%   \conmath_id_matrix:V,
-%   \conmath_id_smallmatrix:V
+%   \moremath_id_matrix:V,
+%   \moremath_id_smallmatrix:V
 % }
 % We also provide variants, which accepts a "V"-type argument:
 %    \begin{macrocode}
-\cs_generate_variant:Nn \conmath_id_matrix:n { V }
-\cs_generate_variant:Nn \conmath_id_smallmatrix:n { V }
+\cs_generate_variant:Nn \moremath_id_matrix:n { V }
+\cs_generate_variant:Nn \moremath_id_smallmatrix:n { V }
 %    \end{macrocode}
 % \end{macro}
 %
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
-%   Added functions \cs{conmath_id_matrix:n} and \cs{conmath_id_smallmatrix:n}
+%   Added functions \cs{moremath_id_matrix:n} and \cs{moremath_id_smallmatrix:n}
 %   and variants.
 %   }
 % \end{macro}
@@ -4694,7 +4703,7 @@
 % But before we do so we define a message to be issued in case the targeted
 % \meta{csname} is already defined elsewhere.
 %    \begin{macrocode}
-\msg_new:nnnn { conmath } { matrix / already-defined-doc-cmd-skip }
+\msg_new:nnnn { moremath } { matrix / already-defined-doc-cmd-skip }
 {
   Control~sequence~'#1'~is~already~defined.\\
   Skipping~definition~\msg_line_context:.
@@ -4730,14 +4739,14 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_column_vector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_column_vector:nn {\l_@@_matrix_delim_tl} {#2}
     \group_end:
   }
 }{
   % issue a warning message if the csname is already taken.
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
   {
     \cvector
   }
@@ -4752,14 +4761,14 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_row_vector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_row_vector:nn {\l_@@_matrix_delim_tl} {#2}
     \group_end:
   }
 }{
   % warn if csname is already taken
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip}
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip}
   {
     \rvector
   }
@@ -4774,14 +4783,14 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn {conmath / matrix} {#1}
+      \keys_set:nn {moremath / matrix} {#1}
     }
-    \conmath_column_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_column_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
     \group_end:
   }
 }{
   % Issue a warning message if the csname is already taken
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
   {
     \smallcvector
   }
@@ -4794,14 +4803,14 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_row_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_row_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
     \group_end:
   }
 }{
   % warn if csname is taken
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
   {
     \smallrvector
   }
@@ -4827,7 +4836,7 @@
 %     \item The \meta{function} to use for this shorthand.
 %
 %     This should be one of the
-%     \cs[no-index]{conmath_\meta{type}_\meta{size}vector:nn}
+%     \cs[no-index]{moremath_\meta{type}_\meta{size}vector:nn}
 %     like commands.
 %
 %     \item The \meta{delimiter} to use.
@@ -4843,17 +4852,17 @@
     {
       \group_begin:
       % set the delimiter key pre-set for this function
-      \keys_set:nn {conmath / matrix } {delimiter = #3}
+      \keys_set:nn {moremath / matrix } {delimiter = #3}
       \tl_if_novalue:nF {##1}
       {
-        \keys_set:nn {conmath / matrix } {##1}
+        \keys_set:nn {moremath / matrix } {##1}
       }
       #2 {\l_@@_matrix_delim_tl} {##2}
       \group_end:
     }
   }{
     % warn if csname is taken
-    \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+    \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
     {
       #1
     }
@@ -4879,28 +4888,28 @@
 %   We begin with the column vector.
 %    \begin{macrocode}
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \pcvector \conmath_column_vector:nn {p}
+\@@_new_vector_shorth_doc_cmd:NNn \pcvector \moremath_column_vector:nn {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \bcvector \conmath_column_vector:nn {b}
+\@@_new_vector_shorth_doc_cmd:NNn \bcvector \moremath_column_vector:nn {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Bcvector \conmath_column_vector:nn {B}
+\@@_new_vector_shorth_doc_cmd:NNn \Bcvector \moremath_column_vector:nn {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vcvector \conmath_column_vector:nn {v}
+\@@_new_vector_shorth_doc_cmd:NNn \vcvector \moremath_column_vector:nn {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vcvector \conmath_column_vector:nn {V}
+\@@_new_vector_shorth_doc_cmd:NNn \Vcvector \moremath_column_vector:nn {V}
 %    \end{macrocode}
 %   Now to the row vectors.
 %    \begin{macrocode}
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \prvector \conmath_row_vector:nn {p}
+\@@_new_vector_shorth_doc_cmd:NNn \prvector \moremath_row_vector:nn {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \brvector \conmath_row_vector:nn {b}
+\@@_new_vector_shorth_doc_cmd:NNn \brvector \moremath_row_vector:nn {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Brvector \conmath_row_vector:nn {B}
+\@@_new_vector_shorth_doc_cmd:NNn \Brvector \moremath_row_vector:nn {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vrvector \conmath_row_vector:nn {v}
+\@@_new_vector_shorth_doc_cmd:NNn \vrvector \moremath_row_vector:nn {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vrvector \conmath_row_vector:nn {V}
+\@@_new_vector_shorth_doc_cmd:NNn \Vrvector \moremath_row_vector:nn {V}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added commands for row and column vectors with predefined delimiters.
@@ -4924,36 +4933,36 @@
 %    \begin{macrocode}
 % column vectors
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \psmallcvector \conmath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \psmallcvector \moremath_column_smallvector:nn
   {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \bsmallcvector \conmath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \bsmallcvector \moremath_column_smallvector:nn
   {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Bsmallcvector \conmath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \Bsmallcvector \moremath_column_smallvector:nn
   {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vsmallcvector \conmath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \vsmallcvector \moremath_column_smallvector:nn
   {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vsmallcvector \conmath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \Vsmallcvector \moremath_column_smallvector:nn
   {V}
 %
 % row vectors
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \psmallrvector \conmath_row_smallvector:nn {p}
+\@@_new_vector_shorth_doc_cmd:NNn \psmallrvector \moremath_row_smallvector:nn {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \bsmallrvector \conmath_row_smallvector:nn {b}
+\@@_new_vector_shorth_doc_cmd:NNn \bsmallrvector \moremath_row_smallvector:nn {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Bsmallrvector \conmath_row_smallvector:nn {B}
+\@@_new_vector_shorth_doc_cmd:NNn \Bsmallrvector \moremath_row_smallvector:nn {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vsmallrvector \conmath_row_smallvector:nn {v}
+\@@_new_vector_shorth_doc_cmd:NNn \vsmallrvector \moremath_row_smallvector:nn {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vsmallrvector \conmath_row_smallvector:nn {V}
+\@@_new_vector_shorth_doc_cmd:NNn \Vsmallrvector \moremath_row_smallvector:nn {V}
 
 
 }{ % \bool_if:nTF \l_@@_predef_crvector_bool FALSE PATH
-  \msg_info:nnnn {conmath} {load / disabling} {no-crvector}
+  \msg_info:nnnn {moremath} {load / disabling} {no-crvector}
   {
     commands~producing~row~and~column~vectors
   }
@@ -4991,13 +5000,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_diagonal_matrix:Vn \l_@@_matrix_delim_tl {#2}
+    \moremath_diagonal_matrix:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn {conmath} {matrix / already-defined-doc-cmd-skip}
+  \msg_warning:nnn {moremath} {matrix / already-defined-doc-cmd-skip}
   {
     \diagmat
   }
@@ -5010,13 +5019,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_antidiagonal_matrix:Vn \l_@@_matrix_delim_tl {#2}
+    \moremath_antidiagonal_matrix:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
   {
     \antidiagmat
   }
@@ -5029,13 +5038,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_diagonal_smallmatrix:Vn \l_@@_matrix_delim_tl {#2}
+    \moremath_diagonal_smallmatrix:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
   {
     \smalldiagmat
   }
@@ -5048,13 +5057,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_antidiagonal_smallmatrix:Vn \l_@@_matrix_delim_tl {#2}
+    \moremath_antidiagonal_smallmatrix:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
   {
     \smallantidiagmat
   }
@@ -5091,20 +5100,20 @@
       \group_begin:
       \tl_if_empty:nF {#3}
       {
-        \keys_set:nn { conmath / matrix }
+        \keys_set:nn { moremath / matrix }
         {
           delimiter = #3
         }
       } % \tl_if_empty:nF {#3}
       \tl_if_novalue:nF {##1}
       {
-        \keys_set:nn { conmath / matrix } {##1}
+        \keys_set:nn { moremath / matrix } {##1}
       }
       #2 \l_@@_matrix_delim_tl {##2}
       \group_end:
     }
   }{
-    \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+    \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
     {
       #1
     }
@@ -5123,11 +5132,11 @@
 % }
 %   We begin with the regular diagonal matrix
 %    \begin{macrocode}
-\@@_new_matrix_shorth_doc_cmd:NNn \pdiagmat \conmath_diagonal_matrix:Vn {p}
-\@@_new_matrix_shorth_doc_cmd:NNn \bdiagmat \conmath_diagonal_matrix:Vn {b}
-\@@_new_matrix_shorth_doc_cmd:NNn \Bdiagmat \conmath_diagonal_matrix:Vn {B}
-\@@_new_matrix_shorth_doc_cmd:NNn \vdiagmat \conmath_diagonal_matrix:Vn {v}
-\@@_new_matrix_shorth_doc_cmd:NNn \Vdiagmat \conmath_diagonal_matrix:Vn {V}
+\@@_new_matrix_shorth_doc_cmd:NNn \pdiagmat \moremath_diagonal_matrix:Vn {p}
+\@@_new_matrix_shorth_doc_cmd:NNn \bdiagmat \moremath_diagonal_matrix:Vn {b}
+\@@_new_matrix_shorth_doc_cmd:NNn \Bdiagmat \moremath_diagonal_matrix:Vn {B}
+\@@_new_matrix_shorth_doc_cmd:NNn \vdiagmat \moremath_diagonal_matrix:Vn {v}
+\@@_new_matrix_shorth_doc_cmd:NNn \Vdiagmat \moremath_diagonal_matrix:Vn {V}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added commands for delimited diagonal matrices.
@@ -5143,15 +5152,15 @@
 %   Now for the anti-diagonal matrix commands.
 %    \begin{macrocode}
 \@@_new_matrix_shorth_doc_cmd:NNn \pantidiagmat
-  \conmath_antidiagonal_matrix:Vn {p}
+  \moremath_antidiagonal_matrix:Vn {p}
 \@@_new_matrix_shorth_doc_cmd:NNn \bantidiagmat
-  \conmath_antidiagonal_matrix:Vn {b}
+  \moremath_antidiagonal_matrix:Vn {b}
 \@@_new_matrix_shorth_doc_cmd:NNn \Bantidiagmat
-  \conmath_antidiagonal_matrix:Vn {B}
+  \moremath_antidiagonal_matrix:Vn {B}
 \@@_new_matrix_shorth_doc_cmd:NNn \vantidiagmat
-  \conmath_antidiagonal_matrix:Vn {v}
+  \moremath_antidiagonal_matrix:Vn {v}
 \@@_new_matrix_shorth_doc_cmd:NNn \Vantidiagmat
-  \conmath_antidiagonal_matrix:Vn {V}
+  \moremath_antidiagonal_matrix:Vn {V}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added commands for delimited antidiagonal matrices.
@@ -5169,15 +5178,15 @@
 %   environment.
 %    \begin{macrocode}
 \@@_new_matrix_shorth_doc_cmd:NNn \psmalldiagmat
-  \conmath_diagonal_smallmatrix:Vn {p}
+  \moremath_diagonal_smallmatrix:Vn {p}
 \@@_new_matrix_shorth_doc_cmd:NNn \bsmalldiagmat
-  \conmath_diagonal_smallmatrix:Vn {b}
+  \moremath_diagonal_smallmatrix:Vn {b}
 \@@_new_matrix_shorth_doc_cmd:NNn \Bsmalldiagmat
-  \conmath_diagonal_smallmatrix:Vn {B}
+  \moremath_diagonal_smallmatrix:Vn {B}
 \@@_new_matrix_shorth_doc_cmd:NNn \vsmalldiagmat
-  \conmath_diagonal_smallmatrix:Vn {v}
+  \moremath_diagonal_smallmatrix:Vn {v}
 \@@_new_matrix_shorth_doc_cmd:NNn \Vsmalldiagmat
-  \conmath_diagonal_smallmatrix:Vn {V}
+  \moremath_diagonal_smallmatrix:Vn {V}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added commands for delimited diagonal matrices suitable for inline math.
@@ -5193,15 +5202,15 @@
 % We provide also anti-diagonal versions of the small matrices.
 %    \begin{macrocode}
 \@@_new_matrix_shorth_doc_cmd:NNn \psmallantidiagmat
-  \conmath_antidiagonal_smallmatrix:Vn {p}
+  \moremath_antidiagonal_smallmatrix:Vn {p}
 \@@_new_matrix_shorth_doc_cmd:NNn \bsmallantidiagmat
-  \conmath_antidiagonal_smallmatrix:Vn {b}
+  \moremath_antidiagonal_smallmatrix:Vn {b}
 \@@_new_matrix_shorth_doc_cmd:NNn \Bsmallantidiagmat
-  \conmath_antidiagonal_smallmatrix:Vn {B}
+  \moremath_antidiagonal_smallmatrix:Vn {B}
 \@@_new_matrix_shorth_doc_cmd:NNn \vsmallantidiagmat
-  \conmath_antidiagonal_smallmatrix:Vn {v}
+  \moremath_antidiagonal_smallmatrix:Vn {v}
 \@@_new_matrix_shorth_doc_cmd:NNn \Vsmallantidiagmat
-  \conmath_antidiagonal_smallmatrix:Vn {V}
+  \moremath_antidiagonal_smallmatrix:Vn {V}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added commands for delimited anti-diagonal matrices suitable for inline math.
@@ -5229,13 +5238,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_id_matrix:n {#2}
+    \moremath_id_matrix:n {#2}
     \group_end:
   }
 }{ % \cs_if_free:NTF \idmat FALSE BRANCH
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
     {\idmat}
 }
 %    \end{macrocode}
@@ -5248,13 +5257,13 @@
     \group_begin:
     \tl_if_novalue:nF {#1}
     {
-      \keys_set:nn { conmath / matrix } {#1}
+      \keys_set:nn { moremath / matrix } {#1}
     }
-    \conmath_id_smallmatrix:n {#2}
+    \moremath_id_smallmatrix:n {#2}
     \group_end:
   }
 }{ % \cs_if_free:NTF \smallidmat FALSE BRANCH
-  \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+  \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
     {\smallidmat}
 }
 %    \end{macrocode}
@@ -5278,10 +5287,10 @@
 %
 %   \item The \meta{csname} of the function to use
 %
-%   This is indented to be one of \cs{conmath_id_matrix:n} or
-%   \cs{conmath_id_smallmatrix:n}
+%   This is indented to be one of \cs{moremath_id_matrix:n} or
+%   \cs{moremath_id_smallmatrix:n}
 %
-%   \item \meta{kv~opts} to preset in the "conmath / matrix" namespace
+%   \item \meta{kv~opts} to preset in the "moremath / matrix" namespace
 %   for this command
 %
 %     This is meant to be used for pre-setting the key "delimiter".
@@ -5296,17 +5305,17 @@
       \group_begin:
       \tl_if_empty:nF {#3}
       {
-        \keys_set:nn { conmath / matrix } {#3}
+        \keys_set:nn { moremath / matrix } {#3}
       }
       \tl_if_novalue:nF {##1}
       {
-        \keys_set:nn { conmath / matrix } {##1}
+        \keys_set:nn { moremath / matrix } {##1}
       }
       #2 {##2}
       \group_end:
     }
   }{ % \cs_if_free:NTF #1 FALSE BRANCH
-    \msg_warning:nnn { conmath } { matrix / already-defined-doc-cmd-skip }
+    \msg_warning:nnn { moremath } { matrix / already-defined-doc-cmd-skip }
       {#1}
   }
 }
@@ -5323,23 +5332,23 @@
 %   We begin with the display math versions,
 %   starting with the version delimited by parenthesis,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \pidmat \conmath_id_matrix:n { delimiter = p }
+\@@_new_id_matrix_doc_cmd:NNn \pidmat \moremath_id_matrix:n { delimiter = p }
 %    \end{macrocode}
 %   continue with the bracketed version,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \bidmat \conmath_id_matrix:n { delimiter = b }
+\@@_new_id_matrix_doc_cmd:NNn \bidmat \moremath_id_matrix:n { delimiter = b }
 %    \end{macrocode}
 %   the version using braces,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \Bidmat \conmath_id_matrix:n { delimiter = B }
+\@@_new_id_matrix_doc_cmd:NNn \Bidmat \moremath_id_matrix:n { delimiter = B }
 %    \end{macrocode}
 %   single vertical lines,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \vidmat \conmath_id_matrix:n { delimiter = v }
+\@@_new_id_matrix_doc_cmd:NNn \vidmat \moremath_id_matrix:n { delimiter = v }
 %    \end{macrocode}
 %    and finally double vertical lines.
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \Vidmat \conmath_id_matrix:n { delimiter = V }
+\@@_new_id_matrix_doc_cmd:NNn \Vidmat \moremath_id_matrix:n { delimiter = V }
 %    \end{macrocode}
 %
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{
@@ -5358,27 +5367,27 @@
 % Now we also define shorthands for inline math mode.
 % We start again defining the version using parenthesis,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \psmallidmat \conmath_id_smallmatrix:n
+\@@_new_id_matrix_doc_cmd:NNn \psmallidmat \moremath_id_smallmatrix:n
   { delimiter = p }
 %    \end{macrocode}
 %   then brackets,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \bsmallidmat \conmath_id_smallmatrix:n
+\@@_new_id_matrix_doc_cmd:NNn \bsmallidmat \moremath_id_smallmatrix:n
   { delimiter = b }
 %    \end{macrocode}
 %   then braces,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \Bsmallidmat \conmath_id_smallmatrix:n
+\@@_new_id_matrix_doc_cmd:NNn \Bsmallidmat \moremath_id_smallmatrix:n
   { delimiter = B }
 %    \end{macrocode}
 %   followed by single vertical lines,
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \vsmallidmat \conmath_id_smallmatrix:n
+\@@_new_id_matrix_doc_cmd:NNn \vsmallidmat \moremath_id_smallmatrix:n
   { delimiter = v }
 %    \end{macrocode}
 %   and finally double vertical lines.
 %    \begin{macrocode}
-\@@_new_id_matrix_doc_cmd:NNn \Vsmallidmat \conmath_id_smallmatrix:n
+\@@_new_id_matrix_doc_cmd:NNn \Vsmallidmat \moremath_id_smallmatrix:n
   { delimiter = V }
 %    \end{macrocode}
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
@@ -5389,7 +5398,7 @@
 %
 %    \begin{macrocode}
 }{ % \bool_if:nTF \l_@@_predef_matrix_bool FALSE BRANCH
-  \msg_info:nnnn {conmath} { load / disabling } { no-matrix }
+  \msg_info:nnnn {moremath} { load / disabling } { no-matrix }
   {
     (anti-)diagonal~matrix~commands
   }
@@ -5403,7 +5412,7 @@
 % We first declare another warning message to inform the user of the case that,
 % the \meta{csnames} are already taken.
 %    \begin{macrocode}
-\msg_new:nnnn { conmath } { abs-shorth / csname-already-defined-skip }
+\msg_new:nnnn { moremath } { abs-shorth / csname-already-defined-skip }
 {
   Control~sequence~'#1'~is~already~defined.\\
   Skipping~declaration~of~paired~delimiter~\msg_line_context:.\\
@@ -5432,7 +5441,7 @@
   \DeclarePairedDelimiter \abs {\lvert} {\rvert}
 }{
   % warn if the csname is taken
-  \msg_warning:nnn { conmath } { abs-shorth / csname-already-defined-skip }
+  \msg_warning:nnn { moremath } { abs-shorth / csname-already-defined-skip }
     {\abs}
 } % \cs_if_free:NTF \abs
 
@@ -5441,7 +5450,7 @@
   \DeclarePairedDelimiter \norm {\lVert} {\rVert}
 }{
   % warn if csname is already taken
-  \msg_warning:nnn { conmath } { abs-shorth / csname-already-defined-skip }
+  \msg_warning:nnn { moremath } { abs-shorth / csname-already-defined-skip }
     {\norm}
 } % \cs_if_free:NTF
 %    \end{macrocode}
@@ -5452,7 +5461,7 @@
 %
 %    \begin{macrocode}
 }{
-  \msg_info:nnnn {conmath} {load / disabling} {no-abs-shorthands}
+  \msg_info:nnnn {moremath} {load / disabling} {no-abs-shorthands}
   {
     '\abs'~and~'\norm'~macros
   }
@@ -5471,7 +5480,7 @@
 % \addcontentsline{toc}{section}{Copyright and License}
 % \label{sec:license}
 %
-% The following copyright notice applies to the \pkg{conmath} package:
+% The following copyright notice applies to the \pkg{moremath} package:
 %
 % \begin{quote}
 %   Copyright \textcopyright{} 2024 Marcel Ilg

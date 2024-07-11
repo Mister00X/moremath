@@ -1,6 +1,6 @@
-# `conmath`: Convenience Math Macros
+# `moremath`: Convenience Math Macros
 
-The `conmath` package provides convenience shorthand math macros such as
+The `moremath` package provides convenience shorthand math macros such as
 (auto-)delimited operators, (auto-)delimited vector calculus operators
 and some commands for quickly producing diagonal matrices, 
 column, and row vectors.
