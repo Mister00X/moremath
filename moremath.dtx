@@ -160,7 +160,7 @@
 % \AddVersion{v0.1.0}{2024-06-28}
 % \AddVersion{v0.2.0}{2024-07-04}
 % \AddVersion{v0.3.0}{2024-07-08}
-% \AddVersion{v0.4.0}{UNRELEASED}
+% \AddVersion{v0.4.0}{2024-07-15}
 %
 % ^^X Placeholder for unreleased versions
 % \AddVersion{vUNRELEASED}{UNRELEASED}
@@ -354,7 +354,7 @@
 % \emph{must not} be given as package options,
 % instead they should be set using \cs{moremathsetup}
 % or given as optional argument to the commands described later.
-% \begin{function}[updated = 0000-00-00]{\moremathsetup}
+% \begin{function}[updated = 2024-07-15]{\moremathsetup}
 % \begin{syntax}
 %   \cs{moremathsetup}\marg{kv~list}
 % \end{syntax}
@@ -2077,7 +2077,7 @@
 % \section{Setting of Options}
 % \label{sec:authors-options}
 %
-% \begin{function}[updated = 0000-00-00]{
+% \begin{function}[updated = 2024-07-15]{
 %   \moremath_setup:n
 % }
 %   \begin{syntax}
@@ -2089,7 +2089,7 @@
 % \section{Delimited Operators}
 % \label{sec:authors-delim-op}
 %
-% \begin{function}[updated = 0000-00-00]{
+% \begin{function}[updated = 2024-07-15]{
 %   \moremath_delim_op_noscale:NNnnn,
 %   \moremath_delim_op_autoscale:NNnnn
 % }
@@ -2114,7 +2114,7 @@
 %   The final argument \meta{tl} is a list of arbitrary token to put inside the delimiters.
 % \end{function}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-07-15]{
 %   \moremath_delim_op_manuscale:NNnnnn,
 %   \moremath_delim_op_manuscale:NNVnnn
 % }
@@ -2130,7 +2130,7 @@
 %   usually \cs{big}, \cs{Big}, \cs{bigg} and \cs{Bigg}.
 % \end{function}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-07-15]{
 %   \moremath_new_delim_op_command:NNN,
 %   \moremath_new_delim_op_command:cNN,
 % }
@@ -2153,7 +2153,7 @@
 % \subsection{Functions Producing Standalone Operators with Subscripts}
 % \label{sec:authors-vec-calc-operators}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-07-15]{
 %   \moremath_gradient_operator:n,
 %   \moremath_divergence_operator:n,
 %   \moremath_curl_operator:n,
@@ -2180,7 +2180,7 @@
 % \subsection{Functions Producing Operators with Delimiters}
 % \label{sec:authors-vec-calc-delim-ops}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-07-15]{
 %   \moremath_delim_nabla_op_noscale:NNnn,
 %   \moremath_delim_nabla_op_autoscale:NNnn,
 % }
@@ -2207,7 +2207,7 @@
 %
 % \end{function}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-07-15]{
 %   \moremath_delim_nabla_op_manuscale:NNnnn,
 %   \moremath_delim_nabla_op_manuscale:NNVnn,
 % }
@@ -2224,7 +2224,7 @@
 % \section{Formatting Matrices and Vectors}
 % \label{sec:authors-matrix}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-07-15]{
 %   \moremath_column_vector:nn,
 %   \moremath_row_vector:nn,
 %   \moremath_column_smallvector:nn,
@@ -2255,7 +2255,7 @@
 %
 % \begin{function}[
 %   updated = 2024-07-04,
-%   updated=0000-00-00,
+%   updated=2024-07-15,
 % ]{
 %   \moremath_diagonal_matrix:nn,
 %   \moremath_diagonal_matrix:nV,
@@ -2296,7 +2296,7 @@
 %
 % \begin{function}[
 %   added = 2024-07-04,
-%   updated=0000-00-00,
+%   updated=2024-07-15,
 % ]{
 %   \moremath_id_matrix:n,
 %   \moremath_id_matrix:V,
@@ -2329,7 +2329,7 @@
 %
 % \begin{function}[
 %   added=2024-07-08,
-%   updated=0000-00-00,
+%   updated=2024-07-15,
 % ]{
 %   \moremath_vcenter:n,
 % }
@@ -2391,7 +2391,7 @@
 % Then identify this package as \pkg{moremath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{moremath}
-  {UNRELEASED}{vUNRELEASED}{More Math Macros}
+  {2024-07-15}{v0.4.0}{More Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
