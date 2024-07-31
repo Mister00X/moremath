@@ -2934,6 +2934,67 @@
 % \end{macro}
 %
 %
+% \subsection{\LaTeX2e{}-commands}
+% \label{sec:impl-latex-abstractions}
+%
+% \begin{macro}[EXP,added=0000-00-00]{
+%   \@@_matrix_star_begin:nn,
+%   \@@_matrix_star_begin:nV,
+%   \@@_matrix_star_begin:Vn,
+%   \@@_matrix_star_begin:VV,
+%   \@@_matrix_star_end:n,
+%   \@@_matrix_star_end:V,
+% }
+%   The functions \cs{@@_matrix_star_begin:nn} and \cs{@@_matrix_star_end:n}
+%   provide an abstraction to the \env{matrix*} family of environments provided
+%   by \pkg{mathtools}.
+%   \NB{MI}{These functions need to be expandable,
+% as they produce an empty line otherwise.}
+%
+%   \cs{@@_matrix_star_begin:nn} takes two arguments:
+%   \begin{arguments}
+%     \item A \meta{tl} determining the type of the matrix.
+%
+%     This is used to further specify which "matrix*" environment to use.
+%
+%     The \meta{tl} may be empty.
+%
+%     \item A \meta{tl} specifying the column type.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_nopar:Nn \@@_matrix_star_begin:nn
+{
+  \begin{ #1 matrix* } [ #2 ]
+}
+%    \end{macrocode}
+%  We also create "nV", "Vn", and "VV" variants of this function:
+%    \begin{macrocode}
+\cs_generate_variant:Nn \@@_matrix_star_begin:nn { nV, Vn, VV }
+%    \end{macrocode}
+%
+%  The function \cs{@@_matrix_star_end:n} takes only one argument
+%  \begin{arguments}
+%     \item The \meta{tl} determining the type of the \env{matrix*} environment.
+%
+%     The \meta{tl} \textbf{must} have the same value as used for
+%     \cs{@@_matrix_star_begin:nn}.
+%  \end{arguments}
+%    \begin{macrocode}
+\cs_new_nopar:Nn \@@_matrix_star_end:n
+{
+  \end{ #1 matrix* }
+}
+%    \end{macrocode}
+%  We also provide a "V" type variant of this function.
+%    \begin{macrocode}
+\cs_generate_variant:Nn \@@_matrix_star_end:n {V}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Added new functions and variants.
+% }
+% \end{macro}
+%
+%
 % \section{Centering Math Symbols Along the Math-Axis}
 % \label{sec:impl-vcenter}
 %
