@@ -2330,6 +2330,7 @@
 % \begin{function}[
 %   added=2024-07-08,
 %   updated=2024-07-15,
+%   updated=0000-00-00,
 % ]{
 %   \moremath_vcenter:n,
 % }
@@ -2836,11 +2837,11 @@
 % TODO: Provide and use abstractions for the following commands and
 % primitives:
 %
-% - [ ] \mathpalette
 % - [ ] \vcenter
 % - [ ] \mathsurround
 % - [ ] \begin{matrix*}, \end{matrix*}
 % - [ ] \mathop{ }
+% - [X] \mathpalette
 % \end{NOTE}
 %
 % As this package makes use of certain \TeX{}-primitives and \LaTeX2e{}-commands,
@@ -3016,7 +3017,7 @@
 %   \url{http://www.tug.org/TUGboat/Articles/tb22-4/tb72perlS.pdf}
 % }
 %
-% \begin{macro}[added = 2024-07-08]{
+% \begin{macro}[added = 2024-07-08, updated=0000-00-00]{
 %   \moremath_vcenter:n
 % }
 %   The function \cs{moremath_vcenter:n} is a wrapper around the \tn{vcenter}
@@ -3037,11 +3038,14 @@
 %    \begin{macrocode}
 \cs_new_protected_nopar:Nn \moremath_vcenter:n
 {
-  \mathpalette \@@_vcenter:Nn {#1}
+  \@@_tex_mathpalette:Nn \@@_vcenter:Nn {#1}
 }
 %    \end{macrocode}
 %   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
 %     Added new function.
+%   }
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Changed: Make use of \cs{@@_tex_mathpalette:Nn}.
 %   }
 % \end{macro}
 %
