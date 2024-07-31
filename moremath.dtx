@@ -2224,7 +2224,10 @@
 % \section{Formatting Matrices and Vectors}
 % \label{sec:authors-matrix}
 %
-% \begin{function}[updated=2024-07-15]{
+% \begin{function}[
+%   updated=2024-07-15,
+%   updated=0000-00-00,
+% ]{
 %   \moremath_column_vector:nn,
 %   \moremath_row_vector:nn,
 %   \moremath_column_smallvector:nn,
@@ -2256,6 +2259,7 @@
 % \begin{function}[
 %   updated = 2024-07-04,
 %   updated=2024-07-15,
+%   updated=0000-00-00,
 % ]{
 %   \moremath_diagonal_matrix:nn,
 %   \moremath_diagonal_matrix:nV,
@@ -2837,10 +2841,10 @@
 % TODO: Provide and use abstractions for the following commands and
 % primitives:
 %
-% - [ ] \begin{matrix*}, \end{matrix*}
 % - [X] \mathpalette
 % - [X] \vcenter
 % - [X] \mathsurround
+% - [X] \begin{matrix*}, \end{matrix*}
 % - [X] \mathop{ }
 % \end{NOTE}
 %
@@ -4535,7 +4539,7 @@
 %
 % In the next step we construct the single row/column matrix from the user
 % provided input.
-% \begin{macro}{
+% \begin{macro}[updated=0000-00-00]{
 %   \moremath_column_vector:nn,
 %   \moremath_row_vector:nn,
 % }
@@ -4558,23 +4562,27 @@
   \seq_clear:N \l_@@_vector_entries_seq
   \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
 
-  \exp_args:NnNV \begin{#1 matrix*} [ \l_@@_matrix_align_tl ]
+  \@@_matrix_star_begin:nV {#1} \l_@@_matrix_align_tl
     \@@_seq_to_column_vector:N \l_@@_vector_entries_seq
-  \end{#1 matrix*}
+  \@@_matrix_star_end:n {#1}
 }
-
+%
 \cs_new_protected_nopar:Nn \moremath_row_vector:nn
 {
   \seq_clear:N \l_@@_vector_entries_seq
   \seq_set_from_clist:Nn \l_@@_vector_entries_seq {#2}
 
-  \exp_args:NnNV \begin{#1matrix*} [ \l_@@_matrix_align_tl ]
+  \@@_matrix_star_begin:nV {#1} \l_@@_matrix_align_tl
     \@@_seq_to_row_vector:N \l_@@_vector_entries_seq
-  \end{#1matrix*}
+  \@@_matrix_star_end:n {#1}
 }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added functions producing row- and column vectors.
+%   }
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Changed now uses \cs{@@_matrix_star_begin:nV} instead of raw
+%   |\begin{#1matrix*}|.
 %   }
 % \end{macro}
 %
@@ -4719,20 +4727,20 @@
 \cs_new_protected:Nn \moremath_diagonal_matrix:nn
 {
   \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
-  \exp_args:NnNV \begin{#1 matrix*} [ \l_@@_matrix_align_tl ]
+  \@@_matrix_star_begin:nV { #1 } \l_@@_matrix_align_tl
     \int_step_function:nN { \seq_count:N \l_@@_mat_diag_entries_seq }
       \@@_constr_diagmat_row:n
-  \end{#1 matrix*}
+  \@@_matrix_star_end:n { #1 }
 }
-
+%
 % Anti-diagonal matrix
 \cs_new_protected:Nn \moremath_antidiagonal_matrix:nn
 {
   \seq_set_from_clist:Nn \l_@@_mat_diag_entries_seq { #2 }
-  \exp_args:NnNV \begin{ #1 matrix* } [ \l_@@_matrix_align_tl ]
+  \@@_matrix_star_begin:nV { #1 } \l_@@_matrix_align_tl
     \int_step_function:nN { \seq_count:N \l_@@_mat_diag_entries_seq }
       \@@_constr_antidiagmat_row:n
-  \end{ #1 matrix* }
+  \@@_matrix_star_end:n { #1 }
 }
 
 % Small versions
@@ -4781,6 +4789,10 @@
 % \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 % Added functions producing (anti-)diagonal matrices.
 % Also added versions for inline math.
+% }
+% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Changed now uses \cs{@@_matrix_star_begin:nV} instead of raw
+%   |\begin{#1matrix*}|.
 % }
 % \end{macro}
 %
