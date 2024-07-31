@@ -2829,6 +2829,110 @@
 \RequirePackage{mathtools}[2004/06/05]
 %    \end{macrocode}
 %
+% \section{Abstractions for \TeX{}-primitives and \LaTeX2e{}-commands}
+% \label{sec:impl-abstractions}
+%
+% \begin{NOTE}{MI}
+% TODO: Provide and use abstractions for the following commands and
+% primitives:
+%
+% - [ ] \mathpalette
+% - [ ] \vcenter
+% - [ ] \mathsurround
+% - [ ] \begin{matrix*}, \end{matrix*}
+% - [ ] \mathop{ }
+% \end{NOTE}
+%
+% As this package makes use of certain \TeX{}-primitives and \LaTeX2e{}-commands,
+% which are either part of the \LaTeX{}-kernel or of some package.
+% It is sensible to provide a (package internal) abstraction for those commands,
+% so that they can be switched out once a \LaTeX3{}-command has been defined for them.
+%
+% \subsection{\TeX{}-primitives}
+% \label{sec:impl-tex-abstractions}
+%
+% \begin{macro}[added=0000-00-00]{
+%   \@@_tex_vcenter:n,
+% }
+%   \cs{@@_tex_vcenter:n} is an abstraction for \cs{tex_vcenter:D}
+% i.e.\ \tn{vcenter}.
+% Its single argument is passed to \cs{tex_vcenter:D}.
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_tex_vcenter:n
+{
+  \tex_vcenter:D {#1}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[added=0000-00-00]{
+%   \@@_tex_mathpalette:Nn,
+% }
+%   The function \cs{@@_tex_mathpalette:Nn} is an abstraction for the \tn{mathpalette},
+%   primitive.
+%   The function takes to arguments
+%   \begin{arguments}
+%     \item The \meta{csname} of the macro to pass to \tn{mathpalette}
+%
+%     This macro \textbf{must} accept \textbf{two} arguments:
+%     The first is a single token containing the current math-style,
+%     the second is the contents to \enquote{typeset}.
+%     See \url{https://tex.stackexchange.com/questions/34393/the-mysteries-of-mathpalette/34412#34412}
+%     for further information.
+%
+%     \item The \meta{tokens} to forward to the macro passed as first argument.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected:Nn \@@_tex_mathpalette:Nn
+{
+  \mathpalette #1 {#2}
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Added new function.
+% }
+% \end{macro}
+%
+% \begin{macro}[added=0000-00-00]{
+%   \@@_tex_mathsurround:n
+% }
+%   The function \cs{@@_tex_mathsurround:n} provides (hopefully) a correct abstraction
+%   for the \tn{mathsurround} primitive.
+%   It takes one argument
+%   \begin{arguments}
+%     \item A \meta{length~expr} for the whitespace surrounding a math switch.
+%   \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \@@_tex_mathsurround:n
+{
+  \tex_mathsurround:D = #1
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Added new function.
+% }
+% \end{macro}
+%
+% \begin{macro}[added=0000-00-00]{
+%   \@@_tex_mathop:n
+% }
+% The function \cs{@@_tex_mathop:n} provides an abstraction for the \tn{mathop}
+% \TeX{}-primitive.
+% It accepts a single argument:
+% \begin{arguments}
+%   \item \meta{Tokens} to treat as a math operator.
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new_protected_nopar:Nn \@@_tex_mathop:n
+{
+  \tex_mathop:D {#1}
+}
+%    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Added new function.
+% }
+% \end{macro}
+%
 %
 % \section{Centering Math Symbols Along the Math-Axis}
 % \label{sec:impl-vcenter}
