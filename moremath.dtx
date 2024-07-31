@@ -4770,18 +4770,10 @@
 % }
 % For convenience we also define some variants of the above functions.
 %    \begin{macrocode}
-\cs_generate_variant:Nn \moremath_diagonal_matrix:nn { n V }
-\cs_generate_variant:Nn \moremath_diagonal_matrix:nn { V n }
-\cs_generate_variant:Nn \moremath_diagonal_matrix:nn { V V }
-\cs_generate_variant:Nn \moremath_antidiagonal_matrix:nn { n V }
-\cs_generate_variant:Nn \moremath_antidiagonal_matrix:nn { V n }
-\cs_generate_variant:Nn \moremath_antidiagonal_matrix:nn { V V }
-\cs_generate_variant:Nn \moremath_diagonal_smallmatrix:nn { n V }
-\cs_generate_variant:Nn \moremath_diagonal_smallmatrix:nn { V n }
-\cs_generate_variant:Nn \moremath_diagonal_smallmatrix:nn { V V }
-\cs_generate_variant:Nn \moremath_antidiagonal_smallmatrix:nn { n V }
-\cs_generate_variant:Nn \moremath_antidiagonal_smallmatrix:nn { V n }
-\cs_generate_variant:Nn \moremath_antidiagonal_smallmatrix:nn { V V }
+\cs_generate_variant:Nn \moremath_diagonal_matrix:nn { nV, Vn, VV }
+\cs_generate_variant:Nn \moremath_antidiagonal_matrix:nn { nV, Vn, VV }
+\cs_generate_variant:Nn \moremath_diagonal_smallmatrix:nn { nV, Vn, VV}
+\cs_generate_variant:Nn \moremath_antidiagonal_smallmatrix:nn { nV, Vn, VV }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{Added variants.}
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{Added "nV" and "VV" variants.}
