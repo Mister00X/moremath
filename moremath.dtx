@@ -2838,10 +2838,10 @@
 % primitives:
 %
 % - [ ] \begin{matrix*}, \end{matrix*}
-% - [ ] \mathop{ }
 % - [X] \mathpalette
 % - [X] \vcenter
 % - [X] \mathsurround
+% - [X] \mathop{ }
 % \end{NOTE}
 %
 % As this package makes use of certain \TeX{}-primitives and \LaTeX2e{}-commands,
@@ -3774,7 +3774,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@@_gradient_operator_get:}
+% \begin{macro}[updated=0000-00-00]{\@@_gradient_operator_get:}
 %   This function returns the gradient operator depending on the current setting
 %   of the keys.
 %    \begin{macrocode}
@@ -3782,7 +3782,7 @@
 {
   \tl_if_empty:NTF \l_@@_grad_op_tl
   {
-    \mathop
+    \@@_tex_mathop:n
     {
 %    \end{macrocode}
 % Otherwise we first need to check if the operator shall have an arrow over it.
@@ -3821,7 +3821,7 @@
           \l_@@_nabla_tl
         }
       }
-    }% \mathop
+    }% \@@_tex_mathop:n
     \nolimits
   }{
 %    \end{macrocode}
@@ -3832,9 +3832,12 @@
   }
 }
 %    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Now uses \cs{@@_tex_mathop:n} instead of \TeX{}-primitives.
+%   }
 % \end{macro}
 %
-% \begin{macro}{\@@_laplace_operator_get:}
+% \begin{macro}[updated=0000-00-00]{\@@_laplace_operator_get:}
 %   Then we define a function for returning the laplace operator symbol,
 %   depending on the currently set keys.
 %   The function wraps the symbol for the operator inside
@@ -3844,7 +3847,7 @@
 {
   \tl_if_empty:NTF \l_@@_laplacian_tl
   {
-    \mathop
+    \@@_tex_mathop:n
     {
       \bool_if:NTF \l_@@_laplacian_delta_bool
       {
@@ -3885,9 +3888,12 @@
   }
 }
 %    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Now uses \cs{@@_tex_mathop:n} instead of \TeX{}-primitives.
+%   }
 % \end{macro}
 %
-% \begin{macro}{
+% \begin{macro}[updated=0000-00-00]{
 %   \@@_dalembert_operator_get:
 % }
 %   This function returns the \foreignlanguage{french}{d'Alembert} operator
@@ -3897,15 +3903,18 @@
 %    \begin{macrocode}
 \cs_new_protected:Nn \@@_dalembert_operator_get:
 {
-  \mathop
+  \@@_tex_mathop:n
   {
     \l_@@_dalembert_symb_tl
-  }% \mathop
+  }% \@@_tex_mathop:n
   \nolimits
 }
 %    \end{macrocode}
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %     Added function: \cs{@@_dalembert_operator_get:}
+%   }
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Now uses \cs{@@_tex_mathop:n} instead of \TeX{}-primitives.
 %   }
 % \end{macro}
 %
