@@ -2837,11 +2837,11 @@
 % TODO: Provide and use abstractions for the following commands and
 % primitives:
 %
-% - [ ] \vcenter
-% - [ ] \mathsurround
 % - [ ] \begin{matrix*}, \end{matrix*}
 % - [ ] \mathop{ }
 % - [X] \mathpalette
+% - [X] \vcenter
+% - [X] \mathsurround
 % \end{NOTE}
 %
 % As this package makes use of certain \TeX{}-primitives and \LaTeX2e{}-commands,
@@ -3049,7 +3049,10 @@
 %   }
 % \end{macro}
 %
-% \begin{macro}[added=2024-07-08]{
+% \begin{macro}[
+%   added=2024-07-08,
+%   updated=0000-00-00,
+% ]{
 %   \@@_vcenter:Nn,
 % }
 %   As \tn{mathpalette} needs as its first argument a macro which takes two
@@ -3076,18 +3079,22 @@
 %    \begin{macrocode}
 \cs_new_protected_nopar:Nn \@@_vcenter:Nn
 {
-  \vcenter
+  \@@_tex_vcenter:n
   {
     \hbox:n
     {
       $
-      \mathsurround=0pt
+      \@@_tex_mathsurround:n {0pt}
       #1 {#2}
       $
     }
   }
 }
 %    \end{macrocode}
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Changed: Now uses \cs{@@_tex_vcenter:n} and \cs{@@_tex_mathsurround:n}
+%   instead of \TeX-primitives.
+%   }
 % \end{macro}
 %
 %
