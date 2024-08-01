@@ -2229,9 +2229,13 @@
 %   updated=0000-00-00,
 % ]{
 %   \moremath_column_vector:nn,
+%   \moremath_column_vector:Vn,
 %   \moremath_row_vector:nn,
+%   \moremath_row_vector:Vn,
 %   \moremath_column_smallvector:nn,
-%   \moremath_row_smallvector:nn
+%   \moremath_column_smallvector:Vn,
+%   \moremath_row_smallvector:nn,
+%   \moremath_row_smallvector:Vn,
 % }
 % \begin{syntax}
 %   \cs{moremath_column_vector:nn} \marg{delim spec tl} \marg{clist}
@@ -4541,7 +4545,9 @@
 % provided input.
 % \begin{macro}[updated=0000-00-00]{
 %   \moremath_column_vector:nn,
+%   \moremath_column_vector:Vn,
 %   \moremath_row_vector:nn,
+%   \moremath_row_vector:Vn,
 % }
 %   The two commands \cs{moremath_column_vector:nn} and \cs{moremath_row_vector:nn}
 %   construct the matrix, they both take two arguments.
@@ -4577,6 +4583,11 @@
   \@@_matrix_star_end:n {#1}
 }
 %    \end{macrocode}
+% We also provide a "Vn" variant of those functions.
+%    \begin{macrocode}
+\cs_generate_variant:Nn \moremath_column_vector:nn { Vn }
+\cs_generate_variant:Nn \moremath_row_vector:nn { Vn }
+%    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added functions producing row- and column vectors.
 %   }
@@ -4584,11 +4595,16 @@
 %   Changed now uses \cs{@@_matrix_star_begin:nV} instead of raw
 %   |\begin{#1matrix*}|.
 %   }
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added new "Vn" variants.
+%   }
 % \end{macro}
 %
 % \begin{macro}{
 %   \moremath_column_smallvector:nn,
-%   \moremath_row_smallvector:nn
+%   \moremath_column_smallvector:Vn,
+%   \moremath_row_smallvector:nn,
+%   \moremath_row_smallvector:Vn,
 % }
 %   To make the code more readable, we define functions specifically for
 %   creating row and column vectors using the \env{smallmatrix*} family of
@@ -4604,9 +4620,15 @@
 {
   \moremath_row_vector:nn {#1 small} {#2}
 }
+% Variants
+\cs_generate_variant:Nn \moremath_column_smallvector:nn { Vn }
+\cs_generate_variant:Nn \moremath_row_smallvector:nn { Vn }
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added functions producing inline math row- and column vectors.
+%   }
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Added new "Vn" variants.
 %   }
 % \end{macro}
 %
