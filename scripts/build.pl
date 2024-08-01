@@ -48,11 +48,13 @@ sub generate_docs($filename, @latexmk_options)
 my $help= '';
 my @latexmk_opts = ();
 my $basename = "moremath";
+my $latexmk = "1";
 
 my $error = 0;
 
 # define the options
 GetOptions('latexmk-options|o=s' => \@latexmk_opts,
+           'latexmk!' => \$latexmk,
            'help|h' => \$help)
   or pod2usage(2);
 pod2usage(1) if $help;
@@ -81,12 +83,14 @@ if (path($ins_filename)->is_file) {
 }
 
 if (path($dtx_filename)->is_file) {
-  eval {
+  if ($latexmk) {
+    eval {
     generate_docs($dtx_filename, @latexmk_opts);
-  };
-  if ($@) {
-    warn $@;
-    $error += 1;
+    };
+    if ($@) {
+      warn $@;
+      $error += 1;
+    }
   }
 } else {
   warn "File $dtx_filename does not exist.";
@@ -107,7 +111,8 @@ build.pl - Script for building a latex package
 
 =head1 SYNOPSIS
 
-S<B<./build.pl> [B<-o> I<latexmk_opts>...] [I<file_basename>]>
+S<B<./build.pl> [B<--latexmk>|B<--no-latexmk>] [B<-o> I<latexmk_opts>...]
+[I<file_basename>]>
 
 S<B<./build.pl> B<-h>|B<--help>>
 
@@ -127,6 +132,10 @@ The produced documentation file will be named I<file_basename>-doc.pdf.
 Passes the given options I<latexmk_opts> to L<latexmk(1)>.
 The options may be separated using semicolons "B<;>".
 This option may be given multiple times.
+
+=item B<--latexmk>, B<--no-latexmk>
+
+Controls if the documentation is generated with L<latexmk(1)>
 
 =item B<-h>, B<--help>
 
