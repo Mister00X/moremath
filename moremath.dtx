@@ -1351,7 +1351,9 @@
 % Valid keys are "delimiter", "fill", and "align",
 % their usage is described in section~\ref{sec:options-matrix}.
 %
-% \begin{function}{
+% \begin{function}[
+%   updated=0000-00-00,
+% ]{
 %   \cvector,
 %   \rvector
 % }
@@ -1443,7 +1445,7 @@
 %
 % As vectors are commonly delimited by parenthesis, brackets, braces, etc.\
 % several shorthands producing delimited vectors are also available.
-% \begin{function}{
+% \begin{function}[updated=0000-00-00]{
 %   \pcvector,
 %   \bcvector,
 %   \Bcvector,
@@ -1504,7 +1506,9 @@
 % This package provides analogous commands for row and column vectors
 % to be typeset in inline math mode.
 %
-% \begin{function}{
+% \begin{function}[
+%   updated=0000-00-00,
+% ]{
 %   \smallcvector,
 %   \smallrvector
 % }
@@ -1530,7 +1534,7 @@
 % \(\smallcvector{1,0}\).
 % \end{quote}
 %
-% \begin{function}{
+% \begin{function}[updated=0000-00-00]{
 %   \psmallcvector,
 %   \bsmallcvector,
 %   \Bsmallcvector,
@@ -4941,7 +4945,7 @@
 \bool_if:nTF \l_@@_predef_crvector_bool
 {
 %    \end{macrocode}
-% \begin{macro}{
+% \begin{macro}[updated=0000-00-00,]{
 %   \cvector,
 %   \rvector,
 %   \smallcvector,
@@ -4958,7 +4962,7 @@
     {
       \keys_set:nn { moremath / matrix } {#1}
     }
-    \moremath_column_vector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_column_vector:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
@@ -4980,7 +4984,7 @@
     {
       \keys_set:nn { moremath / matrix } {#1}
     }
-    \moremath_row_vector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_row_vector:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
@@ -5002,7 +5006,7 @@
     {
       \keys_set:nn {moremath / matrix} {#1}
     }
-    \moremath_column_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_column_smallvector:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
@@ -5022,7 +5026,7 @@
     {
       \keys_set:nn { moremath / matrix } {#1}
     }
-    \moremath_row_smallvector:nn {\l_@@_matrix_delim_tl} {#2}
+    \moremath_row_smallvector:Vn \l_@@_matrix_delim_tl {#2}
     \group_end:
   }
 }{
@@ -5037,13 +5041,16 @@
 %   Added commands producing row and column vectors,
 %   including inline math versions.
 %   }
+%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%     Use "Vn" versions of functions when passing variables around.
+%   }
 % \end{macro}
 %
 % \paragraph{Commands with Pre-defined Delimiters}
 % Next we define several shorthands to for the commonly used delimiters,
 % to avoid code duplication, we first create some helper functions which
 % define those functions.
-% \begin{macro}{
+% \begin{macro}[updated=0000-00-00]{
 %   \@@_new_vector_shorth_doc_cmd:NNn
 % }
 %   The function \cs{@@_new_vector_shorth_doc_cmd} creates a new vector shorthand,
@@ -5053,7 +5060,7 @@
 %     \item The \meta{function} to use for this shorthand.
 %
 %     This should be one of the
-%     \cs[no-index]{moremath_\meta{type}_\meta{size}vector:nn}
+%     \cs[no-index]{moremath_\meta{type}_\meta{size}vector:Vn}
 %     like commands.
 %
 %     \item The \meta{delimiter} to use.
@@ -5074,7 +5081,7 @@
       {
         \keys_set:nn {moremath / matrix } {##1}
       }
-      #2 {\l_@@_matrix_delim_tl} {##2}
+      #2 \l_@@_matrix_delim_tl {##2}
       \group_end:
     }
   }{
@@ -5086,9 +5093,12 @@
   }
 }
 %    \end{macrocode}
+% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Require function with "Vn" signature to pass variable correctly.
+% }
 % \end{macro}
 %
-% \begin{macro}{
+% \begin{macro}[updated=0000-00-00]{
 %   \pcvector,
 %   \bcvector,
 %   \Bcvector,
@@ -5105,35 +5115,38 @@
 %   We begin with the column vector.
 %    \begin{macrocode}
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \pcvector \moremath_column_vector:nn {p}
+\@@_new_vector_shorth_doc_cmd:NNn \pcvector \moremath_column_vector:Vn {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \bcvector \moremath_column_vector:nn {b}
+\@@_new_vector_shorth_doc_cmd:NNn \bcvector \moremath_column_vector:Vn {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Bcvector \moremath_column_vector:nn {B}
+\@@_new_vector_shorth_doc_cmd:NNn \Bcvector \moremath_column_vector:Vn {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vcvector \moremath_column_vector:nn {v}
+\@@_new_vector_shorth_doc_cmd:NNn \vcvector \moremath_column_vector:Vn {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vcvector \moremath_column_vector:nn {V}
+\@@_new_vector_shorth_doc_cmd:NNn \Vcvector \moremath_column_vector:Vn {V}
 %    \end{macrocode}
 %   Now to the row vectors.
 %    \begin{macrocode}
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \prvector \moremath_row_vector:nn {p}
+\@@_new_vector_shorth_doc_cmd:NNn \prvector \moremath_row_vector:Vn {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \brvector \moremath_row_vector:nn {b}
+\@@_new_vector_shorth_doc_cmd:NNn \brvector \moremath_row_vector:Vn {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Brvector \moremath_row_vector:nn {B}
+\@@_new_vector_shorth_doc_cmd:NNn \Brvector \moremath_row_vector:Vn {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vrvector \moremath_row_vector:nn {v}
+\@@_new_vector_shorth_doc_cmd:NNn \vrvector \moremath_row_vector:Vn {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vrvector \moremath_row_vector:nn {V}
+\@@_new_vector_shorth_doc_cmd:NNn \Vrvector \moremath_row_vector:Vn {V}
 %    \end{macrocode}
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added commands for row and column vectors with predefined delimiters.
 %   }
+%  \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%    Use functions with "Vn" signature instead of "nn"
+%  }
 % \end{macro}
 %
-% \begin{macro}{
+% \begin{macro}[updated=0000-00-00]{
 %   \psmallcvector,
 %   \bsmallcvector,
 %   \Bsmallcvector,
@@ -5150,32 +5163,32 @@
 %    \begin{macrocode}
 % column vectors
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \psmallcvector \moremath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \psmallcvector \moremath_column_smallvector:Vn
   {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \bsmallcvector \moremath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \bsmallcvector \moremath_column_smallvector:Vn
   {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Bsmallcvector \moremath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \Bsmallcvector \moremath_column_smallvector:Vn
   {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vsmallcvector \moremath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \vsmallcvector \moremath_column_smallvector:Vn
   {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vsmallcvector \moremath_column_smallvector:nn
+\@@_new_vector_shorth_doc_cmd:NNn \Vsmallcvector \moremath_column_smallvector:Vn
   {V}
 %
 % row vectors
 % parenthesis
-\@@_new_vector_shorth_doc_cmd:NNn \psmallrvector \moremath_row_smallvector:nn {p}
+\@@_new_vector_shorth_doc_cmd:NNn \psmallrvector \moremath_row_smallvector:Vn {p}
 % brackets
-\@@_new_vector_shorth_doc_cmd:NNn \bsmallrvector \moremath_row_smallvector:nn {b}
+\@@_new_vector_shorth_doc_cmd:NNn \bsmallrvector \moremath_row_smallvector:Vn {b}
 % braces
-\@@_new_vector_shorth_doc_cmd:NNn \Bsmallrvector \moremath_row_smallvector:nn {B}
+\@@_new_vector_shorth_doc_cmd:NNn \Bsmallrvector \moremath_row_smallvector:Vn {B}
 % single vert
-\@@_new_vector_shorth_doc_cmd:NNn \vsmallrvector \moremath_row_smallvector:nn {v}
+\@@_new_vector_shorth_doc_cmd:NNn \vsmallrvector \moremath_row_smallvector:Vn {v}
 % double vert
-\@@_new_vector_shorth_doc_cmd:NNn \Vsmallrvector \moremath_row_smallvector:nn {V}
+\@@_new_vector_shorth_doc_cmd:NNn \Vsmallrvector \moremath_row_smallvector:Vn {V}
 
 
 }{ % \bool_if:nTF \l_@@_predef_crvector_bool FALSE PATH
@@ -5189,6 +5202,9 @@
 %   Added commands for inline math row and column vectors
 %   with predefined delimiters.
 %   }
+%  \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%    Use functions with "Vn" signature instead of "nn"
+%  }
 % \end{macro}
 %
 %
