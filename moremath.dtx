@@ -67,6 +67,18 @@
   date = {2024-03-11},
   version = {1.30},
 }
+
+@comment{Below are non-package References}
+
+@article{package-rollback,
+  title         = {A rollback concept for packages and classes},
+  author        = {Frank Mitelbach},
+  year          = {2018},
+  journaltitle  = {TUGboat},
+  number        = 2,
+  url           = {https://www.latex-project.org/publications/2018-FMi-TUB-tb122mitt-version-rollback.pdf},
+  urldate       = {2024-08-06},
+}
 \end{filecontents*}
 \begin{filecontents*}[overwrite]{\jobname-ams-op-table.tex}
 \begin{tabular}{rlrlrlrl}
@@ -2401,10 +2413,23 @@
 % (especially for using the "=" option specification)
 % and hooks.
 %
+% Afterwards we provide rollback information,
+% for the \pkg{latexrelease} rollback mechanism.
+% (See \textcite{package-rollback} for more information.)
+%
+% For the v0.x.x versions I've decided on using the date of the first release
+% that was uploaded to CTAN\@.
+%     \begin{macrocode}
+\DeclareCurrentRelease{v0}{2024-07-15}
+%    \end{macrocode}
+% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   Add information for \LaTeX{}'s package rollback mechanism.
+% }
+%
 % Then identify this package as \pkg{moremath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{moremath}
-  {2024-07-15}{v0.4.0}{More Math Macros}
+  {UNRELEASED}{vUNRELEASED}{More Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
