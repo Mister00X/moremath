@@ -173,7 +173,7 @@
 % \AddVersion{v0.2.0}{2024-07-04}
 % \AddVersion{v0.3.0}{2024-07-08}
 % \AddVersion{v0.4.0}{2024-07-15}
-% \AddVersion{v0.5.0}{UNRELEASED}
+% \AddVersion{v0.5.0}{2024-08-20}
 %
 % ^^X Placeholder for unreleased versions
 % \AddVersion{vUNRELEASED}{UNRELEASED}
@@ -1365,7 +1365,7 @@
 % their usage is described in section~\ref{sec:options-matrix}.
 %
 % \begin{function}[
-%   updated=0000-00-00,
+%   updated=2024-08-20,
 % ]{
 %   \cvector,
 %   \rvector
@@ -1458,7 +1458,7 @@
 %
 % As vectors are commonly delimited by parenthesis, brackets, braces, etc.\
 % several shorthands producing delimited vectors are also available.
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-08-20]{
 %   \pcvector,
 %   \bcvector,
 %   \Bcvector,
@@ -1520,7 +1520,7 @@
 % to be typeset in inline math mode.
 %
 % \begin{function}[
-%   updated=0000-00-00,
+%   updated=2024-08-20,
 % ]{
 %   \smallcvector,
 %   \smallrvector
@@ -1547,7 +1547,7 @@
 % \(\smallcvector{1,0}\).
 % \end{quote}
 %
-% \begin{function}[updated=0000-00-00]{
+% \begin{function}[updated=2024-08-20]{
 %   \psmallcvector,
 %   \bsmallcvector,
 %   \Bsmallcvector,
@@ -2243,7 +2243,7 @@
 %
 % \begin{function}[
 %   updated=2024-07-15,
-%   updated=0000-00-00,
+%   updated=2024-08-20,
 % ]{
 %   \moremath_column_vector:nn,
 %   \moremath_column_vector:Vn,
@@ -2280,7 +2280,7 @@
 % \begin{function}[
 %   updated = 2024-07-04,
 %   updated=2024-07-15,
-%   updated=0000-00-00,
+%   updated=2024-08-20,
 % ]{
 %   \moremath_diagonal_matrix:nn,
 %   \moremath_diagonal_matrix:nV,
@@ -2355,7 +2355,7 @@
 % \begin{function}[
 %   added=2024-07-08,
 %   updated=2024-07-15,
-%   updated=0000-00-00,
+%   updated=2024-08-20,
 % ]{
 %   \moremath_vcenter:n,
 % }
@@ -2430,7 +2430,7 @@
 % Then identify this package as \pkg{moremath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{moremath}
-  {UNRELEASED}{v0.5.0}{More Math Macros}
+  {2024-08-20}{v0.5.0}{More Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
@@ -2880,7 +2880,7 @@
 % \subsection{\TeX{}-primitives}
 % \label{sec:impl-tex-abstractions}
 %
-% \begin{macro}[added=0000-00-00]{
+% \begin{macro}[added=2024-08-20]{
 %   \@@_tex_vcenter:n,
 % }
 %   \cs{@@_tex_vcenter:n} is an abstraction for \cs{tex_vcenter:D}
@@ -2894,7 +2894,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[added=0000-00-00]{
+% \begin{macro}[added=2024-08-20]{
 %   \@@_tex_mathpalette:Nn,
 % }
 %   The function \cs{@@_tex_mathpalette:Nn} is an abstraction for the \tn{mathpalette},
@@ -2922,7 +2922,7 @@
 % }
 % \end{macro}
 %
-% \begin{macro}[added=0000-00-00]{
+% \begin{macro}[added=2024-08-20]{
 %   \@@_tex_mathsurround:n
 % }
 %   The function \cs{@@_tex_mathsurround:n} provides (hopefully) a correct abstraction
@@ -2942,7 +2942,7 @@
 % }
 % \end{macro}
 %
-% \begin{macro}[added=0000-00-00]{
+% \begin{macro}[added=2024-08-20]{
 %   \@@_tex_mathop:n
 % }
 % The function \cs{@@_tex_mathop:n} provides an abstraction for the \tn{mathop}
@@ -2966,7 +2966,7 @@
 % \subsection{\LaTeXe{}-commands}
 % \label{sec:impl-latex-abstractions}
 %
-% \begin{macro}[EXP,added=0000-00-00]{
+% \begin{macro}[EXP,added=2024-08-20]{
 %   \@@_matrix_star_begin:nn,
 %   \@@_matrix_star_begin:nV,
 %   \@@_matrix_star_begin:Vn,
@@ -3045,7 +3045,7 @@
 %   \url{http://www.tug.org/TUGboat/Articles/tb22-4/tb72perlS.pdf}
 % }
 %
-% \begin{macro}[added = 2024-07-08, updated=0000-00-00]{
+% \begin{macro}[added = 2024-07-08, updated=2024-08-20]{
 %   \moremath_vcenter:n
 % }
 %   The function \cs{moremath_vcenter:n} is a wrapper around the \tn{vcenter}
@@ -3079,7 +3079,7 @@
 %
 % \begin{macro}[
 %   added=2024-07-08,
-%   updated=0000-00-00,
+%   updated=2024-08-20,
 % ]{
 %   \@@_vcenter:Nn,
 % }
@@ -3802,7 +3802,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}[updated=0000-00-00]{\@@_gradient_operator_get:}
+% \begin{macro}[updated=2024-08-20]{\@@_gradient_operator_get:}
 %   This function returns the gradient operator depending on the current setting
 %   of the keys.
 %    \begin{macrocode}
@@ -3865,7 +3865,7 @@
 %   }
 % \end{macro}
 %
-% \begin{macro}[updated=0000-00-00]{\@@_laplace_operator_get:}
+% \begin{macro}[updated=2024-08-20]{\@@_laplace_operator_get:}
 %   Then we define a function for returning the laplace operator symbol,
 %   depending on the currently set keys.
 %   The function wraps the symbol for the operator inside
@@ -3921,7 +3921,7 @@
 %   }
 % \end{macro}
 %
-% \begin{macro}[updated=0000-00-00]{
+% \begin{macro}[updated=2024-08-20]{
 %   \@@_dalembert_operator_get:
 % }
 %   This function returns the \foreignlanguage{french}{d'Alembert} operator
@@ -4566,7 +4566,7 @@
 %
 % In the next step we construct the single row/column matrix from the user
 % provided input.
-% \begin{macro}[updated=0000-00-00]{
+% \begin{macro}[updated=2024-08-20]{
 %   \moremath_column_vector:nn,
 %   \moremath_column_vector:Vn,
 %   \moremath_row_vector:nn,
@@ -4964,7 +4964,7 @@
 \bool_if:nTF \l_@@_predef_crvector_bool
 {
 %    \end{macrocode}
-% \begin{macro}[updated=0000-00-00,]{
+% \begin{macro}[updated=2024-08-20,]{
 %   \cvector,
 %   \rvector,
 %   \smallcvector,
@@ -5069,7 +5069,7 @@
 % Next we define several shorthands to for the commonly used delimiters,
 % to avoid code duplication, we first create some helper functions which
 % define those functions.
-% \begin{macro}[updated=0000-00-00]{
+% \begin{macro}[updated=2024-08-20]{
 %   \@@_new_vector_shorth_doc_cmd:NNn
 % }
 %   The function \cs{@@_new_vector_shorth_doc_cmd} creates a new vector shorthand,
@@ -5117,7 +5117,7 @@
 % }
 % \end{macro}
 %
-% \begin{macro}[updated=0000-00-00]{
+% \begin{macro}[updated=2024-08-20]{
 %   \pcvector,
 %   \bcvector,
 %   \Bcvector,
@@ -5165,7 +5165,7 @@
 %  }
 % \end{macro}
 %
-% \begin{macro}[updated=0000-00-00]{
+% \begin{macro}[updated=2024-08-20]{
 %   \psmallcvector,
 %   \bsmallcvector,
 %   \Bsmallcvector,
