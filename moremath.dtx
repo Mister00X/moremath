@@ -4161,6 +4161,9 @@
 %   Afterwards we check if the key \verb|scale| has been given.
 %   If yes we pop it and assign it to the second argument.
 %   Otherwise we do nothing.
+%   \NB{MI}{It may be a better idea to use a key instead but I'm not sure.
+%   If one nests those environments the size of the outer one will propagate into
+%   the inner scope, which might not be what is wanted.}
 %    \begin{macrocode}
   \prop_set_from_keyval:Nn \l_tmpa_prop {#1}
 
