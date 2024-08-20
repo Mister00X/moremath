@@ -173,6 +173,7 @@
 % \AddVersion{v0.2.0}{2024-07-04}
 % \AddVersion{v0.3.0}{2024-07-08}
 % \AddVersion{v0.4.0}{2024-07-15}
+% \AddVersion{v0.5.0}{UNRELEASED}
 %
 % ^^X Placeholder for unreleased versions
 % \AddVersion{vUNRELEASED}{UNRELEASED}
@@ -2422,14 +2423,14 @@
 %     \begin{macrocode}
 \DeclareCurrentRelease{v0}{2024-07-15}
 %    \end{macrocode}
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+% \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Add information for \LaTeX{}'s package rollback mechanism.
 % }
 %
 % Then identify this package as \pkg{moremath}.
 %    \begin{macrocode}
 \ProvidesExplPackage{moremath}
-  {UNRELEASED}{vUNRELEASED}{More Math Macros}
+  {UNRELEASED}{v0.5.0}{More Math Macros}
 %    \end{macrocode}
 %
 % ^^X Debugging switch
@@ -2916,7 +2917,7 @@
   \mathpalette #1 {#2}
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Added new function.
 % }
 % \end{macro}
@@ -2936,7 +2937,7 @@
   \tex_mathsurround:D = #1
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Added new function.
 % }
 % \end{macro}
@@ -2956,7 +2957,7 @@
   \tex_mathop:D {#1}
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Added new function.
 % }
 % \end{macro}
@@ -3017,7 +3018,7 @@
 %    \begin{macrocode}
 \cs_generate_variant:Nn \@@_matrix_star_end:n {V}
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Added new functions and variants.
 % }
 % \end{macro}
@@ -3071,7 +3072,7 @@
 %   \changes{v0.3.0}{\GetVersionDate{v0.3.0}}{
 %     Added new function.
 %   }
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %     Changed: Make use of \cs{@@_tex_mathpalette:Nn}.
 %   }
 % \end{macro}
@@ -3118,7 +3119,7 @@
   }
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Changed: Now uses \cs{@@_tex_vcenter:n} and \cs{@@_tex_mathsurround:n}
 %   instead of \TeX-primitives.
 %   }
@@ -3859,7 +3860,7 @@
   }
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %     Now uses \cs{@@_tex_mathop:n} instead of \TeX{}-primitives.
 %   }
 % \end{macro}
@@ -3915,7 +3916,7 @@
   }
 }
 %    \end{macrocode}
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %     Now uses \cs{@@_tex_mathop:n} instead of \TeX{}-primitives.
 %   }
 % \end{macro}
@@ -3940,7 +3941,7 @@
 %   \changes{v0.2.0}{\GetVersionDate{v0.2.0}}{%
 %     Added function: \cs{@@_dalembert_operator_get:}
 %   }
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %     Now uses \cs{@@_tex_mathop:n} instead of \TeX{}-primitives.
 %   }
 % \end{macro}
@@ -4613,11 +4614,11 @@
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added functions producing row- and column vectors.
 %   }
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Changed now uses \cs{@@_matrix_star_begin:nV} instead of raw
 %   |\begin{#1matrix*}|.
 %   }
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %     Added new "Vn" variants.
 %   }
 % \end{macro}
@@ -4649,7 +4650,7 @@
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{%
 %     Added functions producing inline math row- and column vectors.
 %   }
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %     Added new "Vn" variants.
 %   }
 % \end{macro}
@@ -4826,7 +4827,7 @@
 % Added functions producing (anti-)diagonal matrices.
 % Also added versions for inline math.
 % }
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+% \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Changed now uses \cs{@@_matrix_star_begin:nV} instead of raw
 %   |\begin{#1matrix*}|.
 % }
@@ -5059,7 +5060,7 @@
 %   Added commands producing row and column vectors,
 %   including inline math versions.
 %   }
-%   \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%   \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %     Use "Vn" versions of functions when passing variables around.
 %   }
 % \end{macro}
@@ -5111,7 +5112,7 @@
   }
 }
 %    \end{macrocode}
-% \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+% \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %   Require function with "Vn" signature to pass variable correctly.
 % }
 % \end{macro}
@@ -5159,7 +5160,7 @@
 %   \changes{v0.1.0}{\GetVersionDate{v0.1.0}}{
 %     Added commands for row and column vectors with predefined delimiters.
 %   }
-%  \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%  \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %    Use functions with "Vn" signature instead of "nn"
 %  }
 % \end{macro}
@@ -5220,7 +5221,7 @@
 %   Added commands for inline math row and column vectors
 %   with predefined delimiters.
 %   }
-%  \changes{vUNRELEASED}{\GetVersionDate{vUNRELEASED}}{
+%  \changes{v0.5.0}{\GetVersionDate{v0.5.0}}{
 %    Use functions with "Vn" signature instead of "nn"
 %  }
 % \end{macro}
